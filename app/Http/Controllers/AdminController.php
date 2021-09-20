@@ -20,7 +20,8 @@ class AdminController extends Controller
         $this->middleware('isLoggedIP');
     }
     
-    // login page
+    /* login page
+    ==================================================================> */
     public function index(){
         return view('admin.index');
     }
@@ -162,5 +163,80 @@ class AdminController extends Controller
 
             return response()->json(['status'=>1, 'msg'=>'Şirkət məlumatları başarılı şəkildə yeniləndi', 'state'=>'Təbriklər!']);
         }
+    }
+
+    /* profile page 
+    ==================================================================> */
+    public function profile(){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+
+        return view('admin.profile', compact('user'));
+    }
+    public function updateOptional(Request $request, $id){
+        $request->validate([
+            'exampleUser' => 'required|min:3|max:100',
+            'exampleEmail' => 'required|email',
+            'exampleUserIP' => 'required|min:3|max:100',
+        ]);
+
+        $user=User::findOrFail($id); 
+        $user->user_name=$request->exampleUser;
+        $user->user_email=$request->exampleEmail;
+        $user->user_ip=$request->exampleUserIP;
+        $user->save();        
+
+        toastr()->success('İstifadəçi profili başarılı şəkildə yeniləndi', 'Təbriklər!');
+        return redirect()->route('admin.profile');
+    }
+    public function updateImage(Request $request, $id){
+        $validator = Validator::make($request->all(),[
+            'user_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        if(!$validator->passes()){
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $user=User::findOrFail($id);
+            
+            if($user->user_image != ''){
+                $image_path = public_path().'/back/img/users/'.$user->user_image;                
+                unlink($image_path);
+            }
+    
+            $newName=Str::slug($request->user_image).'.'.$request->file('user_image')->getClientOriginalExtension();
+            $request->file('user_image')->move(public_path('back/img/users'), $newName);   
+            $user->user_image=$newName;  
+            $user->save();
+
+            return response()->json(['status'=>1, 'msg'=>'İstifadəçi profili başarılı şəkildə yeniləndi', 'state'=>'Təbriklər!']);
+        }
+    }
+    public function updatePassword(Request $request, $id){
+        $validator = Validator::make($request->all(),[
+            'oldPassword' => 'required|min:6|max:15',
+            'newpassword' => 'required|min:6|max:15',
+        ]);
+
+        if(!$validator->passes()){
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $user=User::findOrFail($id);
+            if(Hash::check($request->oldPassword, $user->user_password)){
+                $user->user_password=Hash::make($request->newpassword);
+                $user->save();        
+    
+                return response()->json(['status'=>1]);
+            } else {
+                return response()->json(['status'=>2, 'msg'=>'Köhnə şifrə məlumat bazasındakı şifrə ilə uyğunlaşmır', 'state'=>'Təbriklər!']);
+            } 
+        }
+
+
+
+        
+
+        
     }
 }

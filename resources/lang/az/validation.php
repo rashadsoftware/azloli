@@ -117,9 +117,10 @@ return [
         ],
     ],
     'attributes' => [
-        // admin section
+        // admin section -> login
         'email'                 => 'E-poçt',
         'password'              => 'Şifrə',
+        // admin section -> company settings
         'companyTitle'          => 'Şirkətin adı',
         'companyEmail'          => 'Şirkətin E-poçtu',
         'companyPhone'          => 'Əlaqə nömrəsi',
@@ -129,6 +130,13 @@ return [
         'companyInstagram'      => 'İnstagram addressi',
         'companyLogo'           => 'Şirkətin logosu',
         'companyFavicon'        => 'Şirkət faviconu',
+        // admin section -> profile settings
+        'exampleUser'           => 'İstifadəçi adı',
+        'exampleEmail'          => 'E-mail ünvanı',
+        'exampleUserIP'         => 'IP Ünvan',
+        'user_image'            => 'Şəkil sahəsi',
+        'oldPassword'           => 'Köhnə şifrə',
+        'newpassword'           => 'Yeni şifrə',
 
         // front section
         

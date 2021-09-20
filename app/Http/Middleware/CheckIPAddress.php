@@ -12,7 +12,7 @@ class CheckIPAddress
     {
         $user = DB::table('users')->first();
         if ($request->ip() != $user->user_ip) {
-            return redirect()->route('front.index');
+            return redirect()->route('index');
         }
 
         return $next($request);

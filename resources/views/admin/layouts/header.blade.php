@@ -61,7 +61,7 @@
                         @endif
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">{{$user->user_name}}</a>
+                        <a href="{{route('admin.profile')}}" class="d-block">{{$user->user_name}}</a>
                     </div>
                 </div>
 

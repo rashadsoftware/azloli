@@ -24,9 +24,19 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::get('/dashboard', 'AdminController@dashboard')->name('dashboard')->middleware('isLoggedAdmin');
 
     // settings
-    Route::get('/settings', 'AdminController@settings')->name('settings')->middleware('isLoggedAdmin');
-    Route::put('/settings/optional', 'AdminController@ajaxOptional')->name('settings.ajax.optional');
-    Route::put('/settings/logo', 'AdminController@ajaxLogo')->name('settings.ajax.logo');
-    Route::put('/settings/favicon', 'AdminController@ajaxFavicon')->name('settings.ajax.favicon');
-    Route::put('/settings/social', 'AdminController@ajaxSocial')->name('settings.ajax.social');
+    Route::prefix('/settings')->name('settings')->middleware('isLoggedAdmin')->group(function(){
+        Route::get('/', 'AdminController@settings');
+        Route::put('/optional', 'AdminController@ajaxOptional')->name('.ajax.optional');
+        Route::put('/logo', 'AdminController@ajaxLogo')->name('.ajax.logo');
+        Route::put('/favicon', 'AdminController@ajaxFavicon')->name('.ajax.favicon');
+        Route::put('/social', 'AdminController@ajaxSocial')->name('.ajax.social');
+    }); 
+
+    // profile
+    Route::prefix('/profile')->name('profile')->middleware('isLoggedAdmin')->group(function(){
+        Route::get('/', 'AdminController@profile');
+        Route::put('/update/optional/{id}', 'AdminController@updateOptional')->name('.update.optional');
+        Route::put('/update/image/{id}', 'AdminController@updateImage')->name('.update.image');
+        Route::put('/update/password/{id}', 'AdminController@updatePassword')->name('.update.password');
+    });
 });
