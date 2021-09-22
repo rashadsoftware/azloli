@@ -7,11 +7,11 @@
             <div class="row h-100 align-items-end">
                 <div class="col-12">
                     <div class="breadcumb--con">
-                        <h2 class="title">Contact</h2>
+                        <h2 class="title">Əlaqə</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                                <li class="breadcrumb-item"><a href="{{route('index')}}"><i class="fa fa-home"></i> Ana Səhifə</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Əlaqə</li>
                             </ol>
                         </nav>
                     </div>
@@ -21,7 +21,7 @@
 
         <!-- Background Curve -->
         <div class="breadcrumb-bg-curve">
-            <img src="./img/core-img/curve-5.png" alt="">
+            <img src="{{asset('front/')}}/img/core/curve-5.png" alt="">
         </div>
     </div>
     <!-- ***** Breadcrumb Area End ***** -->
@@ -34,37 +34,43 @@
                 <div class="col-12 col-lg-8">
                     <div class="uza-contact-form mb-80">
                         <div class="contact-heading mb-50">
-                            <h4>Thank you for your interest. <br>Please fill out the form below to inquire about our work in Digital.</h4>
+                            <h4>Bizə göstərdiyiniz maraq üçün sizə təşəkkür edirik.</h4>
+                            <h5 class="text-muted">Hər hansı bir təklifiniz vəya iradınız varsa, aşağıdakı formu doldurub bizə göndərin.</h5>
                         </div>
-                        <form action="#" method="post">
+                        <form action="#" method="post" autocomplete="off">
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control mb-30" name="full-name" placeholder="Name">
+                                        <input type="text" class="form-control mb-30" name="name" placeholder="Adınız">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="email" class="form-control mb-30" name="email" placeholder="Email">
+                                        <input type="text" class="form-control mb-30" name="surname" placeholder="Soyadınız">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control mb-30" name="full-name" placeholder="Phone">
+                                        <input type="email" class="form-control mb-30" name="email" placeholder="Email addresiniz">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control mb-30" name="email" placeholder="Organization">
+                                        <input type="text" class="form-control mb-30" name="phone" placeholder="Əlaqə nömrəniz">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control mb-30" name="email" placeholder="Mövzu başlığı">
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <textarea class="form-control mb-30" name="message" rows="8" cols="80" placeholder="Message"></textarea>
+                                        <textarea class="form-control mb-30" name="message" rows="8" cols="80" placeholder="İsmarıcınız"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn uza-btn btn-3 mt-15">Contact Us</button>
+                                    <button class="btn uza-btn btn-3 mt-15">Göndər</button>
                                 </div>
                             </div>
                         </form>
@@ -76,24 +82,10 @@
                     <div class="contact-sidebar-area mb-80">
                         <!-- Single Sidebar Area -->
                         <div class="single-contact-card mb-50">
-                            <h4>Contact Us</h4>
-                            <h3>(+65) 1234 5678</h3>
-                            <h6>hello.colorlib@gmail.com</h6>
-                            <h6>Mon - Fri: 9:00 - 19:00 <br>Closed on Weekends</h6>
-                        </div>
-
-                        <!-- Single Sidebar Area -->
-                        <div class="single-contact-card mb-50">
-                            <h4>London</h4>
-                            <h3>(+65) 2222 5678</h3>
-                            <h6>49 Charing Cross Rd, London, UK <br>hello.colorlib@gmail.com</h6>
-                        </div>
-
-                        <!-- Single Sidebar Area -->
-                        <div class="single-contact-card mb-50">
-                            <h4>New York</h4>
-                            <h3>(+65) 6666 5678</h3>
-                            <h6>40 Baria Sreet 13/2 NY City, US <br>hello.colorlib@gmail.com</h6>
+                            <h4>Bizimlə Əlaqə</h4>
+                            <h3>(+994){{$config->getPhoneAttribute()}}</h3>
+                            <h6>{{$config->config_email}}</h6>
+                            <h6>{{$config->config_address}}</h6>
                         </div>
                     </div>
                 </div>

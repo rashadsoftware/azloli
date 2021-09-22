@@ -74,6 +74,15 @@
                                 <p>Ana Səhifə</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.mail')}}" class="nav-link {{ Route::is('admin.mail') ? 'active' : '' }}" >
+                                <i class="nav-icon fas fa-envelope"></i>
+                                <p>Poçt Qutusu</p>
+                                @if(DB::table('mails')->where('mail_read', 'unread')->count() > 0)
+                                <span class="badge badge-info right">{{DB::table('mails')->where('mail_read', 'unread')->count()}}</span>
+                                @endif
+                            </a>
+                        </li>
                         <li class="nav-header">Sayt Tənzimləmələri</li>
                         <li class="nav-item">
                             <a href="{{route('admin.settings')}}" class="nav-link {{ Route::is('admin.settings') ? 'active' : '' }}">

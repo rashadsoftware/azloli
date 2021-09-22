@@ -7,26 +7,12 @@
                     <div class="col-12 col-md-6">
                         <div class="single-footer-widget mb-80">
                             <!-- Widget Title -->
-                            <h4 class="widget-title">Bizimlə Əlaqə</h4>
+                            <h4 class="widget-title" style="text-decoration:underline">Bizimlə Əlaqə</h4>
 
                             <!-- Footer Content -->
                             <div class="footer-content mb-15">
                                 <h3>(+994){{$config->getPhoneAttribute()}}</h3>
                                 <p>{{$config->config_address}} <br> {{$config->config_email}}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Single Footer Widget -->
-                    <div class="col-12 col-md-6 text-md-right">
-                        <div class="single-footer-widget mb-80">
-                            <!-- Widget Title -->
-                            <h4 class="widget-title">Haqqımızda</h4>
-                            <p>{{$config->config_description}}</p>
-
-                            <!-- Copywrite Text -->
-                            <div class="copywrite-text mb-30">
-                                <p>&copy; Copyright <script>document.write(new Date().getFullYear());</script> | {{$config->config_title}}.</p>
                             </div>
 
                             <!-- Social Info -->
@@ -51,6 +37,20 @@
                                 <a href="{{$config->config_youtube}}" class="youtube" data-toggle="tooltip" data-placement="top" title="YouTube"><i class="fa fa-youtube-play"></i></a>
                                 @endif
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- Single Footer Widget -->
+                    <div class="col-12 col-md-6 text-md-right">
+                        <div class="single-footer-widget mb-80">
+                            <!-- Widget Title -->
+                            <h4 class="widget-title" style="text-decoration:underline">Haqqımızda</h4>
+                            <p>{{$config->config_description}}</p>
+
+                            <!-- Copywrite Text -->
+                            <div class="copywrite-text mb-30">
+                                <p>&copy; Copyright <script>document.write(new Date().getFullYear());</script> | {{$config->config_title}}.</p>
+                            </div>                            
                         </div>
                     </div>
 

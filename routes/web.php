@@ -39,4 +39,10 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         Route::put('/update/image/{id}', 'AdminController@updateImage')->name('.update.image');
         Route::put('/update/password/{id}', 'AdminController@updatePassword')->name('.update.password');
     });
+
+    // mail
+    Route::prefix('/mail')->name('mail')->middleware('isLoggedAdmin')->group(function(){
+        Route::get('/', 'AdminController@mail');
+        Route::get('/read-mail/{id}', 'AdminController@readMail')->name('.show');
+    });
 });

@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 
 use App\Models\User;
 use App\Models\Config;
+use App\Models\Mail;
 
 use Validator;
 use Carbon\Carbon;
@@ -88,8 +89,7 @@ class AdminController extends Controller
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
-            $id=1;
-            $config=Config::findOrFail($id); 
+            $config=Config::where('config_id', 1)->first(); 
             $config->config_title=$request->companyTitle;
             $config->config_email=$request->companyEmail;
             $config->config_phone=$request->companyPhone;
@@ -231,12 +231,31 @@ class AdminController extends Controller
             } else {
                 return response()->json(['status'=>2, 'msg'=>'Köhnə şifrə məlumat bazasındakı şifrə ilə uyğunlaşmır', 'state'=>'Təbriklər!']);
             } 
+        }        
+    }
+
+    /* mail page 
+    ==================================================================> */
+    public function mail(){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
         }
 
+        $configs=Config::where('config_id', 1)->first();
+        $mails=Mail::all();
 
+        return view('admin.mail', compact('user', 'configs', 'mails'));
+    }
+    public function readMail($id){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }        
 
-        
+        $configs=Config::where('config_id', 1)->first();
+        $detail=Mail::where('mail_id', $id)->first();
+        $detail->mail_read="read";
+        $detail->save();
 
-        
+        return view('admin.read-mail', compact('user', 'configs', 'detail'));
     }
 }
