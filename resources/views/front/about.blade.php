@@ -1,5 +1,7 @@
 @extends('front.layouts.master')
 
+@section('title', 'Haqqımızda')
+
 @section('content')
     <!-- ***** Breadcrumb Area Start ***** -->
     <div class="breadcrumb-area">

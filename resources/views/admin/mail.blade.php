@@ -5,6 +5,9 @@
 @section('css')
 <!-- icheck bootstrap -->
 <link rel="stylesheet" href="{{asset('back/')}}/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="{{asset('back/')}}/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="{{asset('back/')}}/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 @endsection
 
 @section('content')
@@ -12,111 +15,40 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Dosyalar</h3>
-
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card-body p-0">
-                            <ul class="nav nav-pills flex-column">
-                                <li class="nav-item active">
-                                    <a href="{{route('admin.mail')}}" class="nav-link">
-                                        <i class="fas fa-inbox"></i> Gələnlər Qutusu
-                                        @if(DB::table('mails')->where('mail_read', 'unread')->count() > 0)
-                                        <span class="badge bg-primary float-right">{{DB::table('mails')->where('mail_read', 'unread')->count()}}</span>
-                                        @endif
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /.card-body -->
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <!-- /.col -->
+                @include('admin.layouts.mail_category')                
 
                 <div class="col-md-9">
-                    <div class="card card-primary card-outline">
+                    <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Gələnlər Qutusu</h3>
-
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm">
-                                    <input type="text" class="form-control" placeholder="Search Mail">
-                                    <div class="input-group-append">
-                                        <div class="btn btn-primary">
-                                            <i class="fas fa-search"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.card-tools -->
                         </div>
                         <!-- /.card-header -->
-
-                        <div class="card-body p-0">
-                            <div class="mailbox-controls">
-                                <!-- Check all button -->
-                                <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="far fa-square"></i>
-                                </button>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default btn-sm">
-                                        <i class="far fa-trash-alt"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default btn-sm">
-                                        <i class="fas fa-reply"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-default btn-sm">
-                                        <i class="fas fa-share"></i>
-                                    </button>
-                                </div>
-                                <!-- /.btn-group -->
-                                <button type="button" class="btn btn-default btn-sm">
-                                    <i class="fas fa-sync-alt"></i>
-                                </button>
-                                <div class="float-right">
-                                    1-50/200
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-default btn-sm">
-                                            <i class="fas fa-chevron-left"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-sm">
-                                            <i class="fas fa-chevron-right"></i>
-                                        </button>
-                                    </div>
-                                    <!-- /.btn-group -->
-                                </div>
-                                <!-- /.float-right -->
-                            </div>
-                            <div class="table-responsive mailbox-messages">
-                                <table class="table table-hover">
-                                    <tbody>
-                                        @foreach($mails as $mail)
-                                        <tr>
-                                            <td>
-                                                <div class="icheck-primary">
-                                                    <input type="checkbox" value="" id="check1">
-                                                    <label for="check1"></label>
-                                                </div>
-                                            </td>
-                                            <td class="mailbox-name"><a href="{{route('admin.mail.show', $mail->mail_id)}}">{{$mail->mail_user}}</a></td>
-                                            <td class="mailbox-subject">
-                                                <b>Mesajınız var</b> - {{Str::substr($mail->mail_text, 0, 70)}}...
-                                            </td>
-                                            <td class="mailbox-date">{{$mail->created_at->diffForHumans()}}</td>
-                                        </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                                <!-- /.table -->
-                            </div>
-                            <!-- /.mail-box-messages -->
+                        <div class="card-body">
+                            <table id="exampleDataTable" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Gələn Məktublar</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($mails as $mail)
+                                    <tr>
+                                        <td class="mailbox-subject">
+                                            <b>
+                                                @if($mail->mail_read == 'unread')
+                                                    Yeni Mesaj - 
+                                                @endif
+                                            </b>{{Str::substr($mail->mail_text, 0, 70)}}...
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{route('admin.mail.show', $mail->mail_id)}}" title="Yenilə" class="btn btn-default mr-1"><i class="fas fa-eye"></i></a>
+                                            <a href="{{route('admin.mail.delete', $mail->mail_id)}}" title="Sil" class="btn btn-danger mr-1"><i class="fas fa-trash-alt"></i></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -131,8 +63,24 @@
 @endsection
 
 @section('js')
+<!-- DataTables  & Plugins -->
+<script src="{{asset('back/')}}/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="{{asset('back/')}}/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{asset('back/')}}/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+
 <script>
     $(function () {
+        // dataTable
+        $("#exampleDataTable").DataTable({
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+        });
+
         //Enable check and uncheck all functionality
         $('.checkbox-toggle').click(function () {
             var clicks = $(this).data('clicks')

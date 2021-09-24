@@ -57,9 +57,12 @@ class Kernel extends HttpKernel
         // front section
 
         // admin section
-        'alreadyLoggedAdmin' => \App\Http\Middleware\AlreadyLoggedInAdmin::class,
         'isLoggedAdmin' => \App\Http\Middleware\AuthCheckAdmin::class,
         'isLoggedIP' => \App\Http\Middleware\CheckIPAddress::class,   // check ip address
+
+        // profile section
+        'isLoggedProfile' => \App\Http\Middleware\AuthCheckProfile::class,
+
         
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

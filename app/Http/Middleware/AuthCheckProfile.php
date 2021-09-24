@@ -5,14 +5,14 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class AlreadyLoggedInAdmin
+class AuthCheckProfile
 {
     public function handle(Request $request, Closure $next)
     {
-        if( session()->has('LoggedAdmin')  && route('admin.index') == $request->url() ){
-            return back();
+        if(!session()->has('LoggedUser')){
+            return redirect()->route('login')->with('failLogin', 'Profilə girmək üçün giriş etməlisiniz');   
         }
-        
+
         return $next($request);
     }
 }

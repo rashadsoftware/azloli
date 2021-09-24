@@ -139,7 +139,11 @@ return [
         'newpassword'           => 'Yeni şifrə',
 
         // front section
-        
+        'name'                  =>'Adınız',
+        'surname'               =>'Soyadınız',
+        'phone'                 =>'Əlaqə nömrəniz',
+        'theme'                 =>'Mövzu başlığı',
+        'message'               =>'İsmarıc sahəsi',
     ],
 
 ];

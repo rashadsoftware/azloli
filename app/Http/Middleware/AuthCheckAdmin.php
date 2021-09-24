@@ -10,7 +10,7 @@ class AuthCheckAdmin
     public function handle(Request $request, Closure $next)
     {
         if(!session()->has('LoggedAdmin')){
-            return redirect()->route('admin.index')->with('fail', 'İdarəetmə panelinə girmək üçün giriş etməlisiniz');
+            return redirect()->route('admin.index')->with('fail', 'Admin panelə girmək üçün giriş etməlisiniz');
         }
 
         return $next($request);

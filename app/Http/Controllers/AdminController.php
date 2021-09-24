@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 
 use App\Models\User;
 use App\Models\Config;
-use App\Models\Mail;
+use App\Models\Message;
 
 use Validator;
 use Carbon\Carbon;
@@ -24,6 +24,11 @@ class AdminController extends Controller
     /* login page
     ==================================================================> */
     public function index(){
+        
+        if(session()->has('LoggedAdmin')){
+			return redirect()->route('admin.dashboard');
+        }
+
         return view('admin.index');
     }
     public function indexPost(Request $request){
@@ -234,7 +239,7 @@ class AdminController extends Controller
         }        
     }
 
-    /* mail page 
+    /* Message page 
     ==================================================================> */
     public function mail(){
         if(session()->has('LoggedAdmin')){
@@ -242,7 +247,7 @@ class AdminController extends Controller
         }
 
         $configs=Config::where('config_id', 1)->first();
-        $mails=Mail::all();
+        $mails=Message::all();
 
         return view('admin.mail', compact('user', 'configs', 'mails'));
     }
@@ -252,10 +257,15 @@ class AdminController extends Controller
         }        
 
         $configs=Config::where('config_id', 1)->first();
-        $detail=Mail::where('mail_id', $id)->first();
+        $detail=Message::where('mail_id', $id)->first();
         $detail->mail_read="read";
         $detail->save();
 
         return view('admin.read-mail', compact('user', 'configs', 'detail'));
+    }
+    public function deleteMail($id){
+        Message::find($id)->delete();
+        toastr()->success('İsmarıc başarılı şəkildə silindi', 'Təbriklər!');
+        return redirect()->route('admin.mail'); 
     }
 }

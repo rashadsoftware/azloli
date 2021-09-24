@@ -7,14 +7,31 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/about', 'HomeController@about')->name('about');
 Route::get('/service', 'HomeController@service')->name('service');
+
+// contact
 Route::get('/contact', 'HomeController@contact')->name('contact');
+Route::post('/contact', 'HomeController@contactPost')->name('contact.post');
+
+// login
+Route::get('/login', 'HomeController@login')->name('login');
+Route::post('/login', 'HomeController@loginPost')->name('login.post');
+
+// profile
+Route::prefix('/profile')->name('profile.')->group(function(){
+	
+	// dashboard
+    Route::get('/dashboard', 'ProfileController@index')->name('dashboard');
+
+    // logout
+    Route::get('/logout', 'ProfileController@logout')->name('logout');
+});
 
 
 /* Admin section 
 ====================================================> */
 Route::prefix('/admin')->name('admin.')->group(function(){
     // login
-    Route::get('/login', 'AdminController@index')->name('index')->middleware('alreadyLoggedAdmin');
+    Route::get('/login', 'AdminController@index')->name('index');
     Route::post('/login', 'AdminController@indexPost')->name('index.post');
 
     // logout
@@ -44,5 +61,6 @@ Route::prefix('/admin')->name('admin.')->group(function(){
     Route::prefix('/mail')->name('mail')->middleware('isLoggedAdmin')->group(function(){
         Route::get('/', 'AdminController@mail');
         Route::get('/read-mail/{id}', 'AdminController@readMail')->name('.show');
+        Route::get('/delete/{id}', 'AdminController@deleteMail')->name('.delete'); 
     });
 });

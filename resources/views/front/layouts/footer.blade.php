@@ -70,7 +70,10 @@
         <script src="{{asset('front/')}}/js/uza.bundle.js"></script>
         <!-- Active js -->
         <script src="{{asset('front/')}}/js/default-assets/active.js"></script>
+        <!-- Main js -->
+        <script src="{{asset('front/')}}/js/main.js"></script>
 
+		@yield('js')
     </body>
 
 </html>

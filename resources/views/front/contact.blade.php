@@ -1,5 +1,7 @@
 @extends('front.layouts.master')
 
+@section('title', 'Əlaqə')
+
 @section('content')
             <!-- ***** Breadcrumb Area Start ***** -->
     <div class="breadcrumb-area">
@@ -37,36 +39,43 @@
                             <h4>Bizə göstərdiyiniz maraq üçün sizə təşəkkür edirik.</h4>
                             <h5 class="text-muted">Hər hansı bir təklifiniz vəya iradınız varsa, aşağıdakı formu doldurub bizə göndərin.</h5>
                         </div>
-                        <form action="#" method="post" autocomplete="off">
+                        <form action="{{route('contact.post')}}" method="POST" autocomplete="off" id="formContact">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control mb-30" name="name" placeholder="Adınız">
+                                        <input type="text" class="form-control" name="name" placeholder="Adınız">
+                                        <span class="ml-3 text-danger error-text name_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control mb-30" name="surname" placeholder="Soyadınız">
+                                        <input type="text" class="form-control" name="surname" placeholder="Soyadınız">
+                                        <span class="ml-3 text-danger error-text surname_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="email" class="form-control mb-30" name="email" placeholder="Email addresiniz">
+                                        <input type="email" class="form-control" name="email" placeholder="Email addresiniz">
+                                        <span class="ml-3 text-danger error-text email_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
-                                        <input type="text" class="form-control mb-30" name="phone" placeholder="Əlaqə nömrəniz">
+                                        <input type="text" class="form-control" name="phone" placeholder="Əlaqə nömrəniz | Məs: 0501234578" minlength=10 maxlength=10 >
+                                        <span class="ml-3 text-danger error-text phone_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input type="text" class="form-control mb-30" name="email" placeholder="Mövzu başlığı">
+                                        <input type="text" class="form-control" name="theme" placeholder="Mövzu başlığı">
+                                        <span class="ml-3 text-danger error-text theme_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <textarea class="form-control mb-30" name="message" rows="8" cols="80" placeholder="İsmarıcınız"></textarea>
+                                        <textarea class="form-control" name="message" rows="10" cols="30" placeholder="İsmarıcınız" style="height:auto"></textarea>
+                                        <span class="ml-3 text-danger error-text message_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-12">
