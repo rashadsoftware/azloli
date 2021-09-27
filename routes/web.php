@@ -22,6 +22,9 @@ Route::prefix('/profile')->name('profile.')->group(function(){
 	// dashboard
     Route::get('/dashboard', 'ProfileController@index')->name('dashboard');
 
+    // dashboard
+    Route::get('/settings', 'ProfileController@settings')->name('settings');
+
     // logout
     Route::get('/logout', 'ProfileController@logout')->name('logout');
 });

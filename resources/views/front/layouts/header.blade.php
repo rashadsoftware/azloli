@@ -93,9 +93,15 @@
 
                                 <!-- Login / Register -->
                                 <div class="login-register-btn mx-3">
+                                    @if(Session::has('LoggedUser'))
+                                    <a href="{{route('profile.dashboard')}}">
+                                        <span> <img src="{{asset('front/')}}/img/user/profile.png" alt="" width=30 height=30> </span>
+                                    </a>
+                                    @else
                                     <a href="{{route('login')}}">
                                         <span> <img src="{{asset('front/')}}/img/icons/user.png" alt="" width=30 height=30> Giriş</span>
                                     </a>
+                                    @endif
                                 </div>
                             </div>
                             <!-- Nav End -->

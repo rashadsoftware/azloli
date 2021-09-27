@@ -3,7 +3,7 @@
 @section('title', 'Əlaqə')
 
 @section('content')
-            <!-- ***** Breadcrumb Area Start ***** -->
+    <!-- ***** Breadcrumb Area Start ***** -->
     <div class="breadcrumb-area">
         <div class="container h-100">
             <div class="row h-100 align-items-end">
@@ -96,15 +96,6 @@
                             <h6>{{$config->config_email}}</h6>
                             <h6>{{$config->config_address}}</h6>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <!-- Google Maps -->
-                <div class="col-12">
-                    <div class="google-maps">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11956.9355465873!2d24.0768412544878!3d56.9550599906977!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46eecfb0e5073ded%3A0x400cfcd68f2fe30!2z4Kaw4Ka_4KaX4Ka-LCDgprLgp43gpq_gpr7gpp_gp43gpq3gpr_gpoY!5e0!3m2!1sbn!2sbd!4v1543911160102" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>

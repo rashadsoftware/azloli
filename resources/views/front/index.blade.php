@@ -20,17 +20,6 @@
                                     <div class="welcome-text">
                                         <h2><span>{{$config->config_title}}</span> ilə artıq usta tapmaq çox asandır</h2>
                                         <h5>Bu platforma ilə artıq ustalar qapınızdadır</h5>
-                                        <div class="uza-contact-form mb-80">
-                                            <form action="#" method="post">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <input type="text" class="form-control mb-30" name="full-name" placeholder="Kateqoriya axtar ...">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
                                     </div>
                                 </div>
                                 <!-- Welcome Thumbnail -->
