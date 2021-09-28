@@ -3,5 +3,5 @@
 @section('title', 'Dashboard')
 
 @section('content')    
-    @include('profile.layouts.profile_card')
+    5
 @endsection

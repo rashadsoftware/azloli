@@ -22,9 +22,12 @@ Route::prefix('/profile')->name('profile.')->group(function(){
 	// dashboard
     Route::get('/dashboard', 'ProfileController@index')->name('dashboard');
 
-    // dashboard
+    // settings
     Route::get('/settings', 'ProfileController@settings')->name('settings');
-
+    Route::put('/update/optional', 'ProfileController@updateOptional')->name('update.optional');
+    Route::put('/update/image', 'ProfileController@updateImage')->name('update.image');
+    Route::put('/update/password', 'ProfileController@updatePassword')->name('update.password');
+    
     // logout
     Route::get('/logout', 'ProfileController@logout')->name('logout');
 });

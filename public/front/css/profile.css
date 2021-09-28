@@ -9,6 +9,8 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+    border: 1px solid var(--main-color);
+    padding: 7px;
 }
 .profile-title {
     font-size: 24px;
@@ -48,4 +50,8 @@ ul.profile-list li.active a {
 }
 ul.profile-list li a i {
     margin-right: 5px;
+}
+.form-control:focus,
+.btn:focus {
+    box-shadow: none !important;
 }
