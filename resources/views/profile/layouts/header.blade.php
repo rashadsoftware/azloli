@@ -32,7 +32,7 @@
         <!-- ***** Area Start ***** -->
         <section class="section-padding-80">
             <div class="container">
-                <div class="d-flex align-items-center justify-content-center" style="min-height:69vh">
+                <div class="d-flex justify-content-center" style="min-height:69vh">
 					<div class="col-xl-4 d-none d-xl-block">
 						<div class="card box-shadow mx-auto" style="width:333px">
 							<div class="card-body">
@@ -51,8 +51,8 @@
 											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
 										</a>                                
 									</li>
-									<li class="{{ Route::is('profile.settings') ? 'active' : '' }}">	
-										<a href="{{route('profile.settings')}}">
+									<li class="{{ Route::is('profile.adverts') ? 'active' : '' }}">	
+										<a href="{{route('profile.adverts')}}">
 											<div>
 												<i class="fa fa-list-ol"></i> Elanlar
 											</div>

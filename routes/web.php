@@ -22,6 +22,9 @@ Route::prefix('/profile')->name('profile.')->group(function(){
 	// dashboard
     Route::get('/dashboard', 'ProfileController@index')->name('dashboard');
 
+    // adverts
+    Route::get('/adverts', 'ProfileController@adverts')->name('adverts');
+
     // settings
     Route::get('/settings', 'ProfileController@settings')->name('settings');
     Route::put('/update/optional', 'ProfileController@updateOptional')->name('update.optional');

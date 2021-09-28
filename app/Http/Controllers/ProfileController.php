@@ -28,6 +28,16 @@ class ProfileController extends Controller
         return view('profile.index', compact('user', 'config'));       
     }
 
+    // adverts page =======================================================================>
+    public function adverts(){
+        $config=Config::where('config_id', 1)->first();
+
+        if(session()->has('LoggedUser')){
+            $user=User::where('user_id', session('LoggedUser'))->first();            
+        }
+        return view('profile.adverts', compact('user', 'config'));       
+    }
+
     // settings page =======================================================================>
     public function settings(){
         $config=Config::where('config_id', 1)->first();
