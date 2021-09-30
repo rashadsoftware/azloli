@@ -2,14 +2,6 @@
 
 @section('title', 'Tənzimləmələr')
 
-@section('css')
-<style>
-	#alert-noti{
-		display:none
-	}
-</style>
-@endsection
-
 @section('breadcrumb')
 <li class="breadcrumb-item"><a href="{{route('profile.dashboard')}}"><i class="fa fa-home"></i> Ana Səhifə</a></li>
 @endsection

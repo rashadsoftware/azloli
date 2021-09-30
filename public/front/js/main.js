@@ -25,7 +25,10 @@ $(function () {
                         $("span." + prefix + "_error").text(val[0]);
                     });
                 } else {
-                    alert("ok");
+                    $("#alert-noti").css("display", "block");
+                    $("#alert-noti").text(data.msg);
+
+                    refresh();
                 }
             },
         });

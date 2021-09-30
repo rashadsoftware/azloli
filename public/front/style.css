@@ -130,6 +130,10 @@ input:focus {
     outline: none;
 }
 
+#alert-noti {
+    display: none;
+}
+
 /* :: 2.0 Spacing CSS */
 .mt-15 {
     margin-top: 15px;

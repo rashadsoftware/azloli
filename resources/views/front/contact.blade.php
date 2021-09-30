@@ -39,6 +39,9 @@
                             <h4>Bizə göstərdiyiniz maraq üçün sizə təşəkkür edirik.</h4>
                             <h5 class="text-muted">Hər hansı bir təklifiniz vəya iradınız varsa, aşağıdakı formu doldurub bizə göndərin.</h5>
                         </div>
+
+                        <div class="alert alert-success" id="alert-noti"></div>
+
                         <form action="{{route('contact.post')}}" method="POST" autocomplete="off" id="formContact">
                             @csrf
                             <div class="row">

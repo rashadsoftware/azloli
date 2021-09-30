@@ -57,12 +57,6 @@ class HomeController extends Controller
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         } else {
-            $details = [
-                'title' => 'Bu Mail VedatKurtay.com tarafından gönderilmiştir.',
-                'body' => 'Bu bir test mailidir.'
-            ];
-            mail::to('info@example.com')->send(new \App\Mail\MyTestMail($details));
-
             $mail=new Message; 
             $mail->mail_user=$fullname;
             $mail->mail_email=$request->email;
@@ -71,7 +65,7 @@ class HomeController extends Controller
             $mail->mail_text=$request->message;
             $mail->save();        
 
-            return response()->json(['status'=>1, 'msg'=>'Mesajınız başarılı şəkildə göndərildi', 'state'=>'Təbriklər!']);
+            return response()->json(['status'=>1, 'msg'=>'Mesajınız başarılı şəkildə göndərildi']);
         }
     }
 	
