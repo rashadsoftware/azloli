@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 use App\Models\User;
 use App\Models\Config;
+use App\Models\Advert;
 
 use Validator;
 
@@ -31,11 +32,38 @@ class ProfileController extends Controller
     // adverts page =======================================================================>
     public function adverts(){
         $config=Config::where('config_id', 1)->first();
+		
+        $advertsCompleted=Advert::where('advert_state', 'active')->get();
+        $advertsCompletedCount=Advert::where('advert_state', 'active')->count();
+		
+        $advertsUncompleted=Advert::where('advert_state', 'passive')->get();
+        $advertsUncompletedCount=Advert::where('advert_state', 'passive')->count();
 
         if(session()->has('LoggedUser')){
             $user=User::where('user_id', session('LoggedUser'))->first();            
         }
-        return view('profile.adverts', compact('user', 'config'));       
+        return view('profile.adverts', compact('user', 'config', 'advertsCompleted', 'advertsCompletedCount', 'advertsUncompleted', 'advertsUncompletedCount'));
+    }
+	public function advertsDetail(Request $request, $seflink){
+		$config=Config::where('config_id', 1)->first();
+
+        if(session()->has('LoggedUser')){
+            $user=User::where('user_id', session('LoggedUser'))->first();            
+        }
+		
+		$checkAdvert=Advert::where('advert_seflink', $seflink)->where('advert_state', 'active')->first();
+		
+		if($checkAdvert){
+			return view('profile.adverts-detail', compact('user', 'config', 'checkAdvert')); 
+		} else {
+			return  route('profile.adverts');
+		} 
+    }
+	public function advertsUpdate(){
+		
+    }
+	public function advertsDelete(){
+		
     }
 
     // settings page =======================================================================>
@@ -97,6 +125,7 @@ class ProfileController extends Controller
         $validator = Validator::make($request->all(),[
             'oldPassword' => 'required|min:6|max:15',
             'newpassword' => 'required|min:6|max:15',
+            'password_confirmation' => 'required|min:6|max:15|confirmed',
         ]);
 
         if(!$validator->passes()){

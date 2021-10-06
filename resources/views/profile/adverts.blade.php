@@ -18,37 +18,49 @@
 		<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 			<table class="table table-hover mt-4">
 				<tbody>
+					@if($advertsCompletedCount > 0)
+					@foreach($advertsCompleted as $advertCompleted)
 					<tr>
 						<td>
-							<a href="#">
-								<h5 class="mb-0">Evimi boyatdirmaq isteyirem</h5>
-								<p class="mb-0">Evimi boyatdirmaq isteyirem. bunu ucun...</p>
-								<p class="mb-0">Yayın tarixi: 29 yanvar 2021 10:45</p>
+							<a href="{{route('profile.adverts.detail', $advertCompleted->advert_seftitle)}}">
+								<h5 class="mb-0">{{$advertCompleted->advert_title}}</h5>
+								<p class="mb-0">{{$advertCompleted->advert_description}}</p>
+								<p class="mb-0">Yayın tarixi: {{$advertCompleted->CREATED_AT}}</p>
 							</a>
 						</td>
 						<td class="text-center">
-							<a href="#" title="Yenilə" class="btn btn-primary mr-1 mb-1"><i class="fa fa-pencil"></i></a>
-							<a href="#" title="Sil" class="btn btn-danger mr-1 mb-1"><i class="fa fa-remove"></i></a>
+							<a href="{{route('profile.adverts.update', $advertCompleted->advert_id)}}" title="Yenilə" class="btn btn-primary mr-1 mb-1"><i class="fa fa-pencil"></i></a>
+							<a href="{{route('profile.adverts.delete', $advertCompleted->advert_id)}}" title="Sil" class="btn btn-danger mr-1 mb-1"><i class="fa fa-remove"></i></a>
 						</td>
 					</tr>
+					@endforeach
+					@else
+						<p>Hal-hazırda aktiv heç bir elan paylaşılmamışdır.</p>
+					@endif
 				</tbody>
 			</table>
 		</div>
 		<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
 			<table class="table table-hover mt-4">
 				<tbody>
+					@if($advertsUncompletedCount > 0)
+					@foreach($advertsUncompleted as $advertUncompleted)
 					<tr>
 						<td>
-							<a href="#">
-								<h5 class="mb-0">Evimi boyatdirmaq isteyirem</h5>
-								<p class="mb-0">Evimi boyatdirmaq isteyirem. bunu ucun...</p>
-								<p class="mb-0">Bitmə tarixi: 29 yanvar 2021 10:45</p>
+							<a href="{{route('profile.adverts.detail', $advertUncompleted->advert_seftitle)}}">
+								<h5 class="mb-0">{{$advertUncompleted->advert_title}}</h5>
+								<p class="mb-0">{{$advertUncompleted->advert_description}}</p>
+								<p class="mb-0">Yayın tarixi: {{$advertUncompleted->CREATED_AT}}</p>
 							</a>
 						</td>
 						<td class="text-center">
-							<a href="#" title="Sil" class="btn btn-danger mr-1"><i class="fa fa-remove"></i></a>
+							<a href="{{route('profile.adverts.delete', $advertUncompleted->advert_id)}}" title="Sil" class="btn btn-danger mr-1 mb-1"><i class="fa fa-remove"></i></a>
 						</td>
 					</tr>
+					@endforeach
+					@else
+						<p>Hal-hazırda passif heç bir elan paylaşılmamışdır.</p>
+					@endif
 				</tbody>
 			</table>
 		</div>

@@ -25,14 +25,6 @@ class UserSeeder extends Seeder
             'user_password' => Hash::make('123456'),
             'user_status' => 'admin',
             'user_state' => 'active',
-            'user_ip' => '127.0.0.1'],
-
-            ['user_name' => 'Maarif',
-            'user_image' => '',
-            'user_email' => 'maarif@gmail.com',
-            'user_password' => Hash::make('123456'),
-            'user_status' => 'admin',
-            'user_state' => 'active',
             'user_ip' => '127.0.0.1']
         ]);
     }

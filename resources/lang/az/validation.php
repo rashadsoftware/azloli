@@ -137,6 +137,10 @@ return [
         'user_image'            => 'Şəkil sahəsi',
         'oldPassword'           => 'Köhnə şifrə',
         'newpassword'           => 'Yeni şifrə',
+		// admin section -> category settings
+        'exampleCategory'       => 'Kateqoriyanın adı',
+        'exampleSubCategory'    => 'Alt kateqoriyanın adı',
+        'exampleCategoryImage'  => 'Kateqoriyanın şəkli',
 
         // front section
         'name'                  =>'Adınız',
@@ -144,6 +148,8 @@ return [
         'phone'                 =>'Əlaqə nömrəniz',
         'theme'                 =>'Mövzu başlığı',
         'message'               =>'İsmarıc sahəsi',
+        'username'              =>'İstifadəçi adı',
+        'password_confirmation' =>'Təkrar şifrə',
     ],
 
 ];

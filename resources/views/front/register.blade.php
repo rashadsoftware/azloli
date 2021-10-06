@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Title & Favicon-->
-        <title>{{$config->config_title}} | Usta Girişi</title>
+        <title>{{$config->config_title}} | Usta Qeydiyyatı</title>
         @if($config->config_favicon == '')
             <link rel="icon" href="{{asset('front/')}}/img/favicon.png">
         @else
@@ -16,20 +16,6 @@
 
         <!-- Main CSS -->
         <link rel="stylesheet" href="{{asset('front/')}}/style.css">
-		
-		<style>
-			#login_eye{
-				top:50%;
-				right:10px;
-				transform:translateY(-50%);
-				cursor:pointer;
-				color:#ccc;
-				font-size:15px;
-			}
-			.fa-eye-slash{
-				color:#1583e9 !important
-			}
-		</style>
     </head>
 
     <body>
@@ -133,27 +119,25 @@
 				<div class="d-flex align-items-center justify-content-center" style="min-height:63vh">
 					<div class="card box-shadow" style="max-width:400px">
 						<div class="card-body">
-							<h2 class="mb-4">Usta Girişi</h2>
-							<form action="{{route('login.post')}}" method="post" autocomplete="off">
+							<h2 class="mb-4">Usta Qeydiyyatı</h2>
+							<form action="{{route('register.post')}}" method="post" autocomplete="off">
 								@csrf
 								
-								@if($message=Session::get('failLogin'))
+								@if($message=Session::get('failRegister'))
 								<div class="w-100 mt-1">
 									<div class="alert alert-danger">
 										{{ $message }}
 									</div>
 								</div>
 								@endif
-
-                                @if($message=Session::get('successRegister'))
-								<div class="w-100 mt-1">
-									<div class="alert alert-success">
-										{{ $message }}
-									</div>
-								</div>
-								@endif
 							
 								<div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+											<input type="text" class="form-control @error('username') is-invalid @enderror" name="username" placeholder="İstifadəçi adınız" value="{{old('username')}}">
+											<span class="text-danger">@error('username') {{$message}} @enderror</span>
+										</div>
+                                    </div>
 									<div class="col-lg-12">
 										<div class="form-group">
 											<input type="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="E-poçt" value="{{old('email')}}">
@@ -162,17 +146,20 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="form-group">
-											<div class="position-relative">
-												<input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Şifrə" id="loginPassword" value="{{old('password')}}">
-												<i class="fa fa-eye position-absolute" id="login_eye"></i>
-											</div>                                        
+                                            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Şifrə">                                        
 											<span class="text-danger">@error('password') {{$message}} @enderror</span>
+										</div>
+									</div>
+                                    <div class="col-lg-12">
+										<div class="form-group">
+                                            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" placeholder="Təkrar Şifrə">                                        
+											<span class="text-danger">@error('password_confirmation') {{$message}} @enderror</span>
 										</div>
 									</div>
                                     
 									<div class="col-12 d-flex align-items-center justify-content-between">
-										<button class="btn uza-btn btn-3">Giriş</button>
-                                        <a href="{{route('register')}}" class="text-muted mx-auto">Qeydiyyatdan keç</a>
+										<button class="btn uza-btn btn-3">Qeydiyyat</button>
+                                        <a href="{{route('login')}}" class="text-muted mx-auto">Hesabınız var?</a>
 									</div>
 								</div>
 							</form>

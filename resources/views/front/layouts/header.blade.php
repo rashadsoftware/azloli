@@ -59,9 +59,9 @@
                         <!-- Logo -->
                         <a class="nav-brand" href="{{route('index')}}">
                             @if($config->config_logo == '')
-                                <img src="{{asset('front/')}}/img/logo.png" alt="{{$config->config_title}}">
+                                <img src="{{asset('front/')}}/img/logo.png" width="90" alt="{{$config->config_title}}">
                             @else
-                                <img src="{{asset('front/')}}/img/{{$config->config_logo}}" alt="{{$config->config_title}}">
+                                <img src="{{asset('front/')}}/img/{{$config->config_logo}}" width="90" alt="{{$config->config_title}}">
                             @endif                            
                         </a>
 
@@ -82,7 +82,6 @@
                                 <ul id="nav">
                                     <li class="{{ Route::is('index') ? 'current-item' : '' }}"><a href="{{route('index')}}">Ana Səhifə</a></li>
                                     <li class="{{ Route::is('about') ? 'current-item' : '' }}"><a href="{{route('about')}}">Haqqımızda</a></li>
-                                    <li class="{{ Route::is('service') ? 'current-item' : '' }}"><a href="{{route('service')}}">Xidmətlər</a></li>
                                     <li class="{{ Route::is('contact') ? 'current-item' : '' }}"><a href="{{route('contact')}}">Əlaqə</a></li>
                                 </ul>
 
@@ -95,11 +94,11 @@
                                 <div class="login-register-btn mx-3">
                                     @if(Session::has('LoggedUser'))
                                     <a href="{{route('profile.dashboard')}}">
-                                        <span> <img src="{{asset('front/')}}/img/user/profile.png" alt="" width=30 height=30> </span>
+                                        <span> <img src="{{asset('front/')}}/img/user/profile.png" alt="" width="50" height="30"> </span>
                                     </a>
                                     @else
                                     <a href="{{route('login')}}">
-                                        <span> <img src="{{asset('front/')}}/img/icons/user.png" alt="" width=30 height=30> Giriş</span>
+                                        <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> Giriş</span>
                                     </a>
                                     @endif
                                 </div>

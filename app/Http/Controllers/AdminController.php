@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Config;
 use App\Models\Message;
+use App\Models\Category;
+use App\Models\SubCategory;
 
 use Validator;
 use Carbon\Carbon;
@@ -152,22 +154,37 @@ class AdminController extends Controller
         }
     }
     public function ajaxSocial(Request $request){
-        $validator = Validator::make($request->all(),[
-            'companyFacebook'=>'required|url',
-            'companyInstagram'=>'required|url',
-        ]);
+        $id=1;
+        $config=Config::findOrFail($id); 
 
-        if(!$validator->passes()){
-            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
-        }else{
-            $id=1;
-            $config=Config::findOrFail($id); 
-            $config->config_facebook=$request->companyFacebook;
-            $config->config_instagram=$request->companyInstagram;
-            $config->save();        
+        if ($request->filled('companyFacebook')) {
+            $validatorFacebook = Validator::make($request->all(),[
+                'companyFacebook'=>'url',
+            ]);
 
-            return response()->json(['status'=>1, 'msg'=>'Şirkət məlumatları başarılı şəkildə yeniləndi', 'state'=>'Təbriklər!']);
+            if(!$validatorFacebook->passes()){
+                return response()->json(['status'=>0, 'error'=>$validatorFacebook->errors()->toArray()]);
+            }else{                
+                $config->config_facebook=$request->companyFacebook;
+            }
         }
+
+        if ($request->filled('companyInstagram')) {
+            $validatorInstagram = Validator::make($request->all(),[
+                'companyInstagram'=>'url',
+            ]);
+
+            if(!$validatorInstagram->passes()){
+                return response()->json(['status'=>0, 'error'=>$validatorInstagram->errors()->toArray()]);
+            }else{
+                $config->config_instagram=$request->companyInstagram;
+            }
+        }
+
+        
+        $config->save();        
+    
+        return response()->json(['status'=>1, 'msg'=>'Şirkət məlumatları başarılı şəkildə yeniləndi', 'state'=>'Təbriklər!']);
     }
 
     /* profile page 
@@ -222,6 +239,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(),[
             'oldPassword' => 'required|min:6|max:15',
             'newpassword' => 'required|min:6|max:15',
+            'password_confirmation' => 'required|min:6|max:15|confirmed',
         ]);
 
         if(!$validator->passes()){
@@ -267,5 +285,230 @@ class AdminController extends Controller
         Message::find($id)->delete();
         toastr()->success('İsmarıc başarılı şəkildə silindi', 'Təbriklər!');
         return redirect()->route('admin.mail'); 
+    }
+
+    /* Users page 
+    ==================================================================> */
+    public function users(){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+
+        $configs=Config::where('config_id', 1)->first();
+        $userall=User::where('user_status','user')->get();
+
+        return view('admin.users', compact('user', 'configs', 'userall'));
+    }	
+	public function toggleUser(Request $request){
+        $user=User::findOrFail($request->getID);
+        $user->user_state=$request->getStatus=="true" ? 'active' : 'passive';
+        $user->save();
+    }	
+	public function userDelete($id)
+    {
+        User::find($id)->delete();
+        toastr()->success('İstifadəçi başarılı şəkildə silindi', 'Təbriklər!');
+        return redirect()->route('admin.users');          
+    }
+	
+	/* category page 
+    ==================================================================> */
+    public function category(){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+        $categories=Category::all();   
+
+        return view('admin.category', compact(['user', 'categories']));
+    }
+    public function toggleCategory(Request $request){
+        $category=Category::findOrFail($request->getID);
+        $category->category_state=$request->getStatus=="true" ? 'active' : 'passive';
+        $category->save();
+    }	
+    public function categoryCreate(){        
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+
+        return view('admin.category-add', compact('user'));
+    }
+    public function categoryInsert(Request $request){        
+        $request->validate([
+            'exampleCategory' => 'required|min:3|max:30',
+            'exampleCategoryImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $isExistCategory=Category::where('category_seftitle', Str::slug($request->exampleCategory))->first();
+
+        if($isExistCategory){
+            toastr()->info($request->exampleCategory.' adında kateqoriya mövcuddur. Yenidən cəhd edin!', 'Ooops!'); 
+            return redirect()->route('admin.category.create'); 
+        } else {
+            $category=new Category;
+            $category->category_title=$request->exampleCategory;        
+            $category->category_seftitle=Str::slug($request->exampleCategory);
+
+            $newName=Str::slug($request->exampleCategoryImage).'.'.$request->file('exampleCategoryImage')->getClientOriginalExtension();
+            $request->file('exampleCategoryImage')->move(public_path('front/img/categories'), $newName);   
+
+            $category->category_image=$newName;
+            $category->save();
+
+            toastr()->success('Kateqoriya başarılı şəkildə qeydə alındı', 'Təbriklər!');
+            return redirect()->route('admin.category.create');
+        }        
+    }	
+	public function categoryEdit($id)
+    {
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+        $category=Category::findOrFail($id);
+
+        return view('admin.category-edit', compact('user', 'category'));
+    }	
+	public function categoryUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'exampleCategory' => 'required|min:3|max:30'
+        ]);
+
+        $isExistCategory=Category::where('category_seftitle', Str::slug($request->exampleCategory))->first();
+
+        if($isExistCategory){
+            toastr()->info($request->exampleCategory.' adında kateqoriya mövcuddur. Yenidən cəhd edin!', 'Ooops!'); 
+            return redirect()->route('admin.category'); 
+        } else {
+            $category=Category::findOrFail($id);
+            $category->category_title=$request->exampleCategory;
+            $category->category_seftitle=Str::slug($request->exampleCategory);
+
+            if($request->has('exampleCategoryImage')){
+                if($category->category_image != ''){
+                    $image_path = public_path().'/front/img/categories/'.$category->category_image;                
+                    unlink($image_path);
+                }
+        
+                $newName=Str::slug($request->exampleCategoryImage).'.'.$request->file('exampleCategoryImage')->getClientOriginalExtension();
+                $request->file('exampleCategoryImage')->move(public_path('front/img/categories'), $newName);   
+                $category->category_image=$newName;
+            }
+
+            $category->save();
+
+            toastr()->success('Kateqoriya başarılı şəkildə yeniləndi', 'Təbriklər!');
+            return redirect()->route('admin.category'); 
+        }    
+    }	
+	public function categoryDelete($id)
+    {
+        $countSubCategory=SubCategory::where('categoryID', $id)->count();
+        $fetchCategory=Category::where('category_id', $id)->first();
+
+        if($countSubCategory > 0){
+            toastr()->error('Bu kateqoriyaya məxsus alt kateqoriyalar silinən zaman silinmə baş tutacaqdır.', 'Ooops!');
+            return redirect()->route('admin.category');
+        } else {
+
+            if($fetchCategory->category_image != ''){
+                $image_path = public_path().'/front/img/categories/'.$fetchCategory->category_image;                
+                unlink($image_path);
+            }
+
+            Category::find($id)->delete();
+            toastr()->success('Kateqoriya başarılı silindi', 'Təbriklər!');
+            return redirect()->route('admin.category');          
+        }  
+    }
+	
+	/* subcategory page 
+    ==================================================================> */
+    public function subcategory(){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', session('LoggedAdmin'))->first();            
+        }
+        $subcategories=SubCategory::all();   
+        $categoriesCount=Category::count();   
+
+        return view('admin.subcategory', compact('user', 'subcategories', 'categoriesCount'));
+    }
+    public function toggleSubCategory(Request $request){
+        $subcategory=SubCategory::findOrFail($request->getID);
+        $subcategory->subcategory_state=$request->getStatus=="true" ? 'active' : 'passive';
+        $subcategory->save();
+    }
+    public function subcategoryCreate(){        
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+        $categories=Category::all();
+        $categoriesCount=Category::count(); 
+
+        return view('admin.subcategory-add', compact('user', 'categories', 'categoriesCount'));
+    }
+    public function subcategoryInsert(Request $request){        
+        $request->validate([
+            'exampleCategory'   => 'required',
+            'exampleSubCategory' => 'required|min:3|max:30',
+        ]);
+
+        $isExistSubCategory=SubCategory::where('subcategory_seftitle', Str::slug($request->exampleSubCategory))->where('categoryID', '=', $request->exampleCategory)->first();
+
+        if($isExistSubCategory){
+            toastr()->info($request->exampleSubCategory.' adında alt kateqoriya mövcuddur. Yenidən cəhd edin!', 'Ooops!'); 
+            return redirect()->route('admin.subcategory.create'); 
+        } else {
+            $subcategory=new SubCategory;
+            $subcategory->subcategory_title=$request->exampleSubCategory;        
+            $subcategory->subcategory_seftitle=Str::slug($request->exampleSubCategory);
+            $subcategory->categoryID=$request->exampleCategory;
+            $subcategory->save();
+
+            toastr()->success('Alt kateqoriya başarılı şəkildə qeydə alındı', 'Təbriklər!');
+            return redirect()->route('admin.subcategory.create'); 
+        }        
+    }	
+	public function subcategoryEdit($id)
+    {
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+        $subcategory=SubCategory::findOrFail($id);
+        $categories=Category::all();  
+
+        return view('admin.subcategory-edit', compact('user', 'subcategory', 'categories'));
+    }	
+	public function subcategoryUpdate(Request $request, $id)
+    {
+        $request->validate([
+            'exampleCategory' => 'required',
+            'exampleSubCategory' => 'required|min:3|max:30'
+        ]);
+
+        $subcategory=SubCategory::findOrFail($id);
+
+        $isExistSubCategory=SubCategory::where('subcategory_seftitle', Str::slug($request->exampleSubCategory))
+                                 ->where('categoryID', '=', $request->exampleCategory)
+                                 ->first();
+
+        if($isExistSubCategory){
+            toastr()->info($request->exampleSubCategory.' adında alt kateqoriya mövcuddur. Yenidən cəhd edin!', 'Ooops!'); 
+            return redirect()->route('admin.subcategory'); 
+        } else {
+            $subcategory->subcategory_title=$request->exampleSubCategory;
+            $subcategory->subcategory_seftitle=Str::slug($request->exampleSubCategory);
+            $subcategory->categoryID=$request->exampleCategory;
+            $subcategory->save();
+
+            toastr()->success('Alt kateqoriya başarılı şəkildə yeniləndi', 'Təbriklər!');
+            return redirect()->route('admin.subcategory'); 
+        }    
+    }
+	public function subcategoryDelete($id)
+    {
+        SubCategory::find($id)->delete();
+		toastr()->success('Alt kateqoriya başarılı şəkildə silindi', 'Təbriklər!');
+		return redirect()->route('admin.subcategory'); 
     }
 }

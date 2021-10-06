@@ -99,6 +99,11 @@
                                             <input type="password" class="form-control" name="newpassword" placeholder="Yeni şifrənizi daxil edin"/>
                                             <span class="text-danger error-text newpassword_error"></span>
                                         </div>
+										<div class="form-group">
+                                            <label for="password_confirmation">Təkrar şifrə</label>
+                                            <input type="password" class="form-control" name="password_confirmation" placeholder="Yeni şifrənizi təkrar daxil edin"/>
+                                            <span class="text-danger error-text password_confirmation_error"></span>
+                                        </div>
                                         
                                         <button type="submit" class="btn btn-primary float-right">Məlumatları Yenilə</button>
                                     </form>

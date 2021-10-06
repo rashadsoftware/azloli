@@ -29,13 +29,6 @@ class HomeController extends Controller
         return view('front.about', compact('config'));       
     }
 
-    // service page =======================================================================>
-    public function service(){
-        $config=Config::where('config_id', 1)->first();
-
-        return view('front.service', compact('config'));       
-    }
-
     // contact page =======================================================================>
     public function contact(){
         $config=Config::where('config_id', 1)->first();
@@ -47,10 +40,8 @@ class HomeController extends Controller
             'name'=>'required|min:2|max:50|string',
             'surname'=>'required|min:2|max:100|string',
             'email'=>'required|email',
-            'phone'=>'required|regex:/^0[0-9]{9}/i|numeric',
-            'theme'=>'required|min:2|max:300',
             'message'=>'required|min:5',
-        ]);
+        ]);        
 
         $fullname=$request->name.' '.$request->surname;
 
@@ -60,8 +51,35 @@ class HomeController extends Controller
             $mail=new Message; 
             $mail->mail_user=$fullname;
             $mail->mail_email=$request->email;
-            $mail->mail_phone=$request->phone;
-            $mail->mail_theme=$request->theme;
+            
+            if ($request->filled('phone')) {
+                $validatorPhone = Validator::make($request->all(),[
+                    'phone'=>'regex:/^0[0-9]{9}/i|numeric'
+                ]);
+    
+                if(!$validatorPhone->passes()){
+                    return response()->json(['status'=>0, 'error'=>$validatorPhone->errors()->toArray()]);
+                }
+    
+                $mail->mail_phone=$request->phone;
+            } else {
+                $mail->mail_phone='';
+            }
+    
+            if ($request->filled('theme')) {
+                $validatorTheme = Validator::make($request->all(),[
+                    'theme'=>'min:2|max:300'
+                ]);
+    
+                if(!$validatorTheme->passes()){
+                    return response()->json(['status'=>0, 'error'=>$validatorTheme->errors()->toArray()]);
+                }
+    
+                $mail->mail_theme=$request->theme;
+            } else {
+                $mail->mail_theme='';
+            }
+            
             $mail->mail_text=$request->message;
             $mail->save();        
 
@@ -69,7 +87,7 @@ class HomeController extends Controller
         }
     }
 	
-	// contact page =======================================================================>
+	// login page =======================================================================>
     public function login(){
 		if(session()->has('LoggedUser')){
 			return redirect()->route('profile.dashboard');       
@@ -97,5 +115,45 @@ class HomeController extends Controller
         } else {
             return back()->with('failLogin', 'Bu hesab üçün istifadəçi tapılmadı');
         }
+    }
+
+    // register page =======================================================================>
+    public function register(){
+		if(session()->has('LoggedUser')){
+			return redirect()->route('profile.dashboard');       
+        }
+		
+        $config=Config::where('config_id', 1)->first();
+
+        return view('front.register', compact('config'));       
+    }
+    public function registerPost(Request $request){
+        $request->validate([
+            'username'=>'required|string|min:2|max:50',
+            'email'=>'required|email',
+            'password'=> 'required|min:5|max:13',
+            'password_confirmation'=> 'required|min:5|max:13'
+        ]);
+
+        if($request->password == $request->password_confirmation){
+            $checkUser=User::where('user_email', $request->email)->where('user_status', 'user')->first();
+
+            if($checkUser){
+                return back()->with('failRegister', 'Bu hesab qeydiyyatdan keçmişdir. Yenidən cəhd edin!');
+            } else {
+                $user=new User; 
+                $user->user_name=$request->username;
+                $user->user_image='';
+                $user->user_email=$request->email;
+                $user->user_password=Hash::make($request->password);
+                $user->user_status='user';
+                $user->user_state='active';
+                $user->user_ip='';
+                $user->save();
+                return redirect()->route('login')->with('successRegister', 'Təbriklər! Başarılı şəkildə qeydiyyatdan keçdiniz. Sistemə girmək üçün giriş edin zəhmət olmasa.');;
+            }
+        } else {
+            return back()->with('failRegister', 'Şifrə doğrulanması yalnışdır. Yenidən cəhd edin!');
+        }        
     }
 }

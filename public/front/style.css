@@ -70,6 +70,16 @@ ul li {
     padding: 0;
 }
 
+.btn:hover{
+	font-weight:normal
+}
+
+.table td, .table th{
+	vertical-align:center;
+	border-bottom: 1px solid #dee2e6;
+	border-top: none
+}
+			
 .bg-overlay {
     position: relative;
     z-index: 1;

@@ -79,8 +79,11 @@
 								<div class="breadcrumb-area" style="height:80px">
 									<div class="container">
 										<div class="row align-items-end">
-											<div class="breadcumb--con">
-												<h2 class="title" style="font-size:35px">@yield('title')</h2>
+											<div class="breadcumb--con w-100">
+												<div class="d-flex align-items-center justify-content-between w-100">
+													<h2 class="title" style="font-size:35px">@yield('title')</h2>
+													<a href="{{route('index')}}" class="btn btn-primary"> <i class="fa fa-globe"></i> Sayta geri qayıt</a>
+												</div>												
 												<nav aria-label="breadcrumb">
 													<ol class="breadcrumb">														
 														@yield('breadcrumb')

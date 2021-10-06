@@ -16,26 +16,29 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Notifications Dropdown Menu -->
-                <li class="nav-item dropdown">
+                @php $mailCount = DB::table('mails')->where('mail_read','unread')->count(); @endphp
+
+                @php $optional_count=$mailCount @endphp
+                <li class="nav-item dropdown mr-2">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
-                        <span class="badge badge-warning navbar-badge">10</span>
+                        
+                        <span class="badge badge-warning navbar-badge">{{$optional_count}}</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <!-- all notificaions -->
-                        <span class="dropdown-item dropdown-header">10 Bildiriş</span>
+                        <span class="dropdown-item dropdown-header">{{$optional_count}} Bildirişiniz var</span>
                         <div class="dropdown-divider"></div>
 
+                        <!-- mail notificaions -->
                         <a href="#" class="dropdown-item">
-                            <i class="fab fa-magento mr-2"></i> 5 yeni agentlik
-                        </a>
-                        <div class="dropdown-divider"></div>
-
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-copy mr-2"></i> 5 yeni elan
+                            <i class="fa fa-envelope mr-2"></i> {{$mailCount}} yeni ismarıc
                         </a>
                         <div class="dropdown-divider"></div>
                     </div>
+                </li>
+                <li>
+                    <a href="{{route('index')}}" class="btn btn-primary">Sayta Qayıt</a>
                 </li>
             </ul>
         </nav>
@@ -75,6 +78,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('admin.users')}}" class="nav-link {{ Route::is('admin.users') ? 'active' : '' }}" >
+                                <i class="nav-icon fas fa-users"></i>
+                                <p>İstifadəçilər</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('admin.mail')}}" class="nav-link {{ Route::is('admin.mail') ? 'active' : '' }}" >
                                 <i class="nav-icon fas fa-envelope"></i>
                                 <p>Poçt Qutusu</p>
@@ -84,6 +93,52 @@
                             </a>
                         </li>
                         <li class="nav-header">Sayt Tənzimləmələri</li>
+						<li class="nav-item @if(Request::segment(2) == 'category') menu-open @endif">
+                            <a href="#" class="nav-link  @if(Request::segment(2) == 'category') active @endif">
+                                <i class="nav-icon fas fa-list"></i>
+                                <p>
+                                    Kateqoriyalar
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.category') }}" class="nav-link {{ Route::is('admin.category') || Route::is('admin.category.edit') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p class="text-capitalize">Bütün Kateqoriyalar</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.category.create') }}" class="nav-link {{ Route::is('admin.category.create') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p class="text-capitalize">Kateqoriya yarat</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+						<li class="nav-item @if(Request::segment(2) == 'subcategory') menu-open @endif">
+                            <a href="#" class="nav-link  @if(Request::segment(2) == 'subcategory') active @endif">
+                                <i class="nav-icon fas fa-stream"></i>
+                                <p>
+                                    Alt Kateqoriyalar
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.subcategory') }}" class="nav-link {{ Route::is('admin.subcategory') || Route::is('admin.subcategory.edit') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p class="text-capitalize">Bütün Alt Kateqoriyalar</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.subcategory.create') }}" class="nav-link {{ Route::is('admin.subcategory.create') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p class="text-capitalize">Alt Kateqoriya yarat</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a href="{{route('admin.settings')}}" class="nav-link {{ Route::is('admin.settings') ? 'active' : '' }}">
                                 <i class="fas fa-cog"></i>
