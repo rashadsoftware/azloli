@@ -85,7 +85,7 @@
                             </div>
                         </form>
 
-                        <div class="alert alert-success mt-2" id="alert-noti"></div>
+                        <div class="alert alert-success mt-4" id="alert-noti"></div>
                     </div>
                 </div>
 

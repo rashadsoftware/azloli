@@ -31,10 +31,12 @@
                         <div class="dropdown-divider"></div>
 
                         <!-- mail notificaions -->
+                        @if($mailCount > 0)
                         <a href="#" class="dropdown-item">
                             <i class="fa fa-envelope mr-2"></i> {{$mailCount}} yeni ismarıc
                         </a>
                         <div class="dropdown-divider"></div>
+                        @endif
                     </div>
                 </li>
                 <li>

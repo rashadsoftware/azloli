@@ -103,7 +103,7 @@ class HomeController extends Controller
             'password'=> 'required|min:5|max:13'
         ]);
 
-        $user=User::where('user_email', '=', $request->email)->where('user_status', 'user')->first();
+        $user=User::where('user_email', '=', $request->email)->where('user_status', 'user')->where('user_state', 'active')->first();
 
         if($user){
             if(Hash::check($request->password, $user->user_password)){
@@ -131,7 +131,7 @@ class HomeController extends Controller
         $request->validate([
             'username'=>'required|string|min:2|max:50',
             'email'=>'required|email',
-            'password'=> 'required|min:5|max:13',
+            'password'=> 'required|min:5|max:13|required_with:password_confirmation|same:password_confirmation',
             'password_confirmation'=> 'required|min:5|max:13'
         ]);
 

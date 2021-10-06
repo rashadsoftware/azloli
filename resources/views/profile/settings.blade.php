@@ -47,7 +47,7 @@
 					</div>  
 					<span class="text-danger error-text user_image_error"></span>                                                        
 				</form>
-				<img id="preview" alt="profile" width="100" height="100" class="mt-4" src="{{asset('front/')}}/img/user/profile.png" />
+				<img id="preview" alt="profile" width="100" height="100" class="mt-4" src="{{asset('front/')}}/img/icons/profile.svg" />
 			</div>
 			<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 				<form autocomplete="off" action="{{route('profile.update.password')}}" method="POST" id="formProfilePassword" class="mt-4">

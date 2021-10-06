@@ -144,6 +144,19 @@ input:focus {
     display: none;
 }
 
+#login_eye{
+	top:50%;
+	right:10px;
+	transform:translateY(-50%);
+	cursor:pointer;
+	color:#ccc;
+	font-size:15px;
+}
+
+.fa-eye-slash{
+	color:#1583e9 !important
+}
+
 /* :: 2.0 Spacing CSS */
 .mt-15 {
     margin-top: 15px;

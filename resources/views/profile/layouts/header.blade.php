@@ -37,7 +37,7 @@
 						<div class="card box-shadow mx-auto" style="width:333px">
 							<div class="card-body">
 								@if($user->user_image == '')
-									<img src="{{asset('front/')}}/img/user/profile.png" alt="{{$user->user_name}}" class="profile-img">
+									<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$user->user_name}}" class="profile-img">
 								@else
 									<img src="{{asset('front/')}}/img/user/{{$user->user_image}}" alt="{{$user->user_name}}" class="profile-img">
 								@endif

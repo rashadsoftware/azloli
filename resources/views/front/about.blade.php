@@ -35,7 +35,7 @@
                 <!-- About Thumbnail -->
                 <div class="col-12 col-lg-6">
                     <div class="about-us-thumbnail mb-80">
-                        <img src="./img/bg-img/2.jpg" alt="">
+                        <img src="{{asset('front/')}}/img/bg-img/2.jpg" alt="">
                         <!-- Video Area -->
                         <div class="uza-video-area hi-icon-effect-8">
                             <a href="https://www.youtube.com/watch?v=sSakBz_eYzQ" class="hi-icon video-play-btn"><i class="fa fa-play" aria-hidden="true"></i></a>
@@ -46,7 +46,7 @@
                 <!-- About Us Content -->
                 <div class="col-12 col-lg-6">
                     <div class="section-heading mb-5">
-                        <h2>Our Mission</h2>
+                        <h2>Bizim Məqsədimiz</h2>
                     </div>
 
                     <div class="about-us-content mb-80">
@@ -72,7 +72,6 @@
                                     <div class="tab-content-text">
                                         <p>Lorem ipsum dolor sit amet, consetetur sadipscing esed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
                                         <p>At vero eos et accusam et justo duo dolores et ea rebum. Stet gubergren no sea takimata sanctus est Lorem ipsum dolor sit amet ipsumlor eut consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore et dolore magna liquyam erat.</p>
-                                        <a href="#" class="btn uza-btn mt-30">Get In Touch</a>
                                     </div>
                                 </div>
 
@@ -81,7 +80,6 @@
                                     <div class="tab-content-text">
                                         <p>At vero eos et accusam et justo duo dolores et ea rebum. Stet gubergren no sea takimata sanctus est Lorem ipsum dolor sit amet ipsumlor eut consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore et dolore magna liquyam erat.</p>
                                         <p>Lorem ipsum dolor sit amet, consetetur sadipscing esed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
-                                        <a href="#" class="btn uza-btn mt-30">Get In Touch</a>
                                     </div>
                                 </div>
 
@@ -90,7 +88,6 @@
                                     <div class="tab-content-text">
                                         <p>At vero eos et accusam et justo duo dolores et ea rebum. Stet gubergren no sea takimata. Lorem ipsum dolor sit amet, consetetur sadipscing esed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
                                         <p>sanctus est Lorem ipsum dolor sit amet ipsumlor eut consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore et dolore magna liquyam erat.</p>
-                                        <a href="#" class="btn uza-btn mt-30">Get In Touch</a>
                                     </div>
                                 </div>
                             </div>
@@ -145,8 +142,7 @@
             <div class="row align-items-center">
                 <div class="col-12 col-lg-8">
                     <div class="cta-content mb-80">
-                        <h2>Interested in working with us?</h2>
-                        <h6>Hit the button below or give us a call!</h6>
+                        <h2>Bizimlə tərəfdaş olmaq istəyirsiniz?</h2>
                     </div>
                 </div>
 
@@ -162,99 +158,6 @@
     </div>
     <!-- ***** CTA Area End ***** -->
 
-    <!-- ***** Client Feedback Area Start ***** -->
-    <div class="clients-feedback-area section-padding-0-80 clearfix">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <!-- Testimonial Slides -->
-                    <div class="testimonial-slides owl-carousel">
-
-                        <!-- Single Testimonial Slide -->
-                        <div class="single-testimonial-slide d-flex align-items-center">
-                            <!-- Testimonial Thumbnail -->
-                            <div class="testimonial-thumbnail">
-                                <img src="./img/bg-img/7.jpg" alt="">
-                            </div>
-                            <!-- Testimonial Content -->
-                            <div class="testimonial-content">
-                                <h4>“Colorlib Ltd’s ranking has gone up so much from the great work that your team has done and our brand get organic sales consistently from your efforts. We are happy that the results of your efforts were lasting and profitable.”</h4>
-                                <!-- Ratings -->
-                                <div class="ratings">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                </div>
-                                <!-- Author Info -->
-                                <div class="author-info">
-                                    <h5>Darrell Goodman <span>- CEO colorlib</span></h5>
-                                </div>
-                                <!-- Quote Icon -->
-                                <div class="quote-icon"><img src="img/core-img/quote.png" alt=""></div>
-                            </div>
-                        </div>
-
-                        <!-- Single Testimonial Slide -->
-                        <div class="single-testimonial-slide d-flex align-items-center">
-                            <!-- Testimonial Thumbnail -->
-                            <div class="testimonial-thumbnail">
-                                <img src="./img/bg-img/23.jpg" alt="">
-                            </div>
-                            <!-- Testimonial Content -->
-                            <div class="testimonial-content">
-                                <h4>“Colorlib Ltd’s ranking has gone up so much from the great work that your team has done and our brand get organic sales consistently from your efforts. We are happy that the results of your efforts were lasting and profitable.”</h4>
-                                <!-- Ratings -->
-                                <div class="ratings">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                </div>
-                                <!-- Author Info -->
-                                <div class="author-info">
-                                    <h5>Darrell Goodman <span>- CEO colorlib</span></h5>
-                                </div>
-                                <!-- Quote Icon -->
-                                <div class="quote-icon"><img src="img/core-img/quote.png" alt=""></div>
-                            </div>
-                        </div>
-
-                        <!-- Single Testimonial Slide -->
-                        <div class="single-testimonial-slide d-flex align-items-center">
-                            <!-- Testimonial Thumbnail -->
-                            <div class="testimonial-thumbnail">
-                                <img src="./img/bg-img/24.jpg" alt="">
-                            </div>
-                            <!-- Testimonial Content -->
-                            <div class="testimonial-content">
-                                <h4>“Colorlib Ltd’s ranking has gone up so much from the great work that your team has done and our brand get organic sales consistently from your efforts. We are happy that the results of your efforts were lasting and profitable.”</h4>
-                                <!-- Ratings -->
-                                <div class="ratings">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                </div>
-                                <!-- Author Info -->
-                                <div class="author-info">
-                                    <h5>Darrell Goodman <span>- CEO colorlib</span></h5>
-                                </div>
-                                <!-- Quote Icon -->
-                                <div class="quote-icon"><img src="img/core-img/quote.png" alt=""></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- ***** Client Feedback Area End ***** -->
-
     <!-- ***** Cool Facts Area Start ***** -->
     <div class="uza-cf-area section-padding-80-0">
         <div class="container">
@@ -265,7 +168,7 @@
                     <div class="single-cf-area d-flex align-items-center mb-80">
                         <h2><span class="counter">90</span></h2>
                         <div class="cf-text">
-                            <h6>Projects<br>Completed</h6>
+                            <h6>Ümumi<br>İstifadəçi</h6>
                         </div>
                         <div class="bg-icon"><i class="icon_piechart"></i></div>
                     </div>
@@ -276,7 +179,7 @@
                     <div class="single-cf-area d-flex align-items-center mb-80">
                         <h2><span class="counter">120</span></h2>
                         <div class="cf-text">
-                            <h6>Happy<br>clients</h6>
+                            <h6>Mövcud<br>Qruplar</h6>
                         </div>
                         <div class="bg-icon"><i class="icon_heart_alt"></i></div>
                     </div>
@@ -287,7 +190,7 @@
                     <div class="single-cf-area d-flex align-items-center mb-80">
                         <h2><span class="counter">50</span></h2>
                         <div class="cf-text">
-                            <h6>WEB<br>awards</h6>
+                            <h6>İş<br>Təklifləri</h6>
                         </div>
                         <div class="bg-icon"><i class="icon_book_alt"></i></div>
                     </div>
@@ -298,7 +201,7 @@
                     <div class="single-cf-area d-flex align-items-center mb-80">
                         <h2><span class="counter">20</span></h2>
                         <div class="cf-text">
-                            <h6>Our<br>experts</h6>
+                            <h6>Ümumi<br>İşçilər</h6>
                         </div>
                         <div class="bg-icon"><i class="icon_profile"></i></div>
                     </div>

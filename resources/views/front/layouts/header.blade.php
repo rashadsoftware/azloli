@@ -91,10 +91,16 @@
                                 </div>
 
                                 <!-- Login / Register -->
-                                <div class="login-register-btn mx-3">
+                                <div class="login-register-btn mx-1">
                                     @if(Session::has('LoggedUser'))
                                     <a href="{{route('profile.dashboard')}}">
-                                        <span> <img src="{{asset('front/')}}/img/user/profile.png" alt="" width="50" height="30"> </span>
+                                        @php $data = DB::table('users')->where('user_id',Session('LoggedUser'))->first() @endphp
+
+                                        @if($data->user_image == '')
+                                            <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> </span>
+                                        @else
+                                            <span> <img src="{{asset('front/')}}/img/user/{{$data->user_image}}" alt="" width="50" height="30" style="border-radius:50%"> </span>
+                                        @endif                                        
                                     </a>
                                     @else
                                     <a href="{{route('login')}}">

@@ -17,6 +17,7 @@ class ProfileController extends Controller
 {
     public function __construct(){
         $this->middleware('isLoggedProfile');
+        $this->middleware('isActiveProfile');
     }
     
     // index page =======================================================================>
@@ -124,8 +125,8 @@ class ProfileController extends Controller
 
         $validator = Validator::make($request->all(),[
             'oldPassword' => 'required|min:6|max:15',
-            'newpassword' => 'required|min:6|max:15',
-            'password_confirmation' => 'required|min:6|max:15|confirmed',
+            'newpassword' => 'required|min:6|max:15|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation' => 'required|min:6|max:15',
         ]);
 
         if(!$validator->passes()){

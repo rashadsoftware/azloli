@@ -35,7 +35,7 @@
 					</tr>
 					@endforeach
 					@else
-						<p>Hal-hazırda aktiv heç bir elan paylaşılmamışdır.</p>
+						<p class="mt-5">Hal-hazırda aktiv heç bir elan paylaşılmamışdır.</p>
 					@endif
 				</tbody>
 			</table>
@@ -59,7 +59,7 @@
 					</tr>
 					@endforeach
 					@else
-						<p>Hal-hazırda passif heç bir elan paylaşılmamışdır.</p>
+						<p class="mt-5">Hal-hazırda passif heç bir elan paylaşılmamışdır.</p>
 					@endif
 				</tbody>
 			</table>

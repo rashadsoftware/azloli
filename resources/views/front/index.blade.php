@@ -59,7 +59,6 @@
                             <p>Lorem ipsum dolor sit amet, consetetur sadipscing esed diam nonumy eirmod tempor invidunt ut labore et dolore magna.</p>
                             <p>At vero eos et accusam et justo duo dolores et ea rebum. Stet gubergren no sea takimata sanctus est Lorem ipsum dolor sit amet ipsumlor eut consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt labore et dolore magna
                                 liquyam erat.</p>
-                            <a href="{{route('about')}}" class="btn uza-btn btn-2 mt-4">Daha Ətraflı</a>
                         </div>
                     </div>
                 </div>
@@ -232,104 +231,6 @@
 
                     </div>
                 </div>
-            </div>
-
-            <!-- Client Feedback Area Start -->
-            <div class="clients-feedback-area mt-80 section-padding-80 clearfix">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <!-- Testimonial Slides -->
-                            <div class="testimonial-slides owl-carousel">
-
-                                <!-- Single Testimonial Slide -->
-                                <div class="single-testimonial-slide d-flex align-items-center">
-                                    <!-- Testimonial Thumbnail -->
-                                    <div class="testimonial-thumbnail">
-                                        <img src="{{asset('front/')}}/img/bg-img/7.jpg" alt="">
-                                    </div>
-                                    <!-- Testimonial Content -->
-                                    <div class="testimonial-content">
-                                        <h4>“Colorlib Ltd’s ranking has gone up so much from the great work that your team has done and our brand get organic sales consistently from your efforts. We are happy that the results of your efforts were lasting and profitable.”</h4>
-                                        <!-- Ratings -->
-                                        <div class="ratings">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                        </div>
-                                        <!-- Author Info -->
-                                        <div class="author-info">
-                                            <h5>Darrell Goodman <span>- CEO colorlib</span></h5>
-                                        </div>
-                                        <!-- Quote Icon -->
-                                        <div class="quote-icon"><img src="img/core/quote.png" alt=""></div>
-                                    </div>
-                                </div>
-
-                                <!-- Single Testimonial Slide -->
-                                <div class="single-testimonial-slide d-flex align-items-center">
-                                    <!-- Testimonial Thumbnail -->
-                                    <div class="testimonial-thumbnail">
-                                        <img src="{{asset('front/')}}/img/bg-img/23.jpg" alt="">
-                                    </div>
-                                    <!-- Testimonial Content -->
-                                    <div class="testimonial-content">
-                                        <h4>“Colorlib Ltd’s ranking has gone up so much from the great work that your team has done and our brand get organic sales consistently from your efforts. We are happy that the results of your efforts were lasting and profitable.”</h4>
-                                        <!-- Ratings -->
-                                        <div class="ratings">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                        </div>
-                                        <!-- Author Info -->
-                                        <div class="author-info">
-                                            <h5>Darrell Goodman <span>- CEO colorlib</span></h5>
-                                        </div>
-                                        <!-- Quote Icon -->
-                                        <div class="quote-icon"><img src="img/core/quote.png" alt=""></div>
-                                    </div>
-                                </div>
-
-                                <!-- Single Testimonial Slide -->
-                                <div class="single-testimonial-slide d-flex align-items-center">
-                                    <!-- Testimonial Thumbnail -->
-                                    <div class="testimonial-thumbnail">
-                                        <img src="{{asset('front/')}}/img/bg-img/24.jpg" alt="">
-                                    </div>
-                                    <!-- Testimonial Content -->
-                                    <div class="testimonial-content">
-                                        <h4>“Colorlib Ltd’s ranking has gone up so much from the great work that your team has done and our brand get organic sales consistently from your efforts. We are happy that the results of your efforts were lasting and profitable.”</h4>
-                                        <!-- Ratings -->
-                                        <div class="ratings">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                        </div>
-                                        <!-- Author Info -->
-                                        <div class="author-info">
-                                            <h5>Darrell Goodman <span>- CEO colorlib</span></h5>
-                                        </div>
-                                        <!-- Quote Icon -->
-                                        <div class="quote-icon"><img src="img/core/quote.png" alt=""></div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Client Feedback Area End -->
-
-            <!-- Border -->
-            <div class="container">
-                <div class="border-line"></div>
             </div>
 
             <!-- Background Curve -->
