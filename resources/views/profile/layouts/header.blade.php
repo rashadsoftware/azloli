@@ -59,6 +59,22 @@
 											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
 										</a>
 									</li>
+									<li>	
+										<a href="#">
+											<div>
+												<i class="fas fa-stream"></i> Kateqoriyalar
+											</div>
+											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
+										</a>
+									</li>
+									<li>	
+										<a href="#">
+											<div>
+												<i class="fas fa-tasks"></i> Referans İşlər
+											</div>
+											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
+										</a>
+									</li>
 									<li class="{{ Route::is('profile.settings') ? 'active' : '' }}">	
 										<a href="{{route('profile.settings')}}">
 											<div>
@@ -82,7 +98,7 @@
 											<div class="breadcumb--con w-100">
 												<div class="d-flex align-items-center justify-content-between w-100">
 													<h2 class="title" style="font-size:35px">@yield('title')</h2>
-													<a href="{{route('index')}}" class="btn btn-primary"> <i class="fa fa-globe"></i> Sayta geri qayıt</a>
+													<a href="{{route('index')}}" class="btn btn-primary d-flex align-items-center"> <i class="fa fa-globe mr-sm-2"></i> <span class="d-none d-sm-block">Sayta geri qayıt</span></a>
 												</div>												
 												<nav aria-label="breadcrumb">
 													<ol class="breadcrumb">														

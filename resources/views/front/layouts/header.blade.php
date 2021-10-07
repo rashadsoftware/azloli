@@ -28,27 +28,6 @@
             </div>
         </div>
 
-        <!-- ***** Top Search Area Start ***** -->
-        <div class="top-search-area">
-            <!-- Search Modal -->
-            <div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <!-- Close Button -->
-                            <button type="button" class="btn close-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                            <!-- Form -->
-                            <form action="index.html" method="post">
-                                <input type="search" name="top-search-bar" class="form-control" placeholder="Search and hit enter...">
-                                <button type="submit">Search</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- ***** Top Search Area End ***** -->
-
         <!-- ***** Header Area Start ***** -->
         <header class="header-area">
             <!-- Main Header Start -->
@@ -87,7 +66,7 @@
 
                                 <!-- Get A Quote -->
                                 <div class="get-a-quote ml-4 mr-3">
-                                    <button data-toggle="modal" data-target="#searchModal" class="btn uza-btn">Təklif Göndər</button>
+                                    <a href="{{route('adverts.add')}}" class="btn uza-btn">Təklif Göndər</a>
                                 </div>
 
                                 <!-- Login / Register -->

@@ -60,10 +60,10 @@ class ProfileController extends Controller
 			return  route('profile.adverts');
 		} 
     }
-	public function advertsUpdate(){
+    public function advertsUpdate($seftitle){
 		
     }
-	public function advertsDelete(){
+	public function advertsDelete($seftitle){
 		
     }
 

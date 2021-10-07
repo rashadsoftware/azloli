@@ -25,7 +25,7 @@
                         <h1 style="font-size:162px">404</h1>
                         <h2>Səhifə Tapılmadı</h2>
                         <p>Üzr istəyirik, axtardığınız səhifə tapılmadı. Zəhmət olmasa ana səhifəyə keçid edin.</p>
-                        <a href="{{route('index')}}" class="btn btn-primary">Ana Səhifəyə Get</a>
+                        <a href="{{route('index')}}" class="btn btn-primary">Ana Səhifə</a>
                     </div>
                 </div>
             </div>

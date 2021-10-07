@@ -156,4 +156,15 @@ class HomeController extends Controller
             return back()->with('failRegister', 'Şifrə doğrulanması yalnışdır. Yenidən cəhd edin!');
         }        
     }
+
+    // adverts add page =======================================================================>
+    public function advertsAdd(){
+		$config=Config::where('config_id', 1)->first();
+
+        if(session()->has('LoggedUser')){
+            $user=User::where('user_id', session('LoggedUser'))->first();            
+        }
+
+        return view('front.adverts-add', compact('user', 'config')); 
+    }
 }

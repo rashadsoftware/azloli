@@ -19,6 +19,9 @@ Route::post('/login', 'HomeController@loginPost')->name('login.post');
 Route::get('/register', 'HomeController@register')->name('register');
 Route::post('/register', 'HomeController@registerPost')->name('register.post');
 
+// advert add
+Route::get('/adverts/add', 'HomeController@advertsAdd')->name('adverts.add'); 
+
 // profile
 Route::prefix('/profile')->name('profile.')->group(function(){
 	
@@ -26,8 +29,8 @@ Route::prefix('/profile')->name('profile.')->group(function(){
     Route::get('/dashboard', 'ProfileController@index')->name('dashboard');
 
     // adverts
-    Route::get('/adverts', 'ProfileController@adverts')->name('adverts');
-    Route::get('/adverts/{seflink}', 'ProfileController@advertsDetail')->name('adverts.detail');
+    Route::get('/adverts', 'ProfileController@adverts')->name('adverts');       
+    Route::get('/adverts/{seflink}', 'ProfileController@advertsDetail')->name('adverts.detail');    
     Route::get('/adverts/edit/{seflink}', 'ProfileController@advertsUpdate')->name('adverts.update');
     Route::get('/adverts/delete/{seflink}', 'ProfileController@advertsDelete')->name('adverts.delete');
 

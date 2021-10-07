@@ -6,8 +6,7 @@
 <li class="breadcrumb-item"><a href="{{route('profile.dashboard')}}"><i class="fa fa-home"></i> Ana Səhifə</a></li>
 @endsection
 
-@section('content')    
-    <div class="w-100 text-right mb-3"><a href="#" class="btn btn-success"><i class="fa fa-plus"> Xidmət Ver</i></a></div>
+@section('content')
 	<nav>
 		<div class="nav nav-tabs" id="nav-tab" role="tablist">
 			<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Aktiv</a>

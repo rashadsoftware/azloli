@@ -70,16 +70,17 @@ ul li {
     padding: 0;
 }
 
-.btn:hover{
-	font-weight:normal
+.btn:hover {
+    font-weight: normal;
 }
 
-.table td, .table th{
-	vertical-align:center;
-	border-bottom: 1px solid #dee2e6;
-	border-top: none
+.table td,
+.table th {
+    vertical-align: center;
+    border-bottom: 1px solid #dee2e6;
+    border-top: none;
 }
-			
+
 .bg-overlay {
     position: relative;
     z-index: 1;
@@ -144,17 +145,17 @@ input:focus {
     display: none;
 }
 
-#login_eye{
-	top:50%;
-	right:10px;
-	transform:translateY(-50%);
-	cursor:pointer;
-	color:#ccc;
-	font-size:15px;
+#login_eye {
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ccc;
+    font-size: 15px;
 }
 
-.fa-eye-slash{
-	color:#1583e9 !important
+.fa-eye-slash {
+    color: #1583e9 !important;
 }
 
 /* :: 2.0 Spacing CSS */
@@ -481,6 +482,7 @@ input:focus {
     color: #ffffff;
     font-size: 17px;
     border: 1px solid var(--main-color);
+    font-weight: 600;
 }
 .uza-btn.btn-2 {
     background-color: var(--main-color);
