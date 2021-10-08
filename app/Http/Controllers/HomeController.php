@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Config;
 use App\Models\Message;
+use App\Models\Category;
+use App\Models\SubCategory;
 
 use Mail;
 use Validator;
@@ -148,9 +150,11 @@ class HomeController extends Controller
                 $user->user_password=Hash::make($request->password);
                 $user->user_status='user';
                 $user->user_state='active';
+                $user->user_publish='unpublish';
                 $user->user_ip='';
+                $user->user_description='';
                 $user->save();
-                return redirect()->route('login')->with('successRegister', 'Təbriklər! Başarılı şəkildə qeydiyyatdan keçdiniz. Sistemə girmək üçün giriş edin zəhmət olmasa.');;
+                return redirect()->route('login')->with('successRegister', 'Təbriklər! Başarılı şəkildə qeydiyyatdan keçdiniz. Sistemə girmək üçün giriş edin zəhmət olmasa.');
             }
         } else {
             return back()->with('failRegister', 'Şifrə doğrulanması yalnışdır. Yenidən cəhd edin!');
@@ -161,10 +165,15 @@ class HomeController extends Controller
     public function advertsAdd(){
 		$config=Config::where('config_id', 1)->first();
 
-        if(session()->has('LoggedUser')){
-            $user=User::where('user_id', session('LoggedUser'))->first();            
-        }
+        $categories=Category::all();
+        $subcategories=SubCategory::all();
 
-        return view('front.adverts-add', compact('user', 'config')); 
+        if(session()->has('LoggedUser')){
+            $user=User::where('user_id', session('LoggedUser'))->first();  
+            return view('front.adverts-add', compact('user', 'config', 'categories', 'subcategories'));           
+        } else {
+            return view('front.adverts-add', compact('config', 'categories', 'subcategories')); 
+        }
+        
     }
 }

@@ -33,6 +33,11 @@
 						<input type="email" class="form-control" id="exampleEmail" name="exampleEmail" placeholder="Email ünvanınızı daxil edin" value="{{$user->user_email}}"/>
 						<span class="text-danger error-text exampleEmail_error"></span>
 					</div>
+					<div class="form-group">
+						<label for="exampleTextArea">Özünüz haqqında</label>
+						<textarea rows="8" class="form-control" id="exampleTextArea" name="exampleTextArea" placeholder="Özünüz haqqında ətraflı məlumat daxil edin">{{$user->user_description}}</textarea>
+						<span class="text-danger error-text exampleTextArea_error"></span>
+					</div>
 					
 					<button type="submit" class="btn btn-primary float-right">Məlumatları Yenilə</button>
 				</form>

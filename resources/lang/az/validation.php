@@ -133,6 +133,7 @@ return [
         // admin section -> profile settings
         'exampleUser'           => 'İstifadəçi adı',
         'exampleEmail'          => 'E-mail ünvanı',
+        'exampleTextArea'      	=> 'Özünüz haqqında ətraflı məlumat sahəsi',
         'exampleUserIP'         => 'IP Ünvan',
         'user_image'            => 'Şəkil sahəsi',
         'oldPassword'           => 'Köhnə şifrə',
@@ -141,6 +142,7 @@ return [
         'exampleCategory'       => 'Kateqoriyanın adı',
         'exampleSubCategory'    => 'Alt kateqoriyanın adı',
         'exampleCategoryImage'  => 'Kateqoriyanın şəkli',
+        'selectSkills'  		=> 'Bacarıqlar',
 
         // front section
         'name'                  =>'Adınız',
@@ -150,6 +152,7 @@ return [
         'message'               =>'İsmarıc sahəsi',
         'username'              =>'İstifadəçi adı',
         'password_confirmation' =>'Təkrar şifrə',
+        'job_image'             =>'Referans şəkillər',
     ],
 
 ];

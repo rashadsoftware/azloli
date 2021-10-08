@@ -15,7 +15,8 @@ class AdvertTable extends Migration
             $table->bigIncrements('advert_id');
             $table->string('advert_title', 150);
 			$table->string('advert_seftitle', 200);
-            $table->string('advert_user', 200);
+            $table->string('advert_user', 200)->comment('elan verən');
+            $table->integer('personID')->comment('elanı qəbul edən');
             $table->string('advert_address', 250);
             $table->string('advert_phone', 50);
             $table->string('advert_beginwork', 50);

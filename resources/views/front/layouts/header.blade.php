@@ -14,6 +14,11 @@
             <link rel="icon" href="{{asset('front/')}}/img/{{$config->config_favicon}}">
         @endif
 
+        <!-- Fontawesome -->
+		<link rel="stylesheet" href="{{asset('front/')}}/plugins/fontawesome-free-5.15.4/css/all.css">
+        <!-- LightBox -->
+		<link rel="stylesheet" href="{{asset('front/')}}/plugins/lightbox2-2.11.3/lightbox.css">
+
         <!-- Main CSS -->
         <link rel="stylesheet" href="{{asset('front/')}}/style.css">
 		

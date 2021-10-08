@@ -19,7 +19,9 @@ class UserTable extends Migration
             $table->string('user_password', 100);
             $table->string('user_status');
             $table->string('user_state')->default('waiting');
+            $table->string('user_publish')->default('unpublish');
             $table->string('user_ip');
+            $table->text('user_description');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

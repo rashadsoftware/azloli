@@ -27,6 +27,8 @@ Route::prefix('/profile')->name('profile.')->group(function(){
 	
 	// dashboard
     Route::get('/dashboard', 'ProfileController@index')->name('dashboard');
+    Route::get('/dashboard/unpublish', 'ProfileController@unpublish')->name('dashboard.unpublish');
+    Route::get('/dashboard/publish', 'ProfileController@publish')->name('dashboard.publish');
 
     // adverts
     Route::get('/adverts', 'ProfileController@adverts')->name('adverts');       
@@ -39,6 +41,16 @@ Route::prefix('/profile')->name('profile.')->group(function(){
     Route::put('/update/optional', 'ProfileController@updateOptional')->name('update.optional');
     Route::put('/update/image', 'ProfileController@updateImage')->name('update.image');
     Route::put('/update/password', 'ProfileController@updatePassword')->name('update.password');
+	
+	// jobs
+    Route::get('/jobs', 'ProfileController@jobs')->name('jobs');
+    Route::post('/jobs', 'ProfileController@jobsAdd')->name('jobs.add');
+    Route::get('/jobs/delete/{id}', 'ProfileController@jobsDelete')->name('jobs.delete');
+	
+	// skills
+    Route::get('/skills', 'ProfileController@skills')->name('skills');
+    Route::post('/skills', 'ProfileController@skillsAdd')->name('skills.add');
+    Route::get('/skills/delete/{id}', 'ProfileController@skillsDelete')->name('skills.delete');
     
     // logout
     Route::get('/logout', 'ProfileController@logout')->name('logout');

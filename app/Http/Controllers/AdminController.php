@@ -13,6 +13,7 @@ use App\Models\Config;
 use App\Models\Message;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\Skills;
 
 use Validator;
 use Carbon\Carbon;
@@ -405,20 +406,26 @@ class AdminController extends Controller
     {
         $countSubCategory=SubCategory::where('categoryID', $id)->count();
         $fetchCategory=Category::where('category_id', $id)->first();
+		
+        $countSkilss=Skills::where('categoryID', $id)->count();
 
         if($countSubCategory > 0){
             toastr()->error('Bu kateqoriyaya məxsus alt kateqoriyalar silinən zaman silinmə baş tutacaqdır.', 'Ooops!');
             return redirect()->route('admin.category');
-        } else {
+        } else {			
+			if($countSkilss > 0){
+				toastr()->error('Bu kateqoriya bacarıqlar bölməsində istifadə olunur. Silinmə belə olan halda mümkün deyil.', 'Ooops!');
+				return redirect()->route('admin.category');
+			} else {
+				if($fetchCategory->category_image != ''){
+					$image_path = public_path().'/front/img/categories/'.$fetchCategory->category_image;                
+					unlink($image_path);
+				}
 
-            if($fetchCategory->category_image != ''){
-                $image_path = public_path().'/front/img/categories/'.$fetchCategory->category_image;                
-                unlink($image_path);
-            }
-
-            Category::find($id)->delete();
-            toastr()->success('Kateqoriya başarılı silindi', 'Təbriklər!');
-            return redirect()->route('admin.category');          
+				Category::find($id)->delete();
+				toastr()->success('Kateqoriya başarılı silindi', 'Təbriklər!');
+				return redirect()->route('admin.category'); 
+			}                     
         }  
     }
 	
@@ -507,8 +514,15 @@ class AdminController extends Controller
     }
 	public function subcategoryDelete($id)
     {
-        SubCategory::find($id)->delete();
-		toastr()->success('Alt kateqoriya başarılı şəkildə silindi', 'Təbriklər!');
-		return redirect()->route('admin.subcategory'); 
+		$countSkilss=Skills::where('subcategoryID', $id)->count();
+		
+		if($countSkilss > 0){
+			toastr()->error('Bu alt kateqoriya bacarıqlar bölməsində istifadə olunur. Silinmə belə olan halda mümkün deyil.', 'Ooops!');
+			return redirect()->route('admin.subcategory');
+		} else {
+			SubCategory::find($id)->delete();
+			toastr()->success('Alt kateqoriya başarılı şəkildə silindi', 'Təbriklər!');
+			return redirect()->route('admin.subcategory'); 
+		}
     }
 }

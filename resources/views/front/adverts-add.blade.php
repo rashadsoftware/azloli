@@ -1,6 +1,6 @@
 @extends('front.layouts.header')
 
-@section('title', 'Giriş')
+@section('title', 'İşçi Axtarma')
 
 		<!-- ***** Login Area Start ***** -->
 		<section class="position-relative" style="padding:120px 0">
@@ -12,48 +12,21 @@
 				<div class="d-flex align-items-center justify-content-center" style="min-height:63vh">
 					<div class="card box-shadow w-50">
 						<div class="card-body">
-							<h2 class="mb-4">Giriş</h2>
+							<h2 class="mb-4">İşçi Axtarma</h2>
 							<form autocomplete="off" action="{{route('profile.update.password')}}" method="POST" id="formProfilePassword" class="mt-4 w-100">
                             @csrf
                             <div class="form-group">
                                 <label for="oldPassword">Kateqoriya</label>
                                 <select class="form-control " name="exampleCategory" id="exampleCategory">
                                     <option value="">Kateqoriya seçin</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->category_id}}">{{$category->category_title}}</option>
+                                    @endforeach
                                 </select>
                                 <span class="text-danger error-text oldPassword_error"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="oldPassword">Alt Kateqoriya</label>
-                                <select class="form-control " name="exampleCategory" id="exampleCategory">
-                                    <option value="">Kateqoriya seçin</option>
-                                </select>
-                                <span class="text-danger error-text oldPassword_error"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="oldPassword">Şəhər</label>
-                                <select class="form-control " name="exampleCategory" id="exampleCategory">
-                                    <option value="">Kateqoriya seçin</option>
-                                </select>
-                                <span class="text-danger error-text oldPassword_error"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="oldPassword">Rayon</label>
-                                <select class="form-control " name="exampleCategory" id="exampleCategory">
-                                    <option value="">Kateqoriya seçin</option>
-                                </select>
-                                <span class="text-danger error-text oldPassword_error"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="oldPassword">Ünvan</label>
-                                <input type="text" class="form-control " id="exampleSubCategory" placeholder="Alt kateqoriyanın adını daxil edin" name="exampleSubCategory" value="">
-                                <span class="text-danger error-text oldPassword_error"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="oldPassword">İş Haqqında Ətraflı</label>
-                                <textarea name="" id="" cols="30" rows="10" placeholder="" class="form-control"></textarea>
                             </div>
                             
-                            <button type="submit" class="btn btn-primary float-right mt-4">Təklif Yerləşdir</button>        
+                            <button type="submit" class="btn btn-primary float-right mt-4">İşçi Axtar</button>        
                         </form>
 						</div>
 					</div>

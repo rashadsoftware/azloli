@@ -14,6 +14,11 @@
             <link rel="icon" href="{{asset('front/')}}/img/{{$config->config_favicon}}">
         @endif
 
+		<!-- Fontawesome -->
+		<link rel="stylesheet" href="{{asset('front/')}}/plugins/fontawesome-free-5.15.4/css/all.css">
+		<!-- LightBox -->
+		<link rel="stylesheet" href="{{asset('front/')}}/plugins/lightbox2-2.11.3/lightbox.css">
+
         <!-- Main CSS -->
         <link rel="stylesheet" href="{{asset('front/')}}/style.css">
         <link rel="stylesheet" href="{{asset('front/')}}/css/profile.css">
@@ -59,16 +64,16 @@
 											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
 										</a>
 									</li>
-									<li>	
-										<a href="#">
+									<li class="{{ Route::is('profile.skills') ? 'active' : '' }}">	
+										<a href="{{route('profile.skills')}}">
 											<div>
-												<i class="fas fa-stream"></i> Kateqoriyalar
+												<i class="fas fa-stream"></i> Bacarıqlar
 											</div>
 											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
 										</a>
 									</li>
-									<li>	
-										<a href="#">
+									<li class="{{ Route::is('profile.jobs') ? 'active' : '' }}">	
+										<a href="{{route('profile.jobs')}}">
 											<div>
 												<i class="fas fa-tasks"></i> Referans İşlər
 											</div>
@@ -92,13 +97,20 @@
 						<div class="card box-shadow w-100">
 							<div class="card-body">								
 								<!-- ***** Breadcrumb Area Start ***** -->
-								<div class="breadcrumb-area" style="height:80px">
+								<div class="breadcrumb-area" style="height:120px">
 									<div class="container">
 										<div class="row align-items-end">
 											<div class="breadcumb--con w-100">
 												<div class="d-flex align-items-center justify-content-between w-100">
 													<h2 class="title" style="font-size:35px">@yield('title')</h2>
-													<a href="{{route('index')}}" class="btn btn-primary d-flex align-items-center"> <i class="fa fa-globe mr-sm-2"></i> <span class="d-none d-sm-block">Sayta geri qayıt</span></a>
+													<div class="d-flex">
+														<a href="{{route('index')}}" class="btn btn-primary d-flex align-items-center mr-2"> <i class="fa fa-globe mr-md-2"></i> <span class="d-none d-md-block">Sayta geri qayıt</span></a>
+														@if($user->user_publish == 'unpublish')
+															<a href="{{route('profile.dashboard.publish')}}" class="btn btn-primary d-flex align-items-center"> <i class="fas fa-upload mr-md-2"></i> <span class="d-none d-md-block">Yayına Başla</span></a>
+														@else
+															<a href="{{route('profile.dashboard.unpublish')}}" class="btn btn-primary d-flex align-items-center"> <i class="fa fa-download mr-md-2"></i> <span class="d-none d-md-block">Yayını Dayandır</span></a>
+														@endif														
+													</div>													
 												</div>												
 												<nav aria-label="breadcrumb">
 													<ol class="breadcrumb">														
@@ -107,6 +119,23 @@
 													</ol>
 												</nav>
 											</div>
+										</div>
+										<div class="row">
+											@if($message=Session::get('successDashboard'))
+											<div class="w-100 mt-1">
+												<div class="alert alert-success">
+													{{ $message }}
+												</div>
+											</div>
+											@endif
+											
+											@if($message=Session::get('alertDashboard'))
+											<div class="w-100 mt-1">
+												<div class="alert alert-info">
+													{{ $message }}
+												</div>
+											</div>
+											@endif
 										</div>
 									</div>
 								</div>

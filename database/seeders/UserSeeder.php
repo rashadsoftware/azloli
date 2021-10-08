@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
             'user_password' => Hash::make('qasimov24123'),
             'user_status' => 'admin',
             'user_state' => 'active',
+            'user_description' => '',
             'user_ip' => '127.0.0.1'],
 
             ['user_name' => 'Xalid',
@@ -25,6 +26,7 @@ class UserSeeder extends Seeder
             'user_password' => Hash::make('123456'),
             'user_status' => 'admin',
             'user_state' => 'active',
+            'user_description' => '',
             'user_ip' => '127.0.0.1']
         ]);
     }
