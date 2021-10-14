@@ -17,9 +17,12 @@ class UserTable extends Migration
             $table->string('user_image', 60);
             $table->string('user_email', 100);
             $table->string('user_password', 100);
-            $table->string('user_status');
-            $table->string('user_state')->default('waiting');
-            $table->string('user_publish')->default('unpublish');
+            $table->string('user_address', 250);
+            $table->string('user_phone', 15);
+            $table->string('user_status')->default('user')->comment('user', 'admin');
+            $table->string('user_state')->default('waiting')->comment('waiting', 'active', 'passive');
+            $table->string('user_publish')->default('unpublish')->comment('publish', 'unpublish');
+            $table->string('user_activate')->default('simple')->comment('simple', 'premium');
             $table->string('user_ip');
             $table->text('user_description');
             $table->timestamp('created_at')->useCurrent();

@@ -7,7 +7,7 @@
 @import url(css/style.css);
 /* :: 1.0 Reboot CSS */
 :root {
-    --main-color: #1583e9;
+    --main-color: red; /* #1583e9 */
 }
 
 * {
@@ -29,6 +29,10 @@ h6 {
     color: #303030;
     line-height: 1.4;
     font-weight: 600;
+}
+
+.breakpoint-on .classy-navbar .classy-menu {
+    overflow-y: hidden !important;
 }
 
 a,
@@ -68,6 +72,17 @@ ul {
 ul li {
     margin: 0;
     padding: 0;
+}
+
+.ulCateList {
+    padding: 0px;
+}
+
+.ulCateList li {
+    padding: 3px 7px;
+}
+.ulCateList li:hover {
+    background-color: #eee;
 }
 
 .btn:hover {
@@ -775,8 +790,6 @@ input:focus {
     border: none;
     box-shadow: 0 0 30px 15px rgba(0, 0, 0, 0.08);
     border-radius: 6px;
-    font-size: 12px;
-    font-style: italic;
     padding: 0 20px;
 }
 .top-search-area form input:focus {
@@ -798,6 +811,9 @@ input:focus {
     text-align: center;
     color: #ffffff;
     cursor: pointer;
+}
+.top-search-area form button:focus {
+    outline: none;
 }
 @media only screen and (max-width: 767px) {
     .top-search-area form button {

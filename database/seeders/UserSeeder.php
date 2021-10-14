@@ -16,7 +16,10 @@ class UserSeeder extends Seeder
             'user_email' => 'rashadalakbarov2020@gmail.com',
             'user_password' => Hash::make('qasimov24123'),
             'user_status' => 'admin',
+            'user_address' => '',
             'user_state' => 'active',
+			'user_publish' => '',
+			'user_activate' => '',
             'user_description' => '',
             'user_ip' => '127.0.0.1'],
 
@@ -25,7 +28,10 @@ class UserSeeder extends Seeder
             'user_email' => 'xalid@gmail.com',
             'user_password' => Hash::make('123456'),
             'user_status' => 'admin',
+			'user_address' => '',
             'user_state' => 'active',
+            'user_publish' => '',
+            'user_activate' => '',
             'user_description' => '',
             'user_ip' => '127.0.0.1']
         ]);

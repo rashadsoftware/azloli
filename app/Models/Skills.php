@@ -15,4 +15,8 @@ class Skills extends Model
     public function getSubCategory(){
         return $this->hasOne(SubCategory::class, 'subcategory_id', 'subcategoryID');
     }
+	
+	public function getUser(){
+        return $this->hasOne(User::class, 'user_id', 'userID');
+    }
 }

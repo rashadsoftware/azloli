@@ -141,7 +141,7 @@ class ProfileController extends Controller
 		
 		$skillsCount=Skills::where('userID', $id)->count();
 		$skills=Skills::where('userID', $id)->get();
-		$subcategories=SubCategory::all();
+		$subcategories=SubCategory::where('subcategory_state', 'active')->get();
 
         if(session()->has('LoggedUser')){
             $user=User::where('user_id', session('LoggedUser'))->first();            
@@ -158,11 +158,14 @@ class ProfileController extends Controller
 		
 		$checkSkills=Skills::where('subcategoryID', $request->selectSkills)->where('userID', $id)->first();
 		
+		$categorySkills=SubCategory::where('subcategory_id', $request->selectSkills)->first();
+		
 		if($checkSkills){
 			return back()->with('errorSkills', 'Bu bacarıq artıq qeydə alınıb');
 		} else {
 			$skills=new Skills;		
 			$skills->userID=$id;    
+			$skills->categoryID=$categorySkills->categoryID;  
 			$skills->subcategoryID=$request->selectSkills;  
 			$skills->save();
 			
@@ -189,6 +192,8 @@ class ProfileController extends Controller
         $validator = Validator::make($request->all(),[
             'exampleUser' => 'required|min:3|max:100',
             'exampleEmail' => 'required|email',
+            'userPhone'=>'required|regex:/^0[0-9]{9}/i|numeric',
+            'exampleAddress' => 'required|min:3|max:3000',
             'exampleTextArea' => 'required|min:3|max:3000',
         ]);
 
@@ -198,6 +203,8 @@ class ProfileController extends Controller
             $user=User::where('user_id', $id)->first();
             $user->user_name=$request->exampleUser;
             $user->user_email=$request->exampleEmail;
+            $user->user_phone=$request->userPhone;
+            $user->user_address=$request->exampleAddress;
             $user->user_description=$request->exampleTextArea;
             $user->save();        
     

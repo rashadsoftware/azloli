@@ -336,7 +336,7 @@ class AdminController extends Controller
     }
     public function categoryInsert(Request $request){        
         $request->validate([
-            'exampleCategory' => 'required|min:3|max:30',
+            'exampleCategory' => 'required|min:3|max:60',
             'exampleCategoryImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -372,7 +372,7 @@ class AdminController extends Controller
 	public function categoryUpdate(Request $request, $id)
     {
         $request->validate([
-            'exampleCategory' => 'required|min:3|max:30'
+            'exampleCategory' => 'required|min:3|max:60'
         ]);
 
         $isExistCategory=Category::where('category_seftitle', Str::slug($request->exampleCategory))->first();
@@ -440,10 +440,22 @@ class AdminController extends Controller
 
         return view('admin.subcategory', compact('user', 'subcategories', 'categoriesCount'));
     }
-    public function toggleSubCategory(Request $request){
+    public function toggleSubCategory(Request $request){        
         $subcategory=SubCategory::findOrFail($request->getID);
-        $subcategory->subcategory_state=$request->getStatus=="true" ? 'active' : 'passive';
-        $subcategory->save();
+
+        $categoryCheck=Category::where('category_id', $subcategory->categoryID)->first();
+
+        if($categoryCheck->category_state == 'active'){
+            $subcategory->subcategory_state=$request->getStatus=="true" ? 'active' : 'passive';
+            $subcategory->save();
+
+            if($request->getStatus=="false"){
+                $skills=Skills::where('subcategoryID', $request->getID)->get();
+                foreach($skills as $skill){
+                    $skill->delete();
+                }                
+            }
+        }
     }
     public function subcategoryCreate(){        
         if(session()->has('LoggedAdmin')){
@@ -457,7 +469,7 @@ class AdminController extends Controller
     public function subcategoryInsert(Request $request){        
         $request->validate([
             'exampleCategory'   => 'required',
-            'exampleSubCategory' => 'required|min:3|max:30',
+            'exampleSubCategory' => 'required|min:3|max:60',
         ]);
 
         $isExistSubCategory=SubCategory::where('subcategory_seftitle', Str::slug($request->exampleSubCategory))->where('categoryID', '=', $request->exampleCategory)->first();
@@ -490,7 +502,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'exampleCategory' => 'required',
-            'exampleSubCategory' => 'required|min:3|max:30'
+            'exampleSubCategory' => 'required|min:3|max:60'
         ]);
 
         $subcategory=SubCategory::findOrFail($id);

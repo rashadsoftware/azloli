@@ -74,6 +74,31 @@
         <script src="{{asset('front/')}}/js/default-assets/active.js"></script>
         <!-- Main js -->
         <script src="{{asset('front/')}}/js/main.js"></script>
+		
+		<script>
+			$(function(){				
+				$('#top_search_bar').keyup(function(){ 
+                    var query = $(this).val();
+                    if(query != ''){
+                        var _token = $('input[name="_token"]').val();
+                        $.ajax({
+                            url:"{{ route('autocomplete') }}",
+                            method:"POST",
+                            data:{query:query, _token:_token},
+                            success:function(data){
+                                $('#categoryList').fadeIn();  
+                                $('#categoryList').html(data);
+                            }
+                        });
+                    }
+                });
+
+                $(document).on('click', '.ulCateList li', function(){  
+                    $('#top_search_bar').val($(this).text());  
+                    $('#categoryList').fadeOut();  
+                }); 
+			})
+		</script>
 
 		@yield('js')
     </body>

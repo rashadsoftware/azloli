@@ -25,4 +25,15 @@ class User extends Model
                 break;
         }
     }
+
+    public function getPhoneAttribute() {
+        $phone = $this->user_phone;
+    
+        $prefix = substr($phone, 1, 2);
+        $suffix3 = substr($phone, 3, 3);
+        $suffix2 = substr($phone, 6, 2);
+        $suffix = substr($phone, 8, 2);
+    
+        return "{$prefix} {$suffix3}-{$suffix2}-{$suffix}";
+    }
 }

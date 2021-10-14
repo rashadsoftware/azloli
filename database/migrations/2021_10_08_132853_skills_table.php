@@ -13,6 +13,7 @@ class SkillsTable extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_turkish_ci';
             $table->bigIncrements('skill_id');
+            $table->string('categoryID', 150);
             $table->string('subcategoryID', 150);
 			$table->bigInteger('userID')->unsigned();
             $table->timestamp('created_at')->useCurrent();

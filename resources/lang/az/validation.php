@@ -133,7 +133,9 @@ return [
         // admin section -> profile settings
         'exampleUser'           => 'İstifadəçi adı',
         'exampleEmail'          => 'E-mail ünvanı',
+        'exampleAddress'        => 'Yaşayış ünvanınız',
         'exampleTextArea'      	=> 'Özünüz haqqında ətraflı məlumat sahəsi',
+        'userPhone'      	    => 'Əlaqə nömrəsi',
         'exampleUserIP'         => 'IP Ünvan',
         'user_image'            => 'Şəkil sahəsi',
         'oldPassword'           => 'Köhnə şifrə',

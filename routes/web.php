@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 ====================================================> */
 Route::get('/', 'HomeController@index')->name('index');
 Route::get('/about', 'HomeController@about')->name('about');
+Route::post('/search', 'HomeController@search')->name('search');
+Route::post('/autocomplete', 'HomeController@autocomplete')->name('autocomplete');
+Route::get('/user/{id}', 'HomeController@userDetail')->name('user.detail');
 
 // contact
 Route::get('/contact', 'HomeController@contact')->name('contact');
@@ -18,9 +21,6 @@ Route::post('/login', 'HomeController@loginPost')->name('login.post');
 // register
 Route::get('/register', 'HomeController@register')->name('register');
 Route::post('/register', 'HomeController@registerPost')->name('register.post');
-
-// advert add
-Route::get('/adverts/add', 'HomeController@advertsAdd')->name('adverts.add'); 
 
 // profile
 Route::prefix('/profile')->name('profile.')->group(function(){

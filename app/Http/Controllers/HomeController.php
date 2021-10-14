@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 use App\Models\User;
 use App\Models\Config;
 use App\Models\Message;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\Jobs;
+use App\Models\Skills;
 
 use Mail;
 use Validator;
@@ -148,10 +151,10 @@ class HomeController extends Controller
                 $user->user_image='';
                 $user->user_email=$request->email;
                 $user->user_password=Hash::make($request->password);
-                $user->user_status='user';
                 $user->user_state='active';
-                $user->user_publish='unpublish';
                 $user->user_ip='';
+                $user->user_address='';
+                $user->user_phone='';
                 $user->user_description='';
                 $user->save();
                 return redirect()->route('login')->with('successRegister', 'Təbriklər! Başarılı şəkildə qeydiyyatdan keçdiniz. Sistemə girmək üçün giriş edin zəhmət olmasa.');
@@ -160,20 +163,97 @@ class HomeController extends Controller
             return back()->with('failRegister', 'Şifrə doğrulanması yalnışdır. Yenidən cəhd edin!');
         }        
     }
-
-    // adverts add page =======================================================================>
-    public function advertsAdd(){
+	
+	// other page =======================================================================>
+	public function search(Request $request){
 		$config=Config::where('config_id', 1)->first();
+		
+		$data=$request->top_search_bar;
 
-        $categories=Category::all();
-        $subcategories=SubCategory::all();
+        $catCount=Category::where('category_seftitle', Str::slug($data))->where('category_state', 'active')->count();   
+        $catID=Category::where('category_seftitle', Str::slug($data))->where('category_state', 'active')->first();    
+                     
+		if($catCount > 0){
+			$skills=array();
+            $workers=array();
+            $publish=array();
+			
+			$skills_check=Skills::where('categoryID', $catID->category_id)->get();
+            $skills_count=Skills::where('categoryID', $catID->category_id)->count();
 
-        if(session()->has('LoggedUser')){
-            $user=User::where('user_id', session('LoggedUser'))->first();  
-            return view('front.adverts-add', compact('user', 'config', 'categories', 'subcategories'));           
-        } else {
-            return view('front.adverts-add', compact('config', 'categories', 'subcategories')); 
+            if($skills_count > 0){
+                foreach($skills_check as $skillItem){
+                    array_push($skills, $skillItem->userID);
+                }
+                
+                $skill_users=array_unique($skills); // bir dizideki eyni deyerler birlesdi
+                
+                foreach($skill_users as $skill_user){
+                    $worker_data=User::where('user_id',$skill_user)->where('user_status', 'user')->first();
+                    array_push($workers, $worker_data);
+
+                    array_push($publish, $worker_data->user_publish);
+                }
+
+                $arr = array_diff($publish, array("unpublish"));
+
+                return view('front.search', compact('data', 'config', 'catCount', 'workers', 'skills_count', 'catID', 'arr')); 	
+            } else {
+                return view('front.search', compact('data', 'config', 'catCount', 'skills_count', 'catID')); 	
+            }	
+		} else {
+			return view('front.search', compact('data', 'config', 'catCount')); 
+		}
+    }
+	
+	public function userDetail($id){
+		$config=Config::where('config_id', 1)->first();
+		
+		$userData=User::where('user_status', 'user')->where('user_id',$id)->where('user_publish', 'publish')->first();
+		
+		if($userData){
+            $categoryID=array();
+            $category=array();
+
+            $skills=Skills::where('userID', $id)->get();
+
+            $images=Jobs::where('userID', $id)->get();
+
+            foreach($skills as $skill){                
+                array_push($categoryID, $skill->categoryID);
+            }
+
+            $uniqCat=array_unique($categoryID);
+            foreach($uniqCat as $categoryItem){   
+                $userCategory=Category::where('category_id', $categoryItem)->first();
+
+                array_push($category, $userCategory->category_title);
+            }
+			
+			return view('front.user-detail', compact('config', 'userData', 'category', 'images')); 
+		} else {
+            return redirect()->route('index');
+        }   
+    }
+	
+	public function autocomplete(Request $request){
+		if($request->get('query')){
+            $query = $request->get('query');
+
+            $data = Category::where('category_title', 'LIKE', "%{$query}%")->get();
+
+            $dataCount = Category::where('category_title', 'LIKE', "%{$query}%")->count();
+
+            if($dataCount > 0){
+                $output = '<ul class="dropdown-menu w-100 ulCateList" style="display:block; position:relative">';
+                foreach($data as $row){
+                $output .= '
+                    <li><a href="#">'.$row->category_title.'</a></li>
+                ';
+                }
+                $output .= '</ul>';
+                echo $output;
+            }            
         }
-        
     }
 }

@@ -32,6 +32,30 @@
                 <div class="cssload-loader"></div>
             </div>
         </div>
+		
+		<!-- ***** Top Search Area Start ***** -->
+		<div class="top-search-area">
+			<!-- Search Modal -->
+			<div class="modal fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-body">
+							<!-- Close Button -->
+							<button type="button" class="btn close-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                            <form action="{{route('search')}}" method="post" autocomplete="off">
+                                <div class="form-group">
+                                    <input type="text" name="top_search_bar" id="top_search_bar" class="form-control" placeholder="Kateqoriya daxil edin..." />
+                                    <div id="categoryList"></div>
+                                </div>
+                                {{ csrf_field() }}
+								<button type="submit">Axtar</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ***** Top Search Area End ***** -->
 
         <!-- ***** Header Area Start ***** -->
         <header class="header-area">
@@ -71,7 +95,7 @@
 
                                 <!-- Get A Quote -->
                                 <div class="get-a-quote ml-4 mr-3">
-                                    <a href="{{route('adverts.add')}}" class="btn uza-btn">Təklif Göndər</a>
+                                    <div data-toggle="modal" data-target="#searchModal" class="btn uza-btn">Təklif Göndər</div>
                                 </div>
 
                                 <!-- Login / Register -->

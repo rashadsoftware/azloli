@@ -34,6 +34,16 @@
 						<span class="text-danger error-text exampleEmail_error"></span>
 					</div>
 					<div class="form-group">
+						<label for="exampleAddress">Ünvan</label>
+						<input type="text" class="form-control" id="exampleAddress" name="exampleAddress" placeholder="Ünvanınızı daxil edin" value="{{$user->user_address}}"/>
+						<span class="text-danger error-text exampleAddress_error"></span>
+					</div>
+					<div class="form-group">
+						<label for="userPhone">Telefon</label>
+						<input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="Əlaqə nömrəsini daxil edin" value="{{$user->user_phone}}"  minlength=10 maxlength=10 />
+						<span class="text-danger error-text userPhone_error"></span>
+					</div>
+					<div class="form-group">
 						<label for="exampleTextArea">Özünüz haqqında</label>
 						<textarea rows="8" class="form-control" id="exampleTextArea" name="exampleTextArea" placeholder="Özünüz haqqında ətraflı məlumat daxil edin">{{$user->user_description}}</textarea>
 						<span class="text-danger error-text exampleTextArea_error"></span>
