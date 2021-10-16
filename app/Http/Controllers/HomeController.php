@@ -240,9 +240,9 @@ class HomeController extends Controller
 		if($request->get('query')){
             $query = $request->get('query');
 
-            $data = Category::where('category_title', 'LIKE', "%{$query}%")->get();
+            $data = Category::where('category_title', 'LIKE', "%{$query}%")->where('category_state', 'active')->get();
 
-            $dataCount = Category::where('category_title', 'LIKE', "%{$query}%")->count();
+            $dataCount = Category::where('category_title', 'LIKE', "%{$query}%")->where('category_state', 'active')->count();
 
             if($dataCount > 0){
                 $output = '<ul class="dropdown-menu w-100 ulCateList" style="display:block; position:relative">';

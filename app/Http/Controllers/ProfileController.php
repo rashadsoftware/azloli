@@ -32,10 +32,12 @@ class ProfileController extends Controller
         $skillsCount=Skills::where('userID', $id)->count();
 		$skills=Skills::where('userID', $id)->get();
 
+        $images=Jobs::where('userID', $id)->get();
+
         if(session()->has('LoggedUser')){
             $user=User::where('user_id', session('LoggedUser'))->first();            
         }
-        return view('profile.index', compact('user', 'config', 'skillsCount', 'skills'));       
+        return view('profile.index', compact('user', 'config', 'skillsCount', 'skills', 'images'));       
     }
     public function publish(){
         $id=session('LoggedUser');

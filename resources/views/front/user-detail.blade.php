@@ -37,14 +37,14 @@
             <div class="row justify-content-between align-items-end">
                 <div class="col-12 col-md-6">
                     <div class="portfolio-details-text">
-                        <h2>{{$userData->user_name}}</h2>
+                        <h2 class="text-capitalize">{{$userData->user_name}}</h2>
                         <h6>{{implode(',', $category)}}</h6>
                         <p>{{$userData->user_description}}</p>
                     </div>
                 </div>
-                <div class="col-12 col-md-4 col-lg-3">
+                <div class="col-12 col-md-4">
                     <div class="portfolio-meta">
-                        <h6><span class="font-weight-bold">İstifadəçi:</span> {{$userData->user_name}}</h6>
+                        <h6 class="text-capitalize"><span class="font-weight-bold">İstifadəçi:</span> {{$userData->user_name}}</h6>
                         <h6><span class="font-weight-bold">Qeydiyyat tarixi:</span> {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $userData->created_at)->format('Y/m/d') }}</h6>
 
                         @if($userData->user_address != '')
@@ -54,13 +54,14 @@
                         @if($userData->user_phone != '')
                         <h6><span class="font-weight-bold">Əlaqə:</span> (+994){{$userData->getPhoneAttribute()}}</h6>
                         @endif
+                        <a href="#" class="btn uza-btn mt-3">Təklif Göndər</a>
                     </div>
                 </div>
             </div>
 
             <div class="row mt-80">
                 @foreach($images as $image)
-                <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-6 col-md-4 col-lg-3">
                     <div class="portfolio-thumbnail mb-3"style="box-shadow: 0 0 10px rgb(0,0,0,0.5); padding: 15px;">
                         <img src="{{asset('front/')}}/img/jobs/{{$image->job_image}}" alt="">
                     </div>

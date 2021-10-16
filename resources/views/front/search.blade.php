@@ -83,7 +83,7 @@
 								<!-- Overlay Effect -->
 								<div class="overlay-effect">
 									<h4>{{$worker->user_name}}</h4>
-									<p>{{$worker->user_description}}</p>
+									<p>{{ Str::limit($worker->user_description,40) }}</p>
 								</div>
 								<div class="team-social-info">
 									<a href="{{route('user.detail', $worker->user_id)}}" class="btn btn-success">Daha Ətraflı</a>

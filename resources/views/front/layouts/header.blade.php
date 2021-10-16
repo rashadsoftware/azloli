@@ -95,7 +95,7 @@
 
                                 <!-- Get A Quote -->
                                 <div class="get-a-quote ml-4 mr-3">
-                                    <div data-toggle="modal" data-target="#searchModal" class="btn uza-btn">Təklif Göndər</div>
+                                    <div data-toggle="modal" data-target="#searchModal" class="btn uza-btn">İşçi Axtar</div>
                                 </div>
 
                                 <!-- Login / Register -->
