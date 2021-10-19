@@ -16,17 +16,19 @@
             <table class="table">    
                 <tbody>
                     <tr>
-                        <th scope="row">Ad Soyad</th>
-                        <td class="text-capitalize">{{$user->user_name}}</td>
+                        <th scope="row">İstifadəçi</th>
+                        <td>{{$user->user_name}}</td>
                     </tr>
                     <tr>
                         <th scope="row">E-poçt</th>
                         <td>{{$user->user_email}}</td>
                     </tr>
+                    @if($user->user_phone != '')
                     <tr>
                         <th scope="row">Telefon</th>
                         <td>{{$user->user_phone}}</td>
                     </tr>
+                    @endif
                     <tr>
                         <th scope="row">Qeydiyyat tarixi</th>
                         <td>{{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('Y/m/d') }}</td>
@@ -52,14 +54,19 @@
                 </tbody>
             </table>
         </div>
-    </div>   
+    </div>  
+    @if($user->user_description != '') 
     <div class="row">
         <div class="col-12">
             <p class="mb-0">{{$user->user_description}}</p>
         </div>
     </div> 
+    @endif
+    
     <hr>
     <h5 class="text-capitalize">Referans işlər</h5>
+    
+    @if($imagesCount > 0)
     <div class="row">
         @foreach($images as $image)
         <div class="col-6 col-md-4 col-lg-3">
@@ -67,6 +74,10 @@
         </div>
         @endforeach
     </div>
+    @else 
+        <p class="mt-4">Bu istifadəçiyə dair heç bir iş paylaşılmamışdır.</p>
+    @endif
+    
     <hr>
     <h5 class="text-capitalize">İstifadəçinin bacarıqları</h5>
     @if($skillsCount > 0)

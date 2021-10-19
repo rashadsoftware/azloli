@@ -22,19 +22,15 @@ Route::post('/login', 'HomeController@loginPost')->name('login.post');
 Route::get('/register', 'HomeController@register')->name('register');
 Route::post('/register', 'HomeController@registerPost')->name('register.post');
 
-// profile
+
+/* Profile section 
+====================================================> */
 Route::prefix('/profile')->name('profile.')->group(function(){
 	
 	// dashboard
     Route::get('/dashboard', 'ProfileController@index')->name('dashboard');
     Route::get('/dashboard/unpublish', 'ProfileController@unpublish')->name('dashboard.unpublish');
     Route::get('/dashboard/publish', 'ProfileController@publish')->name('dashboard.publish');
-
-    // adverts
-    Route::get('/adverts', 'ProfileController@adverts')->name('adverts');       
-    Route::get('/adverts/{seflink}', 'ProfileController@advertsDetail')->name('adverts.detail');    
-    Route::get('/adverts/edit/{seflink}', 'ProfileController@advertsUpdate')->name('adverts.update');
-    Route::get('/adverts/delete/{seflink}', 'ProfileController@advertsDelete')->name('adverts.delete');
 
     // settings
     Route::get('/settings', 'ProfileController@settings')->name('settings');
@@ -54,6 +50,26 @@ Route::prefix('/profile')->name('profile.')->group(function(){
     
     // logout
     Route::get('/logout', 'ProfileController@logout')->name('logout');
+});
+
+
+/* Chat section 
+====================================================> */
+Route::prefix('/chat')->name('chat.')->group(function(){
+	
+	// index
+    Route::get('/index', 'ChatController@index')->name('index');
+    Route::post('/index', 'ChatController@indexPost')->name('index.post');
+	
+	// login
+    Route::get('/login', 'ChatController@login')->name('login');
+    Route::post('/login', 'ChatController@loginPost')->name('login.post');
+	
+	// users
+    Route::get('/users', 'ChatController@users')->name('users');
+	
+	// chat
+    Route::get('/chat', 'ChatController@chat')->name('chat');
 });
 
 

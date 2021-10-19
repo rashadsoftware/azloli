@@ -26,6 +26,10 @@ class ProfileController extends Controller
     // index page =======================================================================>
     public function index(){
         $id=session('LoggedUser');
+
+        $user=User::where('user_id', $id)->first();
+        $user->user_online='online';
+        $user->save(); 
         
         $config=Config::where('config_id', 1)->first();
 
@@ -33,66 +37,32 @@ class ProfileController extends Controller
 		$skills=Skills::where('userID', $id)->get();
 
         $images=Jobs::where('userID', $id)->get();
+        $imagesCount=Jobs::where('userID', $id)->count();
 
         if(session()->has('LoggedUser')){
             $user=User::where('user_id', session('LoggedUser'))->first();            
         }
-        return view('profile.index', compact('user', 'config', 'skillsCount', 'skills', 'images'));       
+        return view('profile.index', compact('user', 'config', 'skillsCount', 'skills', 'images', 'imagesCount'));       
     }
     public function publish(){
         $id=session('LoggedUser');
 		
 		$user=User::where('user_id', $id)->first();
 		$user->user_publish='publish';
+        $user->user_online='online';
 		$user->save(); 
 		
-		return redirect()->route('profile.dashboard')->with('successDashboard', 'Təbriklər! Yayımı başlatdınız. Zəhmət olmasa sizə iş təklifinin gəlib gəlmədiyini bilmək üçün mütəmadi olaraq hesablarınızı kontrol edin.');
+		return redirect()->route('profile.dashboard')->with('successDashboard', 'Təbriklər! Yayımı başlatdınız. Bu andan etibarən bütün istifadəçilər sizi görə və sizə iş təklifi edə bilərlər. Zəhmət olmasa mütəmadi olaraq hesabalarınızı kontrol edin.');
     }
 	public function unpublish(){
         $id=session('LoggedUser');
 		
 		$user=User::where('user_id', $id)->first();
 		$user->user_publish='unpublish';
+        $user->user_online='offline';
 		$user->save(); 
 		
 		return redirect()->route('profile.dashboard')->with('alertDashboard', 'Yayımınız dayandırıldı. Bu andan etibarən heç bir profildə görsənməyəcək və heç kəsdən iş təklifi almayacaqsınız.');
-    }
-
-    // adverts page =======================================================================>
-    public function adverts(){
-        $config=Config::where('config_id', 1)->first();
-		
-        $advertsCompleted=Advert::where('advert_state', 'active')->get();
-        $advertsCompletedCount=Advert::where('advert_state', 'active')->count();
-		
-        $advertsUncompleted=Advert::where('advert_state', 'passive')->get();
-        $advertsUncompletedCount=Advert::where('advert_state', 'passive')->count();
-
-        if(session()->has('LoggedUser')){
-            $user=User::where('user_id', session('LoggedUser'))->first();            
-        }
-        return view('profile.adverts', compact('user', 'config', 'advertsCompleted', 'advertsCompletedCount', 'advertsUncompleted', 'advertsUncompletedCount'));
-    }
-	public function advertsDetail(Request $request, $seflink){
-		$config=Config::where('config_id', 1)->first();
-
-        if(session()->has('LoggedUser')){
-            $user=User::where('user_id', session('LoggedUser'))->first();            
-        }
-		
-		$checkAdvert=Advert::where('advert_seflink', $seflink)->where('advert_state', 'active')->first();
-		
-		if($checkAdvert){
-			return view('profile.adverts-detail', compact('user', 'config', 'checkAdvert')); 
-		} else {
-			return  route('profile.adverts');
-		} 
-    }
-    public function advertsUpdate($seftitle){
-		
-    }
-	public function advertsDelete($seftitle){
-		
     }
 	
 	// jobs page =======================================================================>
@@ -250,7 +220,7 @@ class ProfileController extends Controller
 
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
-        }else{
+        } else{
             $user=User::where('user_id', $id)->first();
             if(Hash::check($request->oldPassword, $user->user_password)){
                 $user->user_password=Hash::make($request->newpassword);
@@ -267,6 +237,12 @@ class ProfileController extends Controller
     ==================================================================> */
     public function logout(){
         if(session()->has('LoggedUser')){
+            $id=session('LoggedUser');
+
+            $user=User::where('user_id', $id)->first();
+            $user->user_online='offline';
+            $user->save(); 
+
             session()->pull('LoggedUser');
             return redirect()->route('login');
         }

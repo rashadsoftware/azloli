@@ -46,7 +46,7 @@
 								@else
 									<img src="{{asset('front/')}}/img/user/{{$user->user_image}}" alt="{{$user->user_name}}" class="profile-img">
 								@endif
-								<h4 class="profile-title text-capitalize">{{$user->user_name}}</h4>
+								<h4 class="profile-title">{{$user->user_name}}</h4>
 								<ul class="profile-list mt-4">
 									<li class="{{ Route::is('profile.dashboard') ? 'active' : '' }}">	
 										<a href="{{route('profile.dashboard')}}">
@@ -55,14 +55,6 @@
 											</div>
 											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
 										</a>                                
-									</li>
-									<li class="{{ Route::is('profile.adverts') ? 'active' : '' }}">	
-										<a href="{{route('profile.adverts')}}">
-											<div>
-												<i class="fa fa-list-ol"></i> Elanlar
-											</div>
-											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
-										</a>
 									</li>
 									<li class="{{ Route::is('profile.skills') ? 'active' : '' }}">	
 										<a href="{{route('profile.skills')}}">
@@ -86,6 +78,13 @@
 												<i class="fa fa-cogs"></i> Tənzimləmələr
 											</div>
 											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
+										</a>
+									</li>
+									<li>	
+										<a href="{{route('chat.login')}}">
+											<div>
+												<i class="fa fa-comments-o"></i> Canlı Söhbət
+											</div>
 										</a>
 									</li>
 								</ul>

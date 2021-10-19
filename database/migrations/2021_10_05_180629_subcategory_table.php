@@ -16,7 +16,7 @@ class SubcategoryTable extends Migration
             $table->string('subcategory_title', 150);
 			$table->string('subcategory_seftitle', 200);
             $table->bigInteger('categoryID')->unsigned();
-            $table->string('subcategory_state', 10)->default('passive');
+            $table->string('subcategory_state', 10)->default('passive')->comment('active, passive');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

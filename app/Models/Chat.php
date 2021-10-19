@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Advert extends Model
+class Chat extends Model
 {
     use HasFactory;
 
-    public $table='adverts';
-    protected $primaryKey = 'advert_id';
+    public $table='messages';
+    protected $primaryKey = 'message_id';
 }

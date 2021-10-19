@@ -37,8 +37,11 @@
             <div class="row justify-content-between align-items-end">
                 <div class="col-12 col-md-6">
                     <div class="portfolio-details-text">
+                        @if($userData->user_online == 'online')
+                            <span class="user-online">Online</span>
+                        @endif
                         <h2 class="text-capitalize">{{$userData->user_name}}</h2>
-                        <h6>{{implode(',', $category)}}</h6>
+                        <h6 class="font-weight-bold">{{implode(',', $category)}}</h6>
                         <p>{{$userData->user_description}}</p>
                     </div>
                 </div>
@@ -54,7 +57,7 @@
                         @if($userData->user_phone != '')
                         <h6><span class="font-weight-bold">Əlaqə:</span> (+994){{$userData->getPhoneAttribute()}}</h6>
                         @endif
-                        <a href="#" class="btn uza-btn mt-3">Təklif Göndər</a>
+                        <a href="{{route('chat.index')}}" class="btn uza-btn mt-3">Söhbətə Başla</a>
                     </div>
                 </div>
             </div>

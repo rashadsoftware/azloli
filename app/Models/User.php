@@ -36,4 +36,16 @@ class User extends Model
     
         return "{$prefix} {$suffix3}-{$suffix2}-{$suffix}";
     }
+	
+	public function getUserOnlineAttrribute(){
+        switch ($this->user_online) {
+            case 'online':
+                return 'Aktiv';
+                break;
+            
+            default:
+                return 'Aktiv deyil';
+                break;
+        }
+    }
 }
