@@ -11,4 +11,16 @@ class Owner extends Model
 
     public $table='owners';
     protected $primaryKey = 'owner_id';
+	
+	public function getOwnerOnlineAttrribute(){
+        switch ($this->owner_online) {
+            case 'online':
+                return 'Online';
+                break;
+            
+            default:
+                return 'Offline';
+                break;
+        }
+    }
 }

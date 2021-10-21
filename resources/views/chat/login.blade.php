@@ -22,7 +22,9 @@
 						<button type="submit">Söhbətə Başla</button>
 					</div>
 				</form>
+				@if(!Session::has('LoggedUser'))
 				<div class="link">Qeydiyyatınız yoxdur? <a href="{{route('chat.index')}}">Qeydiyyatdan keç</a></div>
+				@endif
 			</section>
 		</div>
 	  
@@ -32,11 +34,11 @@
 
 		<script>
 			$(function(){
-				// change profile optional
+				// login chat
 				$("#formLoginChat").on("submit", function (e) {
 					e.preventDefault();
 
-					// change profile optional
+					// login chat
 					$.ajax({
 						url: $(this).attr("action"),
 						method: $(this).attr("method"),

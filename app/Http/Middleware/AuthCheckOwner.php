@@ -12,7 +12,7 @@ class AuthCheckOwner
         if(!session()->has('LoggedOwner')){
             return redirect()->route('chat.login')->with('failOwner', 'Canlı söhbətə girmək üçün giriş etməlisiniz');
         }
-
+        
         return $next($request);
     }
 }

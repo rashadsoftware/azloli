@@ -37,11 +37,11 @@
 
 		<script>
 			$(function(){
-				// change profile optional
+				// register chat
 				$("#formRegisterChat").on("submit", function (e) {
 					e.preventDefault();
 
-					// change profile optional
+					// register chat
 					$.ajax({
 						url: $(this).attr("action"),
 						method: $(this).attr("method"),

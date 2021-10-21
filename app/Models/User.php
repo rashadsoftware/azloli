@@ -40,11 +40,11 @@ class User extends Model
 	public function getUserOnlineAttrribute(){
         switch ($this->user_online) {
             case 'online':
-                return 'Aktiv';
+                return 'Online';
                 break;
             
             default:
-                return 'Aktiv deyil';
+                return 'Offline';
                 break;
         }
     }

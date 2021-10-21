@@ -70,6 +70,9 @@ Route::prefix('/chat')->name('chat.')->group(function(){
 	
 	// chat
     Route::get('/chat', 'ChatController@chat')->name('chat');
+	
+	// logout
+    Route::get('/logout', 'ChatController@logout')->name('logout');
 });
 
 

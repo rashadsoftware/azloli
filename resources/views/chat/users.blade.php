@@ -1,16 +1,21 @@
-@include('chat.layouts.header')
+@include('chat.layouts.header')	
 	<body>
 		<div class="wrapper">
 			<section class="users">
+				@if(session()->has('LoggedUser'))
 				<header>
 					<div class="content">
-						<img src="images/Rashad Alakbarov.png" alt="">
+						@if($user->user_image == "")
+							<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$user->user_name}}">
+						@else
+							<img src="{{asset('front/')}}/img/user/{{$user->user_image}}" alt="{{$user->user_name}}">
+						@endif						
 						<div class="details">
-							<span>Rashad Alakbarov</span>
-							<p>Active now</p>
+							<span>{{$user->user_name}}</span>
+							<p>{{$user->getUserOnlineAttrribute()}}</p>
 						</div>
 					</div>
-					<a href="#" class="logout">Logout</a>
+					<a href="{{route('chat.logout')}}" class="logout">Logout</a>
 				</header>
 				<div class="search">
 					<span class="text">Select an user to start chat</span>
@@ -40,9 +45,70 @@
 						<div class="status-dot offline"><i class="fas fa-circle"></i></div>
 					</a>
 				</div>
+				@else
+				<header>
+					<div class="content">
+						<img src="{{asset('chat/')}}/images/icons/profile.svg" alt="{{$user->owner_username}}">
+						<div class="details">
+							<span>{{$user->owner_username}}</span>
+							<p>{{$user->getOwnerOnlineAttrribute()}}</p>
+						</div>
+					</div>
+					<a href="{{route('chat.logout')}}" class="logout">Logout</a>
+				</header>
+				<div class="search">
+					<span class="text">Söhbətə başlamaq üçün istifadəçi seçin</span>
+					<input type="text" placeholder="İstifadəçi adı daxil edin...">
+					<button><i class="fas fa-search"></i></button>
+				</div>
+				<div class="users-list">
+					<a href="#">
+						<div class="content">
+							<img src="images/Rashad Alakbarov.png" alt="">
+							<div class="details">
+								<span>Rashad Alakbarov</span>
+								<p>Sizin mesajınız</p>
+							</div>
+						</div>
+						<div class="status-dot online"><i class="fas fa-circle"></i></div>
+					</a>
+					
+					<a href="#">
+						<div class="content">
+							<img src="images/Rashad Alakbarov.png" alt="">
+							<div class="details">
+								<span>Rashad Alakbarov</span>
+								<p>Sizin mesajınız</p>
+							</div>
+						</div>
+						<div class="status-dot offline"><i class="fas fa-circle"></i></div>
+					</a>
+				</div>
+				@endif
 			</section>
 		</div>
 
-		<script src="js/users.js"></script>
+		<!-- Active js -->
+        <script src="{{asset('chat/')}}/js/jquery.min.js"></script>
+		<script src="{{asset('chat/')}}/js/bootstrap.min.js"></script>
+		
+		<script>
+			$(function(){
+				// toggle shoü hide search input
+				const searchBar = document.querySelector(".search input"),
+				searchIcon = document.querySelector(".search button"),
+				usersList = document.querySelector(".users-list");
+
+				searchIcon.onclick = ()=>{
+				  searchBar.classList.toggle("show");
+				  searchIcon.classList.toggle("active");
+				  searchBar.focus();
+				  if(searchBar.classList.contains("active")){
+					searchBar.value = "";
+					searchBar.classList.remove("active");
+				  }
+				}
+			});
+		</script>
 	</body>
 </html>

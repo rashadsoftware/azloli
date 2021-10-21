@@ -3,7 +3,7 @@
 		<div class="wrapper">
 			<section class="chat-area">
 				<header>
-					<a href="users.php" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+					<a href="{{route('chat.users')}}" class="back-icon"><i class="fas fa-arrow-left"></i></a>
 					<img src="images/Rashad Alakbarov.png" alt="">
 					<div class="details">
 						<span>Rashad Alakbarov</span>
