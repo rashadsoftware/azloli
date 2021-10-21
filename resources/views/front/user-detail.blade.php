@@ -57,7 +57,7 @@
                         @if($userData->user_phone != '')
                         <h6><span class="font-weight-bold">Əlaqə:</span> (+994){{$userData->getPhoneAttribute()}}</h6>
                         @endif
-                        <a href="{{route('chat.index')}}" class="btn uza-btn mt-3">Söhbətə Başla</a>
+                        <a href="{{route('chat.users.create', $userData->user_id)}}" class="btn uza-btn mt-3">Söhbətə Başla</a>
                     </div>
                 </div>
             </div>

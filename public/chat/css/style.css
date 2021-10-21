@@ -139,6 +139,9 @@ body {
     font-size: 18px;
     font-weight: 500;
 }
+.users-list a:hover {
+    text-decoration: none;
+}
 .users header .logout {
     display: block;
     background: #333;
@@ -216,18 +219,21 @@ body {
     border-bottom: none;
 }
 .users-list a img {
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
+}
+.users-list a p {
+    margin-bottom: 0;
 }
 .users-list a .details p {
     color: #67676a;
 }
-.users-list a .status-dot {
+.status-dot {
     font-size: 12px;
     color: #468669;
     padding-left: 10px;
 }
-.users-list a .status-dot.offline {
+.status-dot.offline {
     color: #ccc;
 }
 

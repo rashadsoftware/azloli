@@ -12,7 +12,10 @@
 						@endif						
 						<div class="details">
 							<span>{{$user->user_name}}</span>
-							<p>{{$user->getUserOnlineAttrribute()}}</p>
+							<div class="status-dot online d-flex align-items-center pl-0">
+								<i class="fas fa-circle mr-1"></i> 
+								<span style="font-size:15px">{{$user->getUserOnlineAttrribute()}}</span> 
+							</div>
 						</div>
 					</div>
 					<a href="{{route('chat.logout')}}" class="logout">Logout</a>
@@ -23,27 +26,25 @@
 					<button><i class="fas fa-search"></i></button>
 				</div>
 				<div class="users-list">
-					<a href="#">
-						<div class="content">
-							<img src="images/Rashad Alakbarov.png" alt="">
-							<div class="details">
-								<span>Rashad Alakbarov</span>
-								<p>Sizin mesajınız</p>
+					@if($usersCount > 0)
+						@foreach($users as $userItem)
+						<a href="#" class="">
+							<div class="content">
+								<img src="{{asset('front/')}}/img/icons/profile.svg" alt="">
+								<div class="details">
+									<span>{{$userItem->getOwnerMerge->owner_username}}</span>
+								</div>
 							</div>
-						</div>
-						<div class="status-dot online"><i class="fas fa-circle"></i></div>
-					</a>
-					
-					<a href="#">
-						<div class="content">
-							<img src="images/Rashad Alakbarov.png" alt="">
-							<div class="details">
-								<span>Rashad Alakbarov</span>
-								<p>Sizin mesajınız</p>
-							</div>
-						</div>
-						<div class="status-dot offline"><i class="fas fa-circle"></i></div>
-					</a>
+							@if($userItem->getOwnerMerge->owner_online == 'online')
+							<div class="status-dot online"><i class="fas fa-circle"></i></div>
+							@else 
+							<div class="status-dot offline"><i class="fas fa-circle"></i></div>
+							@endif
+						</a>
+						@endforeach
+					@else 
+						Söhbət etmək üçün heç bir istifadəçi yoxdur
+					@endif
 				</div>
 				@else
 				<header>
@@ -51,7 +52,10 @@
 						<img src="{{asset('chat/')}}/images/icons/profile.svg" alt="{{$user->owner_username}}">
 						<div class="details">
 							<span>{{$user->owner_username}}</span>
-							<p>{{$user->getOwnerOnlineAttrribute()}}</p>
+							<div class="status-dot online d-flex align-items-center pl-0">
+								<i class="fas fa-circle mr-1"></i> 
+								<span style="font-size:15px">{{$user->getOwnerOnlineAttrribute()}}</span> 
+							</div>
 						</div>
 					</div>
 					<a href="{{route('chat.logout')}}" class="logout">Logout</a>
@@ -62,27 +66,29 @@
 					<button><i class="fas fa-search"></i></button>
 				</div>
 				<div class="users-list">
-					<a href="#">
-						<div class="content">
-							<img src="images/Rashad Alakbarov.png" alt="">
-							<div class="details">
-								<span>Rashad Alakbarov</span>
-								<p>Sizin mesajınız</p>
+					@if($usersCount > 0)
+						@foreach($users as $userItem)
+						<a href="#" class="">
+							<div class="content">
+								@if($userItem->getUserMerge->user_image == '')
+								<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$userItem->getUserMerge->user_name}}">
+								@else
+								<img src="{{asset('front/')}}/img/user/{{$userItem->getUserMerge->user_image}}" alt="{{$userItem->getUserMerge->user_name}}">
+								@endif
+								<div class="details">
+									<span>{{$userItem->getUserMerge->user_name}}</span>
+								</div>
 							</div>
-						</div>
-						<div class="status-dot online"><i class="fas fa-circle"></i></div>
-					</a>
-					
-					<a href="#">
-						<div class="content">
-							<img src="images/Rashad Alakbarov.png" alt="">
-							<div class="details">
-								<span>Rashad Alakbarov</span>
-								<p>Sizin mesajınız</p>
-							</div>
-						</div>
-						<div class="status-dot offline"><i class="fas fa-circle"></i></div>
-					</a>
+							@if($userItem->getUserMerge->user_online == 'online')
+							<div class="status-dot online"><i class="fas fa-circle"></i></div>
+							@else 
+							<div class="status-dot offline"><i class="fas fa-circle"></i></div>
+							@endif
+						</a>
+						@endforeach
+					@else 
+						Söhbət etmək üçün heç bir istifadəçi yoxdur
+					@endif
 				</div>
 				@endif
 			</section>
@@ -94,7 +100,7 @@
 		
 		<script>
 			$(function(){
-				// toggle shoü hide search input
+				// toggle show hide search input
 				const searchBar = document.querySelector(".search input"),
 				searchIcon = document.querySelector(".search button"),
 				usersList = document.querySelector(".users-list");
@@ -108,6 +114,10 @@
 					searchBar.classList.remove("active");
 				  }
 				}
+
+				setInterval(function() {
+					window.location.reload();
+				}, 3000);
 			});
 		</script>
 	</body>

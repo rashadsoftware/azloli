@@ -66,7 +66,8 @@ Route::prefix('/chat')->name('chat.')->group(function(){
     Route::post('/login', 'ChatController@loginPost')->name('login.post');
 	
 	// users
-    Route::get('/users', 'ChatController@users')->name('users');
+    Route::get('/users/{id}', 'ChatController@usersCreate')->name('users.create');
+    Route::get('/users', 'ChatController@users')->name('users');    
 	
 	// chat
     Route::get('/chat', 'ChatController@chat')->name('chat');

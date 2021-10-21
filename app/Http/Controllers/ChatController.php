@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Models\Owner;
 use App\Models\User;
+use App\Models\Merge;
 
 use Validator;
 
@@ -86,18 +87,25 @@ class ChatController extends Controller
         if(!$validator->passes()){
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         } else {
-            if(session()->has('LoggedUser')){                
-                $checkUser=User::where('user_email', $request->email)->first();
+            if(session()->has('LoggedUser')){ 
+                $id=session('LoggedUser');       
+                $checkID=User::where('user_id', $id)->first();
 
-                if($checkUser){
-                    if(Hash::check($request->password, $checkUser->user_password)){
-                        $request->session()->put('LoggedOwner', $checkUser->user_id);
-                        return response()->json(['status'=>2]);
+                if($checkID->user_email == $request->email){
+                    $checkUser=User::where('user_email', $request->email)->first();
+
+                    if($checkUser){
+                        if(Hash::check($request->password, $checkUser->user_password)){
+                            $request->session()->put('LoggedOwner', $checkUser->user_id);
+                            return response()->json(['status'=>2]);
+                        } else {
+                            return response()->json(['status'=>1, 'msg'=>'Şifrə vəya E-mail yalnışdır. Yenidən cəhd edin!']);
+                        }
                     } else {
-                        return response()->json(['status'=>1, 'msg'=>'Şifrə vəya E-mail yalnışdır. Yenidən cəhd edin!']);
+                        return response()->json(['status'=>1, 'msg'=>'Bu hesaba bağlı istifadəçi tapılmadı. Yenidən cəhd edin!']);
                     }
                 } else {
-                    return response()->json(['status'=>1, 'msg'=>'Bu hesaba bağlı istifadəçi tapılmadı. Yenidən cəhd edin!']);
+                    return response()->json(['status'=>1, 'msg'=>'Xəta yarandı. Yenidən cəhd edin!']);
                 }
             } else {
                 $checkOwner=Owner::where('owner_email', $request->email)->first();
@@ -139,18 +147,42 @@ class ChatController extends Controller
     }
 	
 	/* users page 
-    ==================================================================> */
+    ==================================================================> */    
+    public function usersCreate($id){
+		$userSession=session()->put('userSession', $id);
+
+        return redirect()->route('chat.index');
+    }
     public function users(){
 		if(session()->has('LoggedOwner')){
-			$id=session('LoggedOwner');
+			$id=session('LoggedOwner');            
 			
 			if(session()->has('LoggedUser')){								
 				$user=User::where('user_id', $id)->first();
+
+                $users=Merge::where('merge_user', $id)->get();
+                $usersCount=Merge::where('merge_user', $id)->count();
 			} else {
 				$user=Owner::where('owner_id', $id)->first();
+
+                $userID=session('userSession');                
+
+                $checkMerge=Merge::where('merge_user', $userID)->where('merge_owner', $id)->first();
+
+                if(!$checkMerge){
+                    $merge=new Merge;
+                    $merge->merge_user=$userID;
+                    $merge->merge_owner=$id;
+                    $merge->save();
+
+                    session()->pull('userSession');
+                }
+
+                $users=Merge::where('merge_owner', $id)->get();
+                $usersCount=Merge::where('merge_owner', $id)->count();
 			}
 			
-			return view('chat.users', compact('user')); 
+			return view('chat.users', compact('user', 'users', 'usersCount')); 
 		} else {
 			return redirect()->route('chat.login');
 		}
