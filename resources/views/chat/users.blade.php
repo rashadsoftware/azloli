@@ -21,14 +21,14 @@
 					<a href="{{route('chat.logout')}}" class="logout">Logout</a>
 				</header>
 				<div class="search">
-					<span class="text">Select an user to start chat</span>
-					<input type="text" placeholder="Enter name to search...">
+					<span class="text">Söhbətə başlamaq üçün istifadəçi seçin</span>
+					<input type="text" placeholder="İstifadəçi adı daxil edin...">
 					<button><i class="fas fa-search"></i></button>
 				</div>
 				<div class="users-list">
 					@if($usersCount > 0)
 						@foreach($users as $userItem)
-						<a href="#" class="">
+						<a href="{{route('chat.chat', $userItem->getOwnerMerge->owner_id)}}" class="">
 							<div class="content">
 								<img src="{{asset('front/')}}/img/icons/profile.svg" alt="">
 								<div class="details">
@@ -68,7 +68,7 @@
 				<div class="users-list">
 					@if($usersCount > 0)
 						@foreach($users as $userItem)
-						<a href="#" class="">
+						<a href="{{route('chat.chat', $userItem->getUserMerge->user_id)}}" class="">
 							<div class="content">
 								@if($userItem->getUserMerge->user_image == '')
 								<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$userItem->getUserMerge->user_name}}">
@@ -97,6 +97,7 @@
 		<!-- Active js -->
         <script src="{{asset('chat/')}}/js/jquery.min.js"></script>
 		<script src="{{asset('chat/')}}/js/bootstrap.min.js"></script>
+		<!--- <script src="{{asset('chat/')}}/js/users.js"></script> -->
 		
 		<script>
 			$(function(){

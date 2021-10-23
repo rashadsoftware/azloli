@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Owner;
 use App\Models\User;
 use App\Models\Merge;
+use App\Models\Chat;
 
 use Validator;
 
@@ -174,8 +175,6 @@ class ChatController extends Controller
                     $merge->merge_user=$userID;
                     $merge->merge_owner=$id;
                     $merge->save();
-
-                    session()->pull('userSession');
                 }
 
                 $users=Merge::where('merge_owner', $id)->get();
@@ -190,7 +189,84 @@ class ChatController extends Controller
 	
 	/* chat page 
     ==================================================================> */
-    public function chat(){
-        return view('chat.chat'); 
+    public function chat($id){
+		if(session()->has('LoggedOwner')){
+			if(session()->has('LoggedUser')){
+				$user=Merge::where('merge_user', session('LoggedOwner'))->where('merge_owner', $id)->first();
+				$userCount=Merge::where('merge_user', session('LoggedOwner'))->where('merge_owner', $id)->count();
+                
+                $sends=Chat::where('message_user', session('LoggedOwner'))->where('message_owner', $id)->get();
+				$sendsCount=Chat::where('message_user', session('LoggedOwner'))->where('message_owner', $id)->count();
+
+                $inboxs=Chat::where('message_user', session('LoggedOwner'))->where('message_owner', $id)->get();
+				$inboxsCount=Chat::where('message_user', $id)->where('message_owner', session('LoggedOwner'))->count();
+			} else {
+				$user=Merge::where('merge_user', $id)->where('merge_owner', session('LoggedOwner'))->first();
+				$userCount=Merge::where('merge_user', $id)->where('merge_owner', session('LoggedOwner'))->count();
+
+                $sends=Chat::where('message_user', $id)->where('message_owner', session('LoggedOwner'))->get();
+				$sendsCount=Chat::where('message_user', $id)->where('message_owner', session('LoggedOwner'))->count();
+
+                $inboxs=Chat::where('message_user', session('LoggedOwner'))->where('message_owner', $id)->get();
+				$inboxsCount=Chat::where('message_user', $id)->where('message_owner', session('LoggedOwner'))->count();
+			}
+			
+			if($userCount > 0){
+				return view('chat.chat', compact('user', 'sends', 'sendsCount', 'inboxs', 'inboxsCount'));
+			} else {
+				return redirect()->route('chat.users');
+			}			
+			
+		} else {
+			return redirect()->route('chat.login');
+		}         
+    }
+	public function insertChat(Request $request){
+		if(session()->has('LoggedOwner')){
+			$id=session('LoggedOwner');
+			$incoming_id = $request->incoming_id;
+			$text = $request->message;
+			
+			if(session()->has('LoggedUser')){
+				if($text != ""){
+					$message=new Chat;
+					$message->message_owner=$incoming_id;
+					$message->message_user=$id;
+					$message->message_text=$message;
+					$message->message_read="unread";
+					$message->save();
+				}
+			} else {
+				if($text != ""){
+					$message=new Chat;
+					$message->message_owner=$id;
+					$message->message_user=$incoming_id;
+					$message->message_text=$message;
+					$message->message_read="unread";
+					$message->save();
+
+                    return response()->json(['status'=>'ok']);
+				}
+
+			}			
+		} else {
+			return redirect()->route('chat.login');
+		}
+    }
+	public function getChat(Request $request){
+		if(session()->has('LoggedOwner')){
+			$outgoing_id=session('LoggedOwner');
+			$incoming_id = $request->incoming_id;
+			
+			$output = "";
+			
+			if(session()->has('LoggedUser')){
+				// 
+			} else {
+				// 
+			}			
+		} else {
+			return redirect()->route('chat.login');
+		}
     }
 }

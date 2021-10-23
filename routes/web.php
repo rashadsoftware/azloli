@@ -58,8 +58,8 @@ Route::prefix('/profile')->name('profile.')->group(function(){
 Route::prefix('/chat')->name('chat.')->group(function(){
 	
 	// index
-    Route::get('/index', 'ChatController@index')->name('index');
-    Route::post('/index', 'ChatController@indexPost')->name('index.post');
+    Route::get('/register', 'ChatController@index')->name('index');
+    Route::post('/register', 'ChatController@indexPost')->name('index.post');
 	
 	// login
     Route::get('/login', 'ChatController@login')->name('login');
@@ -70,7 +70,9 @@ Route::prefix('/chat')->name('chat.')->group(function(){
     Route::get('/users', 'ChatController@users')->name('users');    
 	
 	// chat
-    Route::get('/chat', 'ChatController@chat')->name('chat');
+    Route::get('/chat/{id}', 'ChatController@chat')->name('chat');
+    Route::post('/chat/insert', 'ChatController@insertChat')->name('insert');
+    Route::post('/chat/get', 'ChatController@getChat')->name('get');
 	
 	// logout
     Route::get('/logout', 'ChatController@logout')->name('logout');
