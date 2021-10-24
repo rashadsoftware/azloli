@@ -297,6 +297,64 @@ class ChatController extends Controller
       		echo json_encode($data);
      	}
     }
+
+	public function updateList(){
+		$output='';
+
+		if(session()->has('LoggedUser')){
+			$dataUser=Merge::where('merge_user', session('LoggedUser'))->get();
+			foreach ($dataUser as $userItem) {
+				$data=Owner::where('owner_id', $userItem->merge_owner)->get();
+
+				foreach($data as $row) {
+					$output .= '
+						<a href="'.route('chat.chat', $row->owner_id).'">
+							<div class="content">';
+			$output .= '		<img src="'.asset('front/').'/img/icons/profile.svg" alt="'.$row->owner_username.'"> ';
+	$output .= '				<div class="details">
+									<span>'.$row->owner_username.'</span>
+								</div>
+							</div>';
+							if($row->owner_online == "online"){
+			$output .= '		<div class="status-dot online"><i class="fas fa-circle"></i></div>';
+							} else { 
+			$output .= '		<div class="status-dot offline"><i class="fas fa-circle"></i></div>';
+							}
+		$output .= '	</a>						
+					';
+				}						
+			}
+		} else {
+			$dataUser=Merge::where('merge_owner', session('LoggedOwner'))->get();
+			foreach ($dataUser as $userItem) {
+				$data=User::where('user_id', $userItem->merge_user)->get();
+
+				foreach($data as $row) {
+					$output .= '
+							<a href="'.route('chat.chat', $row->user_id).'">
+								<div class="content">';
+									if($row->user_image == ''){
+					$output .= '		<img src="'.asset('front/').'/img/icons/profile.svg" alt="'.$row->user_name.'"> ';
+									} else {
+					$output .= '		<img src="'.asset('front/').'/img/user/'.$row->user_image.'" alt="'.$row->user_name.'">';
+									}
+					$output .= '	<div class="details">
+										<span>'.$row->user_name.'</span>
+									</div>
+								</div>';
+								if($row->user_online == "online"){
+				$output .= '		<div class="status-dot online"><i class="fas fa-circle"></i></div>';
+								} else { 
+				$output .= '		<div class="status-dot offline"><i class="fas fa-circle"></i></div>';
+								}
+			$output .= '	</a>						
+						';
+				}						
+			}	
+		}
+
+		echo $output;
+    }
 	
 	/* chat page 
     ==================================================================> */

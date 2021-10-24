@@ -67,7 +67,8 @@ Route::prefix('/chat')->name('chat.')->group(function(){
 	
 	// users
     Route::get('/users', 'ChatController@users')->name('users');
-    Route::get('/users/search', 'ChatController@action')->name('live_search.action');
+    Route::get('/users/search', 'ChatController@action')->name('users.action');
+    Route::get('/users/updateList', 'ChatController@updateList')->name('users.updateList');
     Route::get('/users/insert/{id}', 'ChatController@usersCreate')->name('users.create');
     
     

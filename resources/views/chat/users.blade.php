@@ -63,36 +63,55 @@
 		<!-- Active js -->
         <script src="{{asset('chat/')}}/js/jquery.min.js"></script>
 		<script src="{{asset('chat/')}}/js/bootstrap.min.js"></script>
-		<!-- <script src="{{asset('chat/')}}/js/users.js"></script> -->
 
 		<script>
 			const searchBar = document.querySelector(".search input"),
 			searchIcon = document.querySelector(".search button"),
 			usersList = document.querySelector(".users-list");
 
-			searchIcon.onclick = () => {
+			// search icon click
+			searchIcon.onclick = ()=>{
 				searchBar.classList.toggle("show");
 				searchIcon.classList.toggle("active");
 				searchBar.focus();
-				if (searchBar.classList.contains("active")) {
+				if(searchBar.classList.contains("active")){
 					searchBar.value = "";
 					searchBar.classList.remove("active");
 				}
-			};
+			}
 
-			$(document).ready(function(){
-
-				$.ajaxSetup({
-					headers: {
-						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			// setInterval for every 5 second
+			setInterval(() =>{
+				let xhr = new XMLHttpRequest();
+				xhr.open("GET", "users/updateList", true);
+				xhr.onload = ()=>{
+					if(xhr.readyState === XMLHttpRequest.DONE){
+						if(xhr.status === 200){
+						let data = xhr.response;
+						if(!searchBar.classList.contains("active")){
+							usersList.innerHTML = data;
+						}
+						}
 					}
-				});
+				}
+				xhr.send();
+			}, 500);
+
+			// search section 
+			$(document).ready(function(){
 
 				fetch_customer_data();
 
 				function fetch_customer_data(query = '') {
+					let searchTerm = searchBar.value;
+					if(searchTerm != ""){
+						searchBar.classList.add("active");
+					} else{
+						searchBar.classList.remove("active");
+					}
+
 					$.ajax({
-						url:"{{ route('chat.live_search.action') }}",
+						url:"{{ route('chat.users.action') }}",
 						method:'GET',
 						data:{query:query},
 						dataType:'json',
