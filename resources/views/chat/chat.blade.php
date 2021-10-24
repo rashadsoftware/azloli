@@ -12,32 +12,13 @@
 					</div>
 				</header>
 				<div class="chat-box">
-					@if($sendsCount > 0)
-						@foreach($sends as $send)
-						<div class="chat incoming">
-							<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$user->getUserMerge->user_name}}">
-							<div class="details">
-								<p>{{$send->message_text}}</p>
-							</div>
-						</div>
-						@endforeach
-					@endif
-
-					@if($inboxsCount > 0)
-						@foreach($inboxs as $inbox)
-						<div class="chat outgoing">						
-							<div class="details">
-								<p>{{$inbox->message_text}}</p>
-							</div>
-						</div>
-						@endforeach
-					@endif
+					
 				</div>
-				<form action="#" class="typing-area">
+				<form action="{{route('chat.insert')}}" method="POST" class="typing-area" id="formInsertMessage">
 					@csrf
 					<input type="text" class="incoming_id" name="incoming_id" value="{{$user->getOwnerMerge->owner_id}}" hidden>
 					<input type="text" name="message" class="input-field" placeholder="Mesajınızı daxil edin..." autocomplete="off">
-					<button><i class="fab fa-telegram-plane"></i></button>
+					<button type="submit"><i class="fab fa-telegram-plane"></i></button>
 				</form>				
 				@else 
 				<header>
@@ -53,32 +34,9 @@
 					</div>
 				</header>
 				<div class="chat-box">
-					@if($sendsCount > 0)
-						@foreach($sends as $send)
-						<div class="chat outgoing">
-							<div class="details">
-								<p>{{$send->message_text}}</p>
-							</div>
-						</div>
-						@endforeach
-					@endif
-
-					@if($inboxsCount > 0)
-						@foreach($inboxs as $inbox)
-						<div class="chat incoming">
-						@if($user->getUserMerge->user_image == "")
-							<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$user->getUserMerge->user_name}}">
-						@else 
-							<img src="{{asset('front/')}}/img/user/{{$user->getUserMerge->user_image}}" alt="{{$user->getUserMerge->user_name}}">
-						@endif
-							<div class="details">
-								<p>{{$inbox->message_text}}</p>
-							</div>
-						</div>
-						@endforeach
-					@endif
+					
 				</div>
-				<form action="{{route('chat.insert')}}" class="typing-area" method="post" id="chatForm">
+				<form action="{{route('chat.insert')}}" method="POST" class="typing-area" id="formInsertMessage">
 					@csrf
 					<input type="text" class="incoming_id" name="incoming_id" value="{{$user->getUserMerge->user_id}}" hidden>
 					<input type="text" name="message" class="input-field" placeholder="Mesajınızı daxil edin..." autocomplete="off">
@@ -91,6 +49,88 @@
 		<!-- Active js -->
         <script src="{{asset('chat/')}}/js/jquery.min.js"></script>
 		<script src="{{asset('chat/')}}/js/bootstrap.min.js"></script>
-		<script src="{{asset('chat/')}}/js/chat.js"></script>
+		
+		<script>
+			const form = document.querySelector(".typing-area"),
+			incoming_id = form.querySelector(".incoming_id").value,
+			inputField = form.querySelector(".input-field"),
+			sendBtn = form.querySelector("button"),
+			chatBox = document.querySelector(".chat-box");
+
+			// form submit
+			form.onsubmit = (e)=>{
+				e.preventDefault();
+			}
+
+			// send button active when input field focus
+			inputField.focus();
+			inputField.onkeyup = ()=>{
+				if(inputField.value != ""){
+					sendBtn.classList.add("active");
+				}else{
+					sendBtn.classList.remove("active");
+				}
+			}
+
+			// insert Message
+			$(function(){
+				$("#formInsertMessage").on("submit", function (e) {
+					e.preventDefault();
+
+					$.ajax({
+						url: $(this).attr("action"),
+						method: $(this).attr("method"),
+						data: new FormData(this),
+						processData: false,
+						dataType: "json",
+						contentType: false,
+						success: function (data) {
+							if(data.status == "ok"){
+								inputField.value = "";
+								scrollToBottom();
+							}						
+						},
+					});
+				});
+			})
+			
+
+			// chatbox add active class when on mouseenter
+			chatBox.onmouseenter = ()=>{
+				chatBox.classList.add("active");
+			}
+
+			// chatbox remove active class when on mouseleave
+			chatBox.onmouseleave = ()=>{
+				chatBox.classList.remove("active");
+			}
+
+			// setInterval for get Data
+			setInterval(() =>{
+				let xhr = new XMLHttpRequest();
+				token = document.querySelector('meta[name="csrf-token"]').content;
+				xhr.open("POST", "get", true);
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+				xhr.setRequestHeader('X-CSRF-TOKEN', token);
+				xhr.onload = ()=>{
+				if(xhr.readyState === XMLHttpRequest.DONE){
+					if(xhr.status === 200){
+						let data = xhr.response;
+						chatBox.innerHTML = data;
+						if(!chatBox.classList.contains("active")){
+							scrollToBottom();
+						}
+					}
+				}
+				}
+				xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xhr.send("incoming_id="+incoming_id);
+			}, 500);
+
+			// scrollbottom
+			function scrollToBottom(){
+				chatBox.scrollTop = chatBox.scrollHeight;
+			}
+		</script>
 	</body>
 </html>

@@ -11,4 +11,12 @@ class Chat extends Model
 
     public $table='messages';
     protected $primaryKey = 'message_id';
+
+    public function getUserChat(){
+        return $this->hasOne(User::class, 'user_id', 'message_user');
+    }
+
+    public function getOwnerChat(){
+        return $this->hasOne(Owner::class, 'owner_id', 'message_owner');
+    }
 }

@@ -391,32 +391,31 @@ class ChatController extends Controller
 		}         
     }
 	public function insertChat(Request $request){
-		if(session()->has('LoggedOwner')){
-			$id=session('LoggedOwner');
+		if(session()->has('LoggedOwner')){	
 			$incoming_id = $request->incoming_id;
 			$text = $request->message;
 			
 			if(session()->has('LoggedUser')){
-				if($text != ""){
-					$message=new Chat;
-					$message->message_owner=$incoming_id;
-					$message->message_user=$id;
-					$message->message_text=$message;
-					$message->message_read="unread";
-					$message->save();
-				}
-			} else {
+				$id=session('LoggedUser');
 				if($text != ""){
 					$message=new Chat;
 					$message->message_owner=$id;
 					$message->message_user=$incoming_id;
-					$message->message_text=$message;
+					$message->message_text=$text;
 					$message->message_read="unread";
 					$message->save();
-
-                    return response()->json(['status'=>'ok']);
 				}
-
+			} else {
+				$id=session('LoggedOwner');
+				if($text != ""){
+					$message=new Chat;
+					$message->message_owner=$id;
+					$message->message_user=$incoming_id;
+					$message->message_text=$text;
+					$message->message_read="unread";
+					$message->save();                    
+				}
+				return response()->json(['status'=>'ok']);
 			}			
 		} else {
 			return redirect()->route('chat.login');
@@ -424,16 +423,90 @@ class ChatController extends Controller
     }
 	public function getChat(Request $request){
 		if(session()->has('LoggedOwner')){
-			$outgoing_id=session('LoggedOwner');
-			$incoming_id = $request->incoming_id;
+			$incoming_id = $request->incoming_id; // inputdan gelen			
 			
 			$output = "";
-			
+
 			if(session()->has('LoggedUser')){
-				// 
+				$outgoing_id=session('LoggedUser');
+
+				$query=DB::table('messages')
+				->leftJoin('owners', 'owners.owner_id', '=', 'messages.message_owner')
+				->where([
+				 'messages.message_user' => $outgoing_id,
+				 'messages.message_owner' => $incoming_id,
+				])
+				->orWhere([
+				 'messages.message_user' => $incoming_id,
+				 'messages.message_owner' => $outgoing_id,
+				])
+				->orderBy('messages.message_id')
+				->get();
+
+				if($query->count() > 0){
+					foreach ($query as $row) {
+						if($row->message_owner == $outgoing_id){
+							$output .= '<div class="chat outgoing">
+											<div class="details">
+												<p>'. $row->message_text .'</p>
+											</div>
+										</div>';
+						} else {
+							$output .= '<div class="chat incoming">';
+							$output .= '<img src="'.asset('front/').'/img/icons/profile.svg" alt="'.$row->owner_username.'"> ';
+						$output .= '		<div class="details">
+												<p>'. $row->message_text .'</p>
+											</div>
+										</div>';
+						}
+					}		
+				} else {
+					$output .= '<div class="text">Mesaj yoxdur. Mesaj göndərildikdən sonra hamısı burada görünəcək.</div>';
+				}
 			} else {
-				// 
-			}			
+				$outgoing_id=session('LoggedOwner');
+
+				$query=DB::table('messages')
+				->leftJoin('users', 'users.user_id', '=', 'messages.message_user')
+				->where([
+				 'messages.message_user' => $outgoing_id,
+				 'messages.message_owner' => $incoming_id,
+				])
+				->orWhere([
+				 'messages.message_user' => $incoming_id,
+				 'messages.message_owner' => $outgoing_id,
+				])
+				->orderBy('messages.message_id')
+				->get();
+
+				if($query->count() > 0){
+					foreach ($query as $row) {
+						if($row->message_owner == $outgoing_id){
+							$output .= '<div class="chat outgoing">
+											<div class="details">
+												<p>'. $row->message_text .'</p>
+											</div>
+										</div>';
+						} else {
+							$output .= '<div class="chat incoming">';
+											if($row->user_image == ''){
+						$output .= '			<img src="'.asset('front/').'/img/icons/profile.svg" alt="'.$row->user_name.'"> ';
+											} else {
+						$output .= '			<img src="'.asset('front/').'/img/user/'.$row->user_image.'" alt="'.$row->user_name.'">';
+											}
+						$output .= '		<div class="details">
+												<p>'. $row->message_text .'</p>
+											</div>
+										</div>';
+						}
+					}		
+				} else {
+					$output .= '<div class="text">Mesaj yoxdur. Mesaj göndərildikdən sonra hamısı burada görünəcək.</div>';
+				}
+
+			}		
+			
+			echo $output;
 		} else {
 			return redirect()->route('chat.login');
 		}
