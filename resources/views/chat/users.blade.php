@@ -29,25 +29,7 @@
 					<button><i class="fas fa-search"></i></button>
 				</div>
 				<div class="users-list">
-					@if($usersCount > 0)
-						@foreach($users as $userItem)
-						<a href="{{route('chat.chat', $userItem->getOwnerMerge->owner_id)}}">
-							<div class="content">
-								<img src="{{asset('front/')}}/img/icons/profile.svg" alt="">
-								<div class="details">
-									<span>{{$userItem->getOwnerMerge->owner_username}}</span>
-								</div>
-							</div>
-							@if($userItem->getOwnerMerge->owner_online == 'online')
-							<div class="status-dot online"><i class="fas fa-circle"></i></div>
-							@else 
-							<div class="status-dot offline"><i class="fas fa-circle"></i></div>
-							@endif
-						</a>
-						@endforeach
-					@else 
-						Söhbət etmək üçün heç bir istifadəçi yoxdur
-					@endif
+					
 				</div>
 				@else
 				<header>
@@ -72,29 +54,7 @@
 					<button><i class="fas fa-search"></i></button>
 				</div>
 				<div class="users-list">
-					@if($usersCount > 0)
-						@foreach($users as $userItem)
-						<a href="{{route('chat.chat', $userItem->getUserMerge->user_id)}}">
-							<div class="content">
-								@if($userItem->getUserMerge->user_image == '')
-								<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$userItem->getUserMerge->user_name}}">
-								@else
-								<img src="{{asset('front/')}}/img/user/{{$userItem->getUserMerge->user_image}}" alt="{{$userItem->getUserMerge->user_name}}">
-								@endif
-								<div class="details">
-									<span>{{$userItem->getUserMerge->user_name}}</span>
-								</div>
-							</div>
-							@if($userItem->getUserMerge->user_online == 'online')
-							<div class="status-dot online"><i class="fas fa-circle"></i></div>
-							@else 
-							<div class="status-dot offline"><i class="fas fa-circle"></i></div>
-							@endif
-						</a>
-						@endforeach
-					@else 
-						Söhbət etmək üçün heç bir istifadəçi yoxdur
-					@endif
+					
 				</div>
 				@endif
 			</section>
@@ -119,6 +79,34 @@
 					searchBar.classList.remove("active");
 				}
 			};
+
+			$(document).ready(function(){
+
+				$.ajaxSetup({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					}
+				});
+
+				fetch_customer_data();
+
+				function fetch_customer_data(query = '') {
+					$.ajax({
+						url:"{{ route('chat.live_search.action') }}",
+						method:'GET',
+						data:{query:query},
+						dataType:'json',
+						success:function(data){
+							$('.users-list').html(data.table_data);
+						}
+					})
+				}
+
+				$(document).on('keyup', '#search', function(){
+					var query = $(this).val();
+					fetch_customer_data(query);
+				});
+			});
 		</script>
 	</body>
 </html>

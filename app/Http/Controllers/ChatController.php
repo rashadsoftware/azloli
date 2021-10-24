@@ -11,6 +11,8 @@ use App\Models\User;
 use App\Models\Merge;
 use App\Models\Chat;
 
+use DB;
+
 use Validator;
 
 class ChatController extends Controller
@@ -149,16 +151,16 @@ class ChatController extends Controller
         return redirect()->route('chat.index');
     }
     public function users(){
-		if(session()->has('LoggedOwner')){
-			$id=session('LoggedOwner');   
+		if(session()->has('LoggedOwner')){			  
 			
 			if(session()->has('LoggedUser')){	
 				$idUser=session('LoggedUser'); 							
 				$user=User::where('user_id', $idUser)->first();
 
-                $users=Merge::where('merge_user', $idUser)->get();
-                $usersCount=Merge::where('merge_user', $idUser)->count();
+                //$users=Merge::where('merge_user', $idUser)->get();
+                //$usersCount=Merge::where('merge_user', $idUser)->count();
 			} else {
+				$id=session('LoggedOwner'); 
 				$user=Owner::where('owner_id', $id)->first();
 
                 $userID=session('userSession');                
@@ -172,14 +174,128 @@ class ChatController extends Controller
                     $merge->save();
                 }
 
-                $users=Merge::where('merge_owner', $id)->get();
-                $usersCount=Merge::where('merge_owner', $id)->count();
+                //$users=Merge::where('merge_owner', $id)->get();
+                //$usersCount=Merge::where('merge_owner', $id)->count();
 			}
 			
-			return view('chat.users', compact('user', 'users', 'usersCount')); 
+			//return view('chat.users', compact('user', 'users', 'usersCount')); 
+			return view('chat.users', compact('user')); 
 		} else {
 			return redirect()->route('chat.login');
 		}
+    }
+	function action(Request $request) {
+     	if($request->ajax()) {
+      		$output = '';
+      		$query = $request->get('query');			
+
+			if(session()->has('LoggedUser')){
+				if($query != '') {
+					$dataUser=Merge::where('merge_user', session('LoggedUser'))->get();
+					foreach ($dataUser as $userItem) {
+						$data=Owner::where('owner_id', $userItem->merge_owner)->where('owner_username', 'like', '%'.$query.'%')->get();
+
+						foreach($data as $row) {
+							$output .= '
+								<a href="'.route('chat.chat', $row->owner_id).'">
+									<div class="content">';
+					$output .= '		<img src="'.asset('front/').'/img/icons/profile.svg" alt="'.$row->owner_username.'"> ';
+			$output .= '				<div class="details">
+											<span>'.$row->owner_username.'</span>
+										</div>
+									</div>';
+									if($row->owner_online == "online"){
+					$output .= '		<div class="status-dot online"><i class="fas fa-circle"></i></div>';
+									} else { 
+					$output .= '		<div class="status-dot offline"><i class="fas fa-circle"></i></div>';
+									}
+				$output .= '	</a>						
+							';
+						}						
+					}
+				} else {
+					$data=Merge::where('merge_user', session('LoggedUser'))->get();
+
+					foreach($data as $row) {
+						$output .= '
+								<a href="'.route('chat.chat', $row->getOwnerMerge->owner_id).'">
+									<div class="content">';
+					$output .= '		<img src="'.asset('front/').'/img/icons/profile.svg" alt="'.$row->getOwnerMerge->owner_username.'"> ';
+			$output .= '				<div class="details">
+											<span>'.$row->getOwnerMerge->owner_username.'</span>
+										</div>
+									</div>';
+									if($row->getOwnerMerge->owner_online == "online"){
+					$output .= '		<div class="status-dot online"><i class="fas fa-circle"></i></div>';
+									} else { 
+					$output .= '		<div class="status-dot offline"><i class="fas fa-circle"></i></div>';
+									}
+				$output .= '	</a>						
+							';
+					}
+				}
+			} else {
+				
+				if($query != '') {
+					$dataUser=Merge::where('merge_owner', session('LoggedOwner'))->get();
+					foreach ($dataUser as $userItem) {
+						$data=User::where('user_id', $userItem->merge_user)->where('user_name', 'like', '%'.$query.'%')->get();
+
+						foreach($data as $row) {
+							$output .= '
+									<a href="'.route('chat.chat', $row->user_id).'">
+										<div class="content">';
+											if($row->user_image == ''){
+							$output .= '		<img src="'.asset('front/').'/img/icons/profile.svg" alt="'.$row->user_name.'"> ';
+											} else {
+							$output .= '		<img src="'.asset('front/').'/img/user/'.$row->user_image.'" alt="'.$row->user_name.'">';
+											}
+							$output .= '	<div class="details">
+												<span>'.$row->user_name.'</span>
+											</div>
+										</div>';
+										if($row->user_online == "online"){
+						$output .= '		<div class="status-dot online"><i class="fas fa-circle"></i></div>';
+										} else { 
+						$output .= '		<div class="status-dot offline"><i class="fas fa-circle"></i></div>';
+										}
+					$output .= '	</a>						
+								';
+						}						
+					}	
+				} else {					
+					$data=Merge::where('merge_owner', session('LoggedOwner'))->get();
+
+					foreach($data as $row) {
+						$output .= '
+								<a href="'.route('chat.chat', $row->getUserMerge->user_id).'">
+									<div class="content">';
+										if($row->getUserMerge->user_image == ''){
+						$output .= '		<img src="'.asset('front/').'/img/icons/profile.svg" alt="'.$row->getUserMerge->user_name.'"> ';
+										} else {
+						$output .= '		<img src="'.asset('front/').'/img/user/'.$row->getUserMerge->user_image.'" alt="'.$row->getUserMerge->user_name.'">';
+										}
+			$output .= '				<div class="details">
+											<span>'.$row->getUserMerge->user_name.'</span>
+										</div>
+									</div>';
+									if($row->getUserMerge->user_online == "online"){
+					$output .= '		<div class="status-dot online"><i class="fas fa-circle"></i></div>';
+									} else { 
+					$output .= '		<div class="status-dot offline"><i class="fas fa-circle"></i></div>';
+									}
+				$output .= '	</a>						
+							';
+					}
+				}
+			}
+
+			$data = array(
+				'table_data'  => $output,
+			);
+
+      		echo json_encode($data);
+     	}
     }
 	
 	/* chat page 

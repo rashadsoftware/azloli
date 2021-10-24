@@ -39,23 +39,6 @@ searchBar.onkeyup = () => {
     xhr.send("searchTerm=" + searchTerm);
 };
 
-$(function () {
-    setInterval(() => {
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", "users/getData", true);
-        xhr.onload = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    let data = xhr.response;
-                    console.log(data);
-                }
-            }
-        };
-        xhr.send();
-    }, 500);
-});
-
-/*
 setInterval(() => {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "users/action", true);
@@ -71,4 +54,3 @@ setInterval(() => {
     };
     xhr.send();
 }, 500);
-*/
