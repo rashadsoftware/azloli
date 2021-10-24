@@ -68,19 +68,21 @@
 				<form autocomplete="off" action="{{route('profile.update.password')}}" method="POST" id="formProfilePassword" class="mt-4">
 					@method('PUT')
 					@csrf
-					<div class="form-group">
+					<div class="form-group">						
 						<label for="oldPassword">Köhnə şifrə</label>
-						<input type="password" class="form-control" name="oldPassword" placeholder="Köhnə şifrənizi daxil edin"/>
-						<span class="text-danger error-text oldPassword_error"></span>
-					</div>
+						<div class="position-relative">
+							<input type="password" class="form-control settPassword" name="oldPassword" placeholder="Köhnə şifrənizi daxil edin"/>
+							<i class="fa fa-eye position-absolute" id="setting_eye"></i>
+						</div>
+						<span class="text-danger error-text oldPassword_error"></span>											
 					<div class="form-group">
 						<label for="newpassword">Yeni şifrə</label>
-						<input type="password" class="form-control" name="newpassword" placeholder="Yeni şifrənizi daxil edin"/>
+						<input type="password" class="form-control settPassword" name="newpassword" placeholder="Yeni şifrənizi daxil edin"/>
 						<span class="text-danger error-text newpassword_error"></span>
 					</div>
 					<div class="form-group">
 						<label for="password_confirmation">Təkrar şifrə</label>
-						<input type="password" class="form-control" name="password_confirmation" placeholder="Yeni şifrənizi təkrarlayın"/>
+						<input type="password" class="form-control settPassword" name="password_confirmation" placeholder="Yeni şifrənizi təkrarlayın"/>
 						<span class="text-danger error-text password_confirmation_error"></span>
 					</div>
 					

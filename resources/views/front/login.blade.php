@@ -13,6 +13,9 @@
 					<div class="card box-shadow" style="max-width:400px">
 						<div class="card-body">
 							<h2 class="mb-4">Giriş</h2>
+							@if(!session()->has('successRegister') && !session()->has('failLogin'))
+							<div class="alert alert-info">İş tapmaq üçün qeydiyyatdan keçməlisiniz</div>
+							@endif							
 							<form action="{{route('login.post')}}" method="post" autocomplete="off">
 								@csrf
 								

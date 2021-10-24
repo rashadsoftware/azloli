@@ -13,14 +13,16 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body p-0">
                             <div class="mailbox-read-info">
-                                <h5 class="font-weight-bold">{{$detail->mail_theme}}</h5>
-                                <h6>From: {{$detail->mail_email}}
+                                @if($detail->mail_theme != '')
+                                    <h5 class="font-weight-bold"> {{$detail->mail_theme}}</h5>
+                                @endif
+                                <h6>Kimdən: {{$detail->mail_email}}
                             </div>
 
                             <!-- /.mailbox-controls -->
                             <div class="mailbox-read-message">
                                 <p>{{$detail->mail_text}}</p>
-                                <p>Hörmətlə,<br>{{$detail->mail_user}} ({{$detail->mail_phone}})</p>
+                                <p>Hörmətlə,<br>{{$detail->mail_user}} @if($detail->mail_phone != '') ({{$detail->mail_phone}})  @endif</p>
                             </div>
                             <!-- /.mailbox-read-message -->
                         </div>

@@ -42,7 +42,7 @@
                                             </b>{{Str::substr($mail->mail_text, 0, 70)}}...
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{route('admin.mail.show', $mail->mail_id)}}" title="Yenilə" class="btn btn-default mr-1"><i class="fas fa-eye"></i></a>
+                                            <a href="{{route('admin.mail.show', $mail->mail_id)}}" title="Oxu" class="btn btn-default mr-1"><i class="fas fa-eye"></i></a>
                                             <a href="{{route('admin.mail.delete', $mail->mail_id)}}" title="Sil" class="btn btn-danger mr-1"><i class="fas fa-trash-alt"></i></a>
                                         </td>
                                     </tr>

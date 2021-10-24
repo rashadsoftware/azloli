@@ -158,12 +158,12 @@
     </div>
     <!-- ***** CTA Area End ***** -->
 
-    <!-- ***** Cool Facts Area Start ***** -->
+    <!-- ***** Cool Facts Area Start ***** 
     <div class="uza-cf-area section-padding-80-0">
         <div class="container">
             <div class="row">
 
-                <!-- Single Cool Facts Area -->
+                
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-cf-area d-flex align-items-center mb-80">
                         <h2><span class="counter">{{DB::table('users')->where('user_status', '!=', 'admin')->count()}}</span></h2>
@@ -174,7 +174,7 @@
                     </div>
                 </div>
 
-                <!-- Single Cool Facts Area -->
+                
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-cf-area d-flex align-items-center mb-80">
                         <h2><span class="counter">{{DB::table('categories')->where('category_state', 'active')->count()}}</span></h2>
@@ -187,7 +187,7 @@
 
                 
 
-                <!-- Single Cool Facts Area -->
+                
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-cf-area d-flex align-items-center mb-80">
                         <h2><span class="counter">{{DB::table('subcategories')->where('subcategory_state', 'active')->count()}}</span></h2>
@@ -198,7 +198,7 @@
                     </div>
                 </div>
 
-                <!-- Single Cool Facts Area -->
+                
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="single-cf-area d-flex align-items-center mb-80">
                         <h2><span class="counter">50</span></h2>
@@ -212,5 +212,5 @@
             </div>
         </div>
     </div>
-    <!-- ***** Cool Facts Area End ***** -->
+     ***** Cool Facts Area End ***** -->
 @endsection

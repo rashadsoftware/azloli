@@ -68,12 +68,13 @@ class ProfileController extends Controller
 	// jobs page =======================================================================>
     public function jobs(){
         $config=Config::where('config_id', 1)->first();
-		
-		$jobsCount=Jobs::count();
-		$jobs=Jobs::all();
+        $id=session('LoggedUser');		
 
         if(session()->has('LoggedUser')){
-            $user=User::where('user_id', session('LoggedUser'))->first();            
+            $user=User::where('user_id', session('LoggedUser'))->first();      
+            
+            $jobsCount=Jobs::where('userID', $id)->count();
+		    $jobs=Jobs::where('userID', $id)->get();
         }
 		
         return view('profile.jobs', compact('user', 'config', 'jobsCount', 'jobs'));

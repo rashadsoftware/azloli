@@ -18,17 +18,20 @@
 							</div>
 						</div>
 					</div>
-					<a href="{{route('chat.logout')}}" class="logout">Logout</a>
+					<div class="d-flex">
+						<a href="{{route('profile.dashboard')}}" class="logout mr-1">Profilə keçid</a>
+						<a href="{{route('chat.logout')}}" class="logout">Logout</a>
+					</div>					
 				</header>
 				<div class="search">
 					<span class="text">Söhbətə başlamaq üçün istifadəçi seçin</span>
-					<input type="text" placeholder="İstifadəçi adı daxil edin...">
+					<input type="text" placeholder="İstifadəçi adı daxil edin..." id="search" name="search">
 					<button><i class="fas fa-search"></i></button>
 				</div>
 				<div class="users-list">
 					@if($usersCount > 0)
 						@foreach($users as $userItem)
-						<a href="{{route('chat.chat', $userItem->getOwnerMerge->owner_id)}}" class="">
+						<a href="{{route('chat.chat', $userItem->getOwnerMerge->owner_id)}}">
 							<div class="content">
 								<img src="{{asset('front/')}}/img/icons/profile.svg" alt="">
 								<div class="details">
@@ -58,17 +61,20 @@
 							</div>
 						</div>
 					</div>
-					<a href="{{route('chat.logout')}}" class="logout">Logout</a>
+					<div class="d-flex">
+						<a href="{{route('index')}}" class="logout mr-1">Sayta keçid</a>
+						<a href="{{route('chat.logout')}}" class="logout">Logout</a>
+					</div>
 				</header>
 				<div class="search">
 					<span class="text">Söhbətə başlamaq üçün istifadəçi seçin</span>
-					<input type="text" placeholder="İstifadəçi adı daxil edin...">
+					<input type="text" placeholder="İstifadəçi adı daxil edin..." id="search" name="search">
 					<button><i class="fas fa-search"></i></button>
 				</div>
 				<div class="users-list">
 					@if($usersCount > 0)
 						@foreach($users as $userItem)
-						<a href="{{route('chat.chat', $userItem->getUserMerge->user_id)}}" class="">
+						<a href="{{route('chat.chat', $userItem->getUserMerge->user_id)}}">
 							<div class="content">
 								@if($userItem->getUserMerge->user_image == '')
 								<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$userItem->getUserMerge->user_name}}">
@@ -97,29 +103,22 @@
 		<!-- Active js -->
         <script src="{{asset('chat/')}}/js/jquery.min.js"></script>
 		<script src="{{asset('chat/')}}/js/bootstrap.min.js"></script>
-		<!--- <script src="{{asset('chat/')}}/js/users.js"></script> -->
-		
-		<script>
-			$(function(){
-				// toggle show hide search input
-				const searchBar = document.querySelector(".search input"),
-				searchIcon = document.querySelector(".search button"),
-				usersList = document.querySelector(".users-list");
+		<!-- <script src="{{asset('chat/')}}/js/users.js"></script> -->
 
-				searchIcon.onclick = ()=>{
-				  searchBar.classList.toggle("show");
-				  searchIcon.classList.toggle("active");
-				  searchBar.focus();
-				  if(searchBar.classList.contains("active")){
+		<script>
+			const searchBar = document.querySelector(".search input"),
+			searchIcon = document.querySelector(".search button"),
+			usersList = document.querySelector(".users-list");
+
+			searchIcon.onclick = () => {
+				searchBar.classList.toggle("show");
+				searchIcon.classList.toggle("active");
+				searchBar.focus();
+				if (searchBar.classList.contains("active")) {
 					searchBar.value = "";
 					searchBar.classList.remove("active");
-				  }
 				}
-
-				setInterval(function() {
-					window.location.reload();
-				}, 3000);
-			});
+			};
 		</script>
 	</body>
 </html>

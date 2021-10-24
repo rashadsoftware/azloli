@@ -14,13 +14,7 @@ use App\Models\Chat;
 use Validator;
 
 class ChatController extends Controller
-{
-    /*
-	public function __construct(){
-        $this->middleware('isLoggedOwner');
-    }
-    */
-	
+{	
     /* index page 
     ==================================================================> */
     public function index(){
@@ -156,13 +150,14 @@ class ChatController extends Controller
     }
     public function users(){
 		if(session()->has('LoggedOwner')){
-			$id=session('LoggedOwner');            
+			$id=session('LoggedOwner');   
 			
-			if(session()->has('LoggedUser')){								
-				$user=User::where('user_id', $id)->first();
+			if(session()->has('LoggedUser')){	
+				$idUser=session('LoggedUser'); 							
+				$user=User::where('user_id', $idUser)->first();
 
-                $users=Merge::where('merge_user', $id)->get();
-                $usersCount=Merge::where('merge_user', $id)->count();
+                $users=Merge::where('merge_user', $idUser)->get();
+                $usersCount=Merge::where('merge_user', $idUser)->count();
 			} else {
 				$user=Owner::where('owner_id', $id)->first();
 

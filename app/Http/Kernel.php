@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
         'isActiveProfile' => \App\Http\Middleware\ActiveCheckProfile::class,
 		
 		// chat section
-        'isLoggedOwner' => \App\Http\Middleware\AuthCheckOwner::class,
+        'OwnerOnline' => \App\Http\Middleware\CheckOwnerOnline::class,
 
         
         'auth' => \App\Http\Middleware\Authenticate::class,

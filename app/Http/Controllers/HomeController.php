@@ -113,7 +113,7 @@ class HomeController extends Controller
         if($user){
             if(Hash::check($request->password, $user->user_password)){
                 $request->session()->put('LoggedUser', $user->user_id);
-                return redirect()->route('profile.dashboard');
+                return redirect()->route('profile.dashboard');              
             } else {
                 return back()->with('failLogin', 'Şifrə vəya E-mail yalnışdır. Yenidən cəhd edin!');
             }
@@ -187,13 +187,24 @@ class HomeController extends Controller
                 }
                 
                 $skill_users=array_unique($skills); // bir dizideki eyni deyerler birlesdi
-                
-                foreach($skill_users as $skill_user){
-                    $worker_data=User::where('user_id',$skill_user)->where('user_status', 'user')->first();
-                    array_push($workers, $worker_data);
 
-                    array_push($publish, $worker_data->user_publish);
-                }
+                if(session()->has('LoggedUser')){
+                    foreach($skill_users as $skill_user){
+                        $worker_data=User::where('user_id',$skill_user)->where('user_status', 'user')->first();
+    
+                        if(session('LoggedUser') != $worker_data->user_id){
+                            array_push($workers, $worker_data);
+                            array_push($publish, $worker_data->user_publish);
+                        }                    
+                    }
+                } else {
+                    foreach($skill_users as $skill_user){
+                        $worker_data=User::where('user_id',$skill_user)->where('user_status', 'user')->first();
+
+                        array_push($workers, $worker_data);
+                        array_push($publish, $worker_data->user_publish);                  
+                    }
+                }   
 
                 $arr = array_diff($publish, array("unpublish"));
 

@@ -8,7 +8,7 @@ Route::get('/', 'HomeController@index')->name('index');
 Route::get('/about', 'HomeController@about')->name('about');
 Route::post('/search', 'HomeController@search')->name('search');
 Route::post('/autocomplete', 'HomeController@autocomplete')->name('autocomplete');
-Route::get('/user/{id}', 'HomeController@userDetail')->name('user.detail');
+Route::get('/user/{id}', 'HomeController@userDetail')->middleware('OwnerOnline')->name('user.detail');
 
 // contact
 Route::get('/contact', 'HomeController@contact')->name('contact');
@@ -67,7 +67,7 @@ Route::prefix('/chat')->name('chat.')->group(function(){
 	
 	// users
     Route::get('/users/{id}', 'ChatController@usersCreate')->name('users.create');
-    Route::get('/users', 'ChatController@users')->name('users');    
+    Route::get('/users', 'ChatController@users')->name('users');
 	
 	// chat
     Route::get('/chat/{id}', 'ChatController@chat')->name('chat');

@@ -107,12 +107,12 @@
                                         @if($data->user_image == '')
                                             <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> </span>
                                         @else
-                                            <span> <img src="{{asset('front/')}}/img/user/{{$data->user_image}}" alt="" width="50" height="30" style="border-radius:50%"> </span>
+                                            <span> <img src="{{asset('front/')}}/img/user/{{$data->user_image}}" alt="" width="50" height="30" style="border-radius:50%; height:50px"> </span>
                                         @endif                                        
                                     </a>
                                     @else
                                     <a href="{{route('login')}}">
-                                        <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> Giriş</span>
+                                        <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> İş tap / Qeydiyyat</span>
                                     </a>
                                     @endif
                                 </div>

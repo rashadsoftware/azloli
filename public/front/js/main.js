@@ -45,6 +45,16 @@ $(function () {
             inputPassword.attr("type", "password");
         }
     });
+    $("#setting_eye").click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var inputPassword = $(".settPassword");
+
+        if (inputPassword.attr("type") == "password") {
+            inputPassword.attr("type", "text");
+        } else {
+            inputPassword.attr("type", "password");
+        }
+    });
 
     /* Profile Section
     =============================================================================>  */
