@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Config;
 use App\Models\Advert;
 use App\Models\Jobs;
+use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Skills;
 
@@ -46,13 +47,26 @@ class ProfileController extends Controller
     }
     public function publish(){
         $id=session('LoggedUser');
-		
-		$user=User::where('user_id', $id)->first();
-		$user->user_publish='publish';
-        $user->user_online='online';
-		$user->save(); 
-		
-		return redirect()->route('profile.dashboard')->with('successDashboard', 'Təbriklər! Yayımı başlatdınız. Bu andan etibarən bütün istifadəçilər sizi görə və sizə iş təklifi edə bilərlər. Zəhmət olmasa mütəmadi olaraq hesabalarınızı kontrol edin.');
+
+        $userData=User::where('user_id', $id)->first();
+
+        if($userData->user_address != '' && $userData->user_phone != '' && $userData->user_description != ''){
+            $userSkill=Skills::where('userID', $id)->count();
+
+            if($userSkill > 0){
+                $user=User::where('user_id', $id)->first();
+                $user->user_publish='publish';
+                $user->user_online='online';
+                $user->save(); 
+                
+                return redirect()->route('profile.dashboard')->with('successDashboard', 'Təbriklər! Yayımı başlatdınız. Bu andan etibarən bütün istifadəçilər sizi görə və sizə iş təklifi edə bilərlər. Zəhmət olmasa mütəmadi olaraq hesablarınızı kontrol edin.');
+            } else {
+                return redirect()->route('profile.skills')->with('alertDashboard', 'Siz hesabınızı aktivləşdirmək üçün bu səhifədə  özünüz haqqında məlumatlarınızı tam şəkildə doldurmalısınız!');
+            }
+
+        } else {
+            return redirect()->route('profile.settings')->with('alertDashboard', 'Siz hesabınızı aktivləşdirmək üçün bu səhifədə  özünüz haqqında məlumatlarınızı tam şəkildə doldurmalısınız!');
+        }
     }
 	public function unpublish(){
         $id=session('LoggedUser');
@@ -115,17 +129,30 @@ class ProfileController extends Controller
 		$skillsCount=Skills::where('userID', $id)->count();
 		$skills=Skills::where('userID', $id)->get();
 		$subcategories=SubCategory::where('subcategory_state', 'active')->get();
+        $categories=Category::where('category_state', 'active')->get();
 
         if(session()->has('LoggedUser')){
             $user=User::where('user_id', session('LoggedUser'))->first();            
         }
 		
-        return view('profile.skills', compact('user', 'config', 'skillsCount', 'skills', 'subcategories'));
+        return view('profile.skills', compact('user', 'config', 'skillsCount', 'skills', 'subcategories', 'categories'));
+    }
+    public function skillsFetch(Request $request){
+        
+        $districtsCount=SubCategory::where('categoryID', '=', $request->cateID)->count();
+        $districtsFetch=SubCategory::where('categoryID', '=', $request->cateID)->pluck('subcategory_title', 'subcategory_id');
+        
+        if($districtsCount > 0){
+            return response(['status'=>'success', 'content'=>$districtsFetch]);
+        } else {
+            return response(['status'=>'error', 'content'=>'Bacarıq seçin']);
+        }        
     }
 	public function skillsAdd(Request $request){
 		$id=session('LoggedUser');
 
         $request->validate([
+            'selectCategory'=>'required',
             'selectSkills'=>'required',
         ]);
 		

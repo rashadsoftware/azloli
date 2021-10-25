@@ -537,6 +537,17 @@ input:focus {
     color: var(--main-color);
     border: 1px solid var(--main-color);
 }
+.uza-btn.btn-4 {
+    background-color: #1583e9;
+    color: #ffffff;
+    border: 1px solid #1583e9;
+}
+.uza-btn.btn-4:focus,
+.uza-btn.btn-4:hover {
+    background-color: #ffffff;
+    color: #1583e9;
+    border: 1px solid #1583e9;
+}
 .uza-btn.btn-3 {
     border: 1px solid var(--main-color);
     line-height: 46px;

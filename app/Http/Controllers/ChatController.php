@@ -453,7 +453,6 @@ class ChatController extends Controller
 										</div>';
 						} else {
 							$output .= '<div class="chat incoming">';
-							$output .= '<img src="'.asset('front/').'/img/icons/profile.svg" alt="'.$row->owner_username.'"> ';
 						$output .= '		<div class="details">
 												<p>'. $row->message_text .'</p>
 											</div>
@@ -489,11 +488,6 @@ class ChatController extends Controller
 										</div>';
 						} else {
 							$output .= '<div class="chat incoming">';
-											if($row->user_image == ''){
-						$output .= '			<img src="'.asset('front/').'/img/icons/profile.svg" alt="'.$row->user_name.'"> ';
-											} else {
-						$output .= '			<img src="'.asset('front/').'/img/user/'.$row->user_image.'" alt="'.$row->user_name.'">';
-											}
 						$output .= '		<div class="details">
 												<p>'. $row->message_text .'</p>
 											</div>

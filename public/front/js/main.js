@@ -5,6 +5,11 @@ $(function () {
         }, 3000);
     }
 
+    // close alert with setTimeout
+    setTimeout(() => {
+        $(".j_Alert").fadeOut();
+    }, 6000);
+
     // contact form with ajax
     $("#formContact").on("submit", function (e) {
         e.preventDefault();

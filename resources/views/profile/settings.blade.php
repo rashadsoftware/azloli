@@ -74,7 +74,8 @@
 							<input type="password" class="form-control settPassword" name="oldPassword" placeholder="Köhnə şifrənizi daxil edin"/>
 							<i class="fa fa-eye position-absolute" id="setting_eye"></i>
 						</div>
-						<span class="text-danger error-text oldPassword_error"></span>											
+						<span class="text-danger error-text oldPassword_error"></span>	
+					</div>										
 					<div class="form-group">
 						<label for="newpassword">Yeni şifrə</label>
 						<input type="password" class="form-control settPassword" name="newpassword" placeholder="Yeni şifrənizi daxil edin"/>

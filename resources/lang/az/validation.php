@@ -155,6 +155,7 @@ return [
         'username'              =>'İstifadəçi adı',
         'password_confirmation' =>'Təkrar şifrə',
         'job_image'             =>'Referans şəkillər',
+        'selectCategory'        =>'Kateqoriya sahəsi',
     ],
 
 ];

@@ -8,7 +8,7 @@
 
 @section('content')   
 	@if($message=Session::get('successSkills'))
-	<div class="w-100 mt-1">
+	<div class="w-100 mt-1 j_Alert">
 		<div class="alert alert-success">
 			{{ $message }}
 		</div>
@@ -16,30 +16,39 @@
 	@endif
 
 	@if($message=Session::get('errorSkills'))
-	<div class="w-100 mt-1">
+	<div class="w-100 mt-1 j_Alert">
 		<div class="alert alert-danger">
 			{{ $message }}
 		</div>
 	</div>
 	@endif 
-    <form action="{{route('profile.skills.add')}}" method="POST" class="mt-4" autocomplete="off">
-		@csrf
-		<div class="form-inline">
-			<select class="form-control @error('selectSkills') is-invalid @enderror w-50" name="selectSkills">
-				<option value="">Bacarıq seçin</option>
-				@foreach($subcategories as $subcategory)
-				<option 
-					value="{{$subcategory->subcategory_id}}" 
-					{{old('selectSkills') == $subcategory->subcategory_id ? 'selected' : ''}}
-				>
-					{{$subcategory->subcategory_title}}
-				</option>
-				@endforeach
-			</select>                                            
-			<button type="submit" class="btn btn-primary ml-3">Bacarıq Əlavə Et</button>
-		</div>  
-		<span class="text-danger">@error('selectSkills') {{$message}} @enderror</span>
-	</form>
+	<div class="col-6">
+		<form action="{{route('profile.skills.add')}}" method="POST" class="mt-4" autocomplete="off">
+			@csrf
+			<div class="form-group">
+				<select class="form-control @error('selectCategory') is-invalid @enderror mr-2" name="selectCategory" id="selectCategory">
+					<option value="">Kateqoriya seçin</option>
+					@foreach($categories as $category)
+					<option 
+						value="{{$category->category_id}}" 
+						{{old('selectCategory') == $category->category_id ? 'selected' : ''}}
+					>
+						{{$category->category_title}}
+					</option>
+					@endforeach
+				</select>  
+				<span class="text-danger">@error('selectCategory') {{$message}} @enderror</span>
+			</div> 
+			<div class="form-group">  
+				<select class="form-control @error('selectSkills') is-invalid @enderror" name="selectSkills" id="selectSkills">
+					<option value="">Bacarıq seçin</option>
+				</select> 
+				<span class="text-danger">@error('selectSkills') {{$message}} @enderror</span>
+			</div> 
+			<button type="submit" class="btn btn-primary">Bacarıq Əlavə Et</button> 
+			
+		</form>
+	</div>   
 	
 	<hr>
 	
@@ -57,4 +66,48 @@
 			@endif			
 		</div>
 	</div>
+@endsection
+
+@section('js')
+<script>
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+
+    $(function () {
+        // dependent dropdown using AJAX
+        $("#selectCategory").change(function (e) {
+            e.preventDefault();
+            var cateDropdown = document.getElementById("selectCategory").value;
+
+            $.ajax({
+                type: "POST",
+                url: "skills/fetch",
+                data: { cateID: cateDropdown },
+                success: function (response) {
+                    var districtDropdown = "";
+                    var msg = response.content;
+
+                    if (response.status == "success") {
+                        $.each(msg, function (key, value) {
+                            districtDropdown +=
+                                "<option value='" +
+                                key +
+                                "' >" +
+                                value +
+                                "</option>";
+                        });
+                    } else {
+                        districtDropdown += "<option value=''>" + msg + "</option>";
+                    }
+
+                    document.getElementById("selectSkills").innerHTML =
+                        districtDropdown;
+                },
+            });
+        });
+    });
+</script>
 @endsection

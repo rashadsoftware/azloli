@@ -46,6 +46,7 @@ Route::prefix('/profile')->name('profile.')->group(function(){
 	// skills
     Route::get('/skills', 'ProfileController@skills')->name('skills');
     Route::post('/skills', 'ProfileController@skillsAdd')->name('skills.add');
+    Route::post('/skills/fetch', 'ProfileController@skillsFetch')->name('skills.fetch');    // dynamic dropdown
     Route::get('/skills/delete/{id}', 'ProfileController@skillsDelete')->name('skills.delete');
     
     // logout

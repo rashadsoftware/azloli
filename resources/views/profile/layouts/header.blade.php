@@ -6,6 +6,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+		<meta name="csrf-token" content="{{ csrf_token() }}" />
+
         <!-- Title & Favicon-->
         <title>{{$config->config_title}} | @yield('title')</title>
         @if($config->config_favicon == '')
@@ -87,6 +89,13 @@
 											</div>
 										</a>
 									</li>
+									<div class="w-100 mt-3">
+										@if($user->user_publish == 'unpublish')
+											<a href="{{route('profile.dashboard.publish')}}" class="btn uza-btn btn-4 d-flex align-items-center mx-auto" style="width:170px"> <i class="fas fa-upload mr-md-2"></i> <span class="d-none d-md-block">Yayına Başla</span></a>
+										@else
+											<a href="{{route('profile.dashboard.unpublish')}}" class="btn uza-btn btn-1 d-flex align-items-center mx-auto" style="width:200px"> <i class="fa fa-download mr-md-2"></i> <span class="d-none d-md-block">Yayını Dayandır</span></a>
+										@endif
+									</div>									
 								</ul>
 								<a href="{{route('profile.logout')}}" class="btn uza-btn btn-2 mt-3 w-100">Çıxış</a>
 							</div>
@@ -96,7 +105,7 @@
 						<div class="card box-shadow w-100">
 							<div class="card-body">								
 								<!-- ***** Breadcrumb Area Start ***** -->
-								<div class="breadcrumb-area" style="height:120px">
+								<div class="breadcrumb-area" style="height:auto">
 									<div class="container">
 										<div class="row align-items-end">
 											<div class="breadcumb--con w-100">
@@ -104,11 +113,6 @@
 													<h2 class="title" style="font-size:35px">@yield('title')</h2>
 													<div class="d-flex">
 														<a href="{{route('index')}}" class="btn btn-primary d-flex align-items-center mr-2"> <i class="fa fa-globe mr-md-2"></i> <span class="d-none d-md-block">Sayta geri qayıt</span></a>
-														@if($user->user_publish == 'unpublish')
-															<a href="{{route('profile.dashboard.publish')}}" class="btn btn-primary d-flex align-items-center"> <i class="fas fa-upload mr-md-2"></i> <span class="d-none d-md-block">Yayına Başla</span></a>
-														@else
-															<a href="{{route('profile.dashboard.unpublish')}}" class="btn btn-primary d-flex align-items-center"> <i class="fa fa-download mr-md-2"></i> <span class="d-none d-md-block">Yayını Dayandır</span></a>
-														@endif														
 													</div>													
 												</div>												
 												<nav aria-label="breadcrumb">
@@ -120,21 +124,25 @@
 											</div>
 										</div>
 										<div class="row">
+											@if($user->user_publish == 'unpublish')
+											<marquee class="mt-3 p-1 bg-light">Sifarişçilərin sizi görməsi və sizə iş təkliflərində bulunması üçün zəhmət olmasa özünüz haqqında bütün məlumatları doldurduqdan sonra yayına başla butonunu sıxın. Əks halda hesabınız görünməz olaraq qalacaqdır!</marquee>
+											@endif
+
 											@if($message=Session::get('successDashboard'))
-											<div class="w-100 mt-1">
+											<div class="w-100 mt-2 j_Alert">
 												<div class="alert alert-success">
 													{{ $message }}
 												</div>
 											</div>
-											@endif
+											@endif											
 											
 											@if($message=Session::get('alertDashboard'))
-											<div class="w-100 mt-1">
+											<div class="w-100 mt-1 j_Alert mt-2">
 												<div class="alert alert-info">
 													{{ $message }}
 												</div>
 											</div>
-											@endif
+											@endif											
 										</div>
 									</div>
 								</div>
