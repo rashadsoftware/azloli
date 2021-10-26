@@ -48,4 +48,8 @@ class User extends Model
                 break;
         }
     }
+
+    public function getSkill(){
+        return $this->hasOne(Skills::class, 'userID', 'user_id');
+    }
 }

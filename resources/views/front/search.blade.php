@@ -72,37 +72,33 @@
 					<!-- Single Portfolio Item -->
 					@foreach($workers as $worker)
 						@if($worker->user_publish == 'publish')
-						<div class="col-12 col-sm-6 col-lg-4 col-xl-3 single-portfolio-item">
-							<!-- Single Team Slide -->
-							<div class="single-team-slide">
-								@if($worker->user_image == '')
-								<img src="{{asset('front/')}}/img/icons/image_default.png" alt="{{$worker->user_name}}">
-								@else
-								<img src="{{asset('front/')}}/img/user/{{$worker->user_image}}" alt="{{$worker->user_name}}">
-								@endif
-								<!-- Overlay Effect -->
-								<div class="overlay-effect">
-									@if($worker->user_online == 'online')
-									<span class="user-online">Online</span>
+						<div class="col-12 col-sm-6 col-lg-4 col-xl-3">
+							<div class="card-item">
+								<div class="img">
+									@if($worker->user_image == '')
+									<img src="{{asset('front/')}}/img/icons/image_default.png" alt="{{$worker->user_name}}">
+									@else
+									<img src="{{asset('front/')}}/img/user/{{$worker->user_image}}" alt="{{$worker->user_name}}">
 									@endif
-									<h4>{{$worker->user_name}} </h4>
-									<p>{{ Str::limit($worker->user_description,60) }}</p>
+									@if($worker->user_online == 'online')
+									<div class="img-online"><span class="user-online">Online</span></div>									
+									@endif
 								</div>
-								<div class="team-social-info">
-									<a href="{{route('user.detail', $worker->user_id)}}" class="btn btn-success">Daha Ətraflı</a>
-								</div>
+								<div class="top-text">
+									<div class="name">{{$worker->user_name}}</div>
+									<p>{{$catID->category_title}} / {{$worker->getSkill->getSubCategory->subcategory_title}}</p>
+								</div>		
+								<div class="bottom-text">
+									<div class="text">{{ Str::limit($worker->user_description,120) }}</div>
+									<div class="card-btn">
+										<a href="{{route('user.detail', $worker->user_id)}}" class="btn">Daha Ətraflı</a>
+									</div>
+								</div>					
 							</div>
 						</div>							
 						@endif
 					@endforeach				
 				</div>
-
-				<div class="row">
-					<div class="col-12 text-center mt-30">
-						<a href="#" class="btn uza-btn btn-3">Load More</a>
-					</div>
-				</div>			
-				
 			</div>		
 		</section>
 		<!-- ****** Gallery Area End ****** -->	

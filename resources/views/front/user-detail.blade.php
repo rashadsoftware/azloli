@@ -36,18 +36,24 @@
         <div class="container">
             <div class="row justify-content-between align-items-end">
                 <div class="col-12 col-md-6">
-                    <div class="portfolio-details-text">
-                        @if($userData->user_online == 'online')
-                            <span class="user-online">Online</span>
+                    <div class="d-flex align-items-center">
+                        @if($userData->user_image == '')
+                        <img src="{{asset('front/')}}/img/icons/image_default.png" alt="{{$userData->user_name}}" class="mr-3" style="border-radius:50%; width:150px; height:150px">
+                        @else
+                        <img src="{{asset('front/')}}/img/user/{{$userData->user_image}}" alt="{{$userData->user_name}}" class="mr-3" style="border-radius:50%; width:150px; height:150px">
                         @endif
-                        <h2 class="text-capitalize">{{$userData->user_name}}</h2>
-                        <h6 class="font-weight-bold">{{implode(',', $category)}}</h6>
-                        <p>{{$userData->user_description}}</p>
+                        <div class="portfolio-details-text">                            
+                            <h2 class="text-capitalize">{{$userData->user_name}}</h2>
+                            <h6 class="font-weight-bold">{{implode(',', $category)}}</h6>  
+                            @if($userData->user_online == 'online')
+                                <span class="user-online">Online</span>
+                            @endif                          
+                        </div>
                     </div>
+                    <p>{{$userData->user_description}}</p>
                 </div>
                 <div class="col-12 col-md-4">
                     <div class="portfolio-meta">
-                        <h6 class="text-capitalize"><span class="font-weight-bold">İstifadəçi:</span> {{$userData->user_name}}</h6>
                         <h6><span class="font-weight-bold">Qeydiyyat tarixi:</span> {{ Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $userData->created_at)->format('Y/m/d') }}</h6>
 
                         @if($userData->user_address != '')
@@ -62,16 +68,36 @@
                 </div>
             </div>
 
-            <div class="row mt-80">
+            <hr style="margin-top:50px">
+
+            @if($images->count() > 0)
+            <div class="row">
+                <div class="col-12 mt-3 mb-2">
+                    <h4>Referans işlər</h4>
+                </div>
+            </div>
+            <div class="grid">
                 @foreach($images as $image)
-                <div class="col-6 col-md-4 col-lg-3">
-                    <div class="portfolio-thumbnail mb-3"style="box-shadow: 0 0 10px rgb(0,0,0,0.5); padding: 15px;">
-                        <img src="{{asset('front/')}}/img/jobs/{{$image->job_image}}" alt="">
+                <div class="grid-item" style="width:19%">
+                    <div class="portfolio-thumbnail mb-3" style="padding: 5px; border:1px solid #ccc">
+                        <img src="{{asset('front/')}}/img/jobs/{{$image->job_image}}" alt="" class="w-100">
                     </div>
                 </div>
                 @endforeach
             </div>
+            @endif
         </div>
     </section>
     <!-- ***** Portfolio Single Area End ***** -->
+@endsection
+
+@section('js')
+    <script>
+        $(function(){
+            $('.grid').masonry({
+                itemSelector: '.grid-item',
+                gutter:10,
+            });
+        });
+    </script>	
 @endsection

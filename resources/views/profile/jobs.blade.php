@@ -20,7 +20,7 @@
 
 @section('content')    
 	@if($message=Session::get('successJobs'))
-	<div class="w-100 mt-1">
+	<div class="w-100 mt-1 j_Alert">
 		<div class="alert alert-success">
 			{{ $message }}
 		</div>
@@ -46,7 +46,7 @@
 				<div class="col-6 col-md-4 col-lg-3">
 					<a href="{{asset('front/')}}/img/jobs/{{$job->job_image}}" data-lightbox="roadtrip">
 						<div class="position-relative mb-2" style="border:1px solid #ccc">
-							<img alt="jobs" width="100" src="{{asset('front/')}}/img/jobs/{{$job->job_image}}" class="p-2" />
+							<img alt="jobs" height="100" src="{{asset('front/')}}/img/jobs/{{$job->job_image}}" class="p-1 w-100" />
 							<a href="{{route('profile.jobs.delete', $job->job_id)}}" class="times-icon"><i class="fa fa-times"></i></a>
 						</div>
 					</a>
