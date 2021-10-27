@@ -20,6 +20,11 @@
 					</div>
 					<div class="field button">
 						<button type="submit">Söhbətə Başla</button>
+						@if(Session::has('LoggedUser'))
+						<a href="{{route('profile.dashboard')}}"class="btn btn-success mt-2" style="height:45px; font-size:18px; line-height:31px">Profilə keçid</a>
+						@else
+						<a href="{{route('index')}}"class="btn btn-success mt-2" style="height:45px; font-size:18px; line-height:31px">Sayta keçid</a>
+						@endif
 					</div>
 				</form>
 				@if(!Session::has('LoggedUser'))

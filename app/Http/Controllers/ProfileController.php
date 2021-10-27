@@ -29,6 +29,12 @@ class ProfileController extends Controller
         $id=session('LoggedUser');
 
         $user=User::where('user_id', $id)->first();
+
+        if($user->user_ip == ''){
+            $ip=\Request::ip();
+            $user->user_ip=$ip;
+        } 
+        
         $user->user_online='online';
         $user->save(); 
         

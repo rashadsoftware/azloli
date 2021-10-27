@@ -422,30 +422,22 @@ class ChatController extends Controller
 		}
     }
 	public function getChat(Request $request){
-		if(session()->has('LoggedOwner')){
-			$incoming_id = $request->incoming_id; // inputdan gelen			
+		if(session()->has('LoggedOwner')){			
 			
 			$output = "";
 
 			if(session()->has('LoggedUser')){
-				$outgoing_id=session('LoggedUser');
+				$owner_id = $request->incoming_id; // inputdan gelen	
+				$user_id=session('LoggedUser');
 
-				$query=DB::table('messages')
-				->leftJoin('owners', 'owners.owner_id', '=', 'messages.message_owner')
-				->where([
-				 'messages.message_user' => $outgoing_id,
-				 'messages.message_owner' => $incoming_id,
-				])
-				->orWhere([
-				 'messages.message_user' => $incoming_id,
-				 'messages.message_owner' => $outgoing_id,
-				])
-				->orderBy('messages.message_id')
-				->get();
+				$query=DB::select("SELECT * FROM messages LEFT JOIN owners ON owners.owner_id = messages.message_user
+                WHERE (message_owner = {$owner_id} AND message_user = {$user_id})
+                OR (message_owner = {$user_id} AND message_user = {$owner_id}) ORDER BY message_id");
+				
 
-				if($query->count() > 0){
+				if(count($query) > 0){
 					foreach ($query as $row) {
-						if($row->message_owner == $outgoing_id){
+						if($row->message_owner == $user_id){
 							$output .= '<div class="chat outgoing">
 											<div class="details">
 												<p>'. $row->message_text .'</p>
@@ -463,24 +455,16 @@ class ChatController extends Controller
 					$output .= '<div class="text">Mesaj yoxdur. Mesaj göndərildikdən sonra hamısı burada görünəcək.</div>';
 				}
 			} else {
-				$outgoing_id=session('LoggedOwner');
+				$user_id = $request->incoming_id; // inputdan gelen	
+				$owner_id=session('LoggedOwner');
 
-				$query=DB::table('messages')
-				->leftJoin('users', 'users.user_id', '=', 'messages.message_user')
-				->where([
-				 'messages.message_user' => $outgoing_id,
-				 'messages.message_owner' => $incoming_id,
-				])
-				->orWhere([
-				 'messages.message_user' => $incoming_id,
-				 'messages.message_owner' => $outgoing_id,
-				])
-				->orderBy('messages.message_id')
-				->get();
+				$query=DB::select("SELECT * FROM messages LEFT JOIN users ON users.user_id = messages.message_owner
+                WHERE (message_owner = {$owner_id} AND message_user = {$user_id})
+                OR (message_owner = {$user_id} AND message_user = {$owner_id}) ORDER BY message_id");
 
-				if($query->count() > 0){
+				if(count($query) > 0){
 					foreach ($query as $row) {
-						if($row->message_owner == $outgoing_id){
+						if($row->message_owner == $owner_id){
 							$output .= '<div class="chat outgoing">
 											<div class="details">
 												<p>'. $row->message_text .'</p>

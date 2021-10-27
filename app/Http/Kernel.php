@@ -66,6 +66,7 @@ class Kernel extends HttpKernel
 		
 		// chat section
         'OwnerOnline' => \App\Http\Middleware\CheckOwnerOnline::class,
+        'UserOnline' => \App\Http\Middleware\CheckUserOnline::class,
 
         
         'auth' => \App\Http\Middleware\Authenticate::class,

@@ -20,6 +20,12 @@ use Validator;
 
 class HomeController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('OwnerOnline');
+        $this->middleware('UserOnline');
+    }
+
     // index page =======================================================================>
     public function index(){
         $config=Config::where('config_id', 1)->first();

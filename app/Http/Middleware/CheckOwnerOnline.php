@@ -13,16 +13,18 @@ class CheckOwnerOnline
     public function handle(Request $request, Closure $next)
     {
         $ip=\Request::ip();
-
         $checkIPOwner=Owner::where('unique_id', $ip)->first();
-        if($checkIPOwner){
-            $requestOwner=$checkIPOwner->owner_id;
 
+        if(session()->has('LoggedOwner')){
+            $requestOwner=$checkIPOwner->owner_id;
             if(Session::get('LoggedOwner') != $requestOwner){
                 $checkIPOwner->owner_online='offline';
                 $checkIPOwner->save();
             }
-        }  
+        } else {
+            $checkIPOwner->owner_online='offline';
+            $checkIPOwner->save();
+        } 
 
         return $next($request);
     }
