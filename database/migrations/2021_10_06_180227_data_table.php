@@ -16,6 +16,7 @@ class DataTable extends Migration
             $table->bigIncrements('data_id');
             $table->string('data_key', 100);
             $table->text('data_value', 100);
+            $table->string('data_cat', 50);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

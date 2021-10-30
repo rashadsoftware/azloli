@@ -70,9 +70,7 @@ Route::prefix('/chat')->name('chat.')->group(function(){
     Route::get('/users', 'ChatController@users')->name('users');
     Route::get('/users/search', 'ChatController@action')->name('users.action');
     Route::get('/users/updateList', 'ChatController@updateList')->name('users.updateList');
-    Route::get('/users/insert/{id}', 'ChatController@usersCreate')->name('users.create');
-    
-    
+    Route::get('/users/insert/{id}', 'ChatController@usersCreate')->name('users.create');  
 	
 	// chat
     Route::get('/chat/{id}', 'ChatController@chat')->name('chat');
@@ -148,5 +146,15 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         Route::get('/{id}/edit', 'AdminController@subcategoryEdit')->name('.edit');
         Route::put('/{id}/edit', 'AdminController@subcategoryUpdate')->name('.update');
         Route::get('/{id}/delete', 'AdminController@subcategoryDelete')->name('.delete');
+    });
+
+    // pages
+    Route::prefix('/pages')->middleware('isLoggedAdmin')->name('pages')->group(function(){
+        Route::get('/about', 'AdminController@about')->name('.about');
+        Route::put('/about/edit', 'AdminController@aboutUpdate')->name('.about.update');
+        Route::post('/about/offer', 'AdminController@offerPost')->name('.about.offer');
+        Route::get('/about/offer/delete/{id}', 'AdminController@offerDelete')->name('.about.offer.delete');
+        Route::put('/image/mission', 'AdminController@missionImage')->name('.about.image.mission');
+        Route::put('/image/offer', 'AdminController@offerImage')->name('.about.image.offer');
     });
 });

@@ -145,6 +145,11 @@ return [
         'exampleSubCategory'    => 'Alt kateqoriyanın adı',
         'exampleCategoryImage'  => 'Kateqoriyanın şəkli',
         'selectSkills'  		=> 'Bacarıqlar',
+        'cat_title'  		    => 'Missiya başlığı',
+        'cat_desc'  		    => 'Missiya detayı bölməsi',
+        'exampleOffer'  		=> 'Təklif bölməsi',
+        'imageMission'  		=> 'Missiya şəkil bölməsi',
+        'imageOffer'  		    => 'Təklif şəkil bölməsi',
 
         // front section
         'name'                  =>'Adınız',

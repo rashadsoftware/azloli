@@ -94,6 +94,23 @@
                                 @endif
                             </a>
                         </li>
+                        <li class="nav-item @if(Request::segment(2) == 'pages') menu-open @endif">
+                            <a href="#" class="nav-link  @if(Request::segment(2) == 'pages') active @endif">
+                                <i class="nav-icon fas fa-file-alt"></i>
+                                <p>
+                                    Səhifələr
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.pages.about') }}" class="nav-link {{ Route::is('admin.pages.about') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p class="text-capitalize">Haqqımızda</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-header">Sayt Tənzimləmələri</li>
 						<li class="nav-item @if(Request::segment(2) == 'category') menu-open @endif">
                             <a href="#" class="nav-link  @if(Request::segment(2) == 'category') active @endif">

@@ -14,12 +14,12 @@ use App\Models\Message;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Skills;
+use App\Models\Data;
 
 use Validator;
 use Carbon\Carbon;
 
-class AdminController extends Controller
-{
+class AdminController extends Controller {
     public function __construct(){
         $this->middleware('isLoggedIP');
     }
@@ -488,8 +488,7 @@ class AdminController extends Controller
             return redirect()->route('admin.subcategory.create'); 
         }        
     }	
-	public function subcategoryEdit($id)
-    {
+	public function subcategoryEdit($id){
         if(session()->has('LoggedAdmin')){
             $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
         }
@@ -498,8 +497,7 @@ class AdminController extends Controller
 
         return view('admin.subcategory-edit', compact('user', 'subcategory', 'categories'));
     }	
-	public function subcategoryUpdate(Request $request, $id)
-    {
+	public function subcategoryUpdate(Request $request, $id){
         $request->validate([
             'exampleCategory' => 'required',
             'exampleSubCategory' => 'required|min:3|max:60'
@@ -524,8 +522,7 @@ class AdminController extends Controller
             return redirect()->route('admin.subcategory'); 
         }    
     }
-	public function subcategoryDelete($id)
-    {
+	public function subcategoryDelete($id){
 		$countSkilss=Skills::where('subcategoryID', $id)->count();
 		
 		if($countSkilss > 0){
@@ -536,5 +533,104 @@ class AdminController extends Controller
 			toastr()->success('Alt kateqoriya başarılı şəkildə silindi', 'Təbriklər!');
 			return redirect()->route('admin.subcategory'); 
 		}
+    }
+
+    /* about page 
+    ==================================================================> */
+    public function about(){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+
+        $dataOffers=Data::where('data_cat', 'offer')->get();
+
+        return view('admin.about', compact('user', 'dataOffers'));
+    }
+    public function aboutUpdate(Request $request){
+        $request->validate([
+            'cat_title' => 'required',
+            'cat_desc' => 'required|min:3|max:600'
+        ]);
+
+        $dataCheck=Data::where('data_key', $request->cat_title)->first();
+
+        if($dataCheck){
+            $dataCheck->data_value=$request->cat_desc;
+            $dataCheck->save();
+
+            toastr()->success('Missiya başarılı şəkildə yeniləndi', 'Təbriklər!');
+            return redirect()->route('admin.pages.about');  
+        } else {
+            toastr()->error('Belə bir missiya mövcud deyil', 'Ooops!');
+            return redirect()->route('admin.pages.about');  
+        }  
+    }
+
+    public function offerPost(Request $request){
+        $request->validate([
+            'exampleOffer' => 'required|min:3|max:600'
+        ]);
+
+        $data=new Data;
+        $data->data_key='offer';
+        $data->data_value=$request->exampleOffer;
+        $data->data_cat='offer';
+        $data->save();
+
+        toastr()->success('Təklif başarılı şəkildə yeniləndi', 'Təbriklər!');
+        return redirect()->route('admin.pages.about');
+    }
+
+    public function offerDelete($id){
+		Data::find($id)->delete();
+        toastr()->success('Təklif başarılı şəkildə silindi', 'Təbriklər!');
+        return redirect()->route('admin.pages.about'); 
+    }
+
+    public function missionImage(Request $request){ 
+        $validator = Validator::make($request->all(),[
+            'imageMission' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        if(!$validator->passes()){
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $config=Data::where('data_key', 'mission')->where('data_cat', 'image')->first();
+            
+            if($config->data_value != ''){
+                $image_path = public_path().'/front/img/about/'.$config->data_value;                
+                unlink($image_path);
+            }
+    
+            $newName=Str::slug($request->imageMission).'.'.$request->file('imageMission')->getClientOriginalExtension();
+            $request->file('imageMission')->move(public_path('front/img/about'), $newName);   
+            $config->data_value=$newName;  
+            $config->save(); 
+
+            return response()->json(['status'=>1, 'msg'=>'Missiya şəkli başarılı şəkildə yeniləndi', 'state'=>'Təbriklər!']);
+        }
+    }
+    public function offerImage(Request $request){
+        $validator = Validator::make($request->all(),[
+            'imageOffer' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        if(!$validator->passes()){
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $config=Data::where('data_key', 'offer')->where('data_cat', 'image')->first();
+            
+            if($config->data_value != ''){
+                $image_path = public_path().'/front/img/about/'.$config->data_value;                
+                unlink($image_path);
+            }
+    
+            $newName=Str::slug($request->imageOffer).'.'.$request->file('imageOffer')->getClientOriginalExtension();
+            $request->file('imageOffer')->move(public_path('front/img/about'), $newName);   
+            $config->data_value=$newName;  
+            $config->save(); 
+
+            return response()->json(['status'=>1, 'msg'=>'Təklif şəkli başarılı şəkildə yeniləndi', 'state'=>'Təbriklər!']);
+        }
     }
 }

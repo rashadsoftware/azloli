@@ -3,45 +3,49 @@
 		<div class="wrapper">
 			<section class="chat-area">
 				@if(session()->has('LoggedUser'))
-				<header>
-					<a href="{{route('chat.users')}}" class="back-icon"><i class="fas fa-arrow-left"></i></a>
-					<img src="{{asset('chat/')}}/images/icons/profile.svg" alt="{{$user->getOwnerMerge->owner_username}}">
-					<div class="details">
-						<span>{{$user->getOwnerMerge->owner_username}}</span>
-						<p class="mb-0">{{$user->getOwnerMerge->getOwnerOnlineAttrribute()}}</p>
+					<header>
+						<div class="d-flex align-items-center">
+							<a href="{{route('chat.users')}}" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+							<img src="{{asset('chat/')}}/images/icons/profile.svg" alt="{{$user->getOwnerMerge->owner_username}}">
+							<div class="details">
+								<span>{{$user->getOwnerMerge->owner_username}}</span>
+								<p class="mb-0">{{$user->getOwnerMerge->getOwnerOnlineAttrribute()}}</p>
+							</div>
+						</div>					
+					</header>
+					<div class="chat-box">
+						
 					</div>
-				</header>
-				<div class="chat-box">
-					
-				</div>
-				<form action="{{route('chat.insert')}}" method="POST" class="typing-area" id="formInsertMessage">
-					@csrf
-					<input type="text" class="incoming_id" name="incoming_id" value="{{$user->getOwnerMerge->owner_id}}" hidden>
-					<input type="text" name="message" class="input-field" placeholder="Mesajınızı daxil edin..." autocomplete="off">
-					<button type="submit"><i class="fab fa-telegram-plane"></i></button>
-				</form>				
+					<form action="{{route('chat.insert')}}" method="POST" class="typing-area" id="formInsertMessage">
+						@csrf
+						<input type="text" class="incoming_id" name="incoming_id" value="{{$user->getOwnerMerge->owner_id}}" hidden>
+						<input type="text" name="message" class="input-field" placeholder="Mesajınızı daxil edin..." autocomplete="off">
+						<button type="submit"><i class="fab fa-telegram-plane"></i></button>
+					</form>				
 				@else 
-				<header>
-					<a href="{{route('chat.users')}}" class="back-icon"><i class="fas fa-arrow-left"></i></a>
-					@if($user->getUserMerge->user_image == "")
-						<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$user->getUserMerge->user_name}}">
-					@else 
-						<img src="{{asset('front/')}}/img/user/{{$user->getUserMerge->user_image}}" alt="{{$user->getUserMerge->user_name}}">
-					@endif
-					<div class="details">
-						<span>{{$user->getUserMerge->user_name}}</span>
-						<p class="mb-0">{{$user->getUserMerge->getUserOnlineAttrribute()}}</p>
+					<header>
+						<div class="d-flex align-items-center">
+							<a href="{{route('chat.users')}}" class="back-icon"><i class="fas fa-arrow-left"></i></a>
+							@if($user->getUserMerge->user_image == "")
+								<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$user->getUserMerge->user_name}}">
+							@else 
+								<img src="{{asset('front/')}}/img/user/{{$user->getUserMerge->user_image}}" alt="{{$user->getUserMerge->user_name}}">
+							@endif
+							<div class="details">
+								<span>{{$user->getUserMerge->user_name}}</span>
+								<p class="mb-0">{{$user->getUserMerge->getUserOnlineAttrribute()}}</p>
+							</div>
+						</div>					
+					</header>
+					<div class="chat-box">
+						
 					</div>
-				</header>
-				<div class="chat-box">
-					
-				</div>
-				<form action="{{route('chat.insert')}}" method="POST" class="typing-area" id="formInsertMessage">
-					@csrf
-					<input type="text" class="incoming_id" name="incoming_id" value="{{$user->getUserMerge->user_id}}" hidden>
-					<input type="text" name="message" class="input-field" placeholder="Mesajınızı daxil edin..." autocomplete="off">
-					<button type="submit"><i class="fab fa-telegram-plane"></i></button>
-				</form>
+					<form action="{{route('chat.insert')}}" method="POST" class="typing-area" id="formInsertMessage">
+						@csrf
+						<input type="text" class="incoming_id" name="incoming_id" value="{{$user->getUserMerge->user_id}}" hidden>
+						<input type="text" name="message" class="input-field" placeholder="Mesajınızı daxil edin..." autocomplete="off">
+						<button type="submit"><i class="fab fa-telegram-plane"></i></button>
+					</form>
 				@endif
 			</section>
 		</div>
