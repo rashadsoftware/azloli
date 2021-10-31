@@ -150,6 +150,9 @@ return [
         'exampleOffer'  		=> 'Təklif bölməsi',
         'imageMission'  		=> 'Missiya şəkil bölməsi',
         'imageOffer'  		    => 'Təklif şəkil bölməsi',
+        'exampleBannerTitle'    => 'Banner başlığı',
+        'exampleBannerSubTitle' => 'Banner alt başlığı',
+        'exampleBannerImage'    => 'Banner şəkli',
 
         // front section
         'name'                  =>'Adınız',

@@ -150,11 +150,17 @@ Route::prefix('/admin')->name('admin.')->group(function(){
 
     // pages
     Route::prefix('/pages')->middleware('isLoggedAdmin')->name('pages')->group(function(){
+        // about
         Route::get('/about', 'AdminController@about')->name('.about');
         Route::put('/about/edit', 'AdminController@aboutUpdate')->name('.about.update');
         Route::post('/about/offer', 'AdminController@offerPost')->name('.about.offer');
         Route::get('/about/offer/delete/{id}', 'AdminController@offerDelete')->name('.about.offer.delete');
         Route::put('/image/mission', 'AdminController@missionImage')->name('.about.image.mission');
         Route::put('/image/offer', 'AdminController@offerImage')->name('.about.image.offer');
+
+        // about
+        Route::get('/banner', 'AdminController@banner')->name('.banner');
+        Route::post('/banner/post', 'AdminController@bannerPost')->name('.banner.post');
+        Route::get('/banner/delete/{id}', 'AdminController@bannerDelete')->name('.banner.delete');
     });
 });

@@ -15,6 +15,7 @@ use App\Models\SubCategory;
 use App\Models\Jobs;
 use App\Models\Skills;
 use App\Models\Data;
+use App\Models\Banner;
 
 use Mail;
 use Validator;
@@ -31,7 +32,12 @@ class HomeController extends Controller
     public function index(){
         $config=Config::where('config_id', 1)->first();
 
-        return view('front.index', compact('config'));       
+        $banners=Banner::all();
+
+        $dataOffers=Data::where('data_cat', 'offer')->get();
+        $dataOfferImage=Data::where('data_cat', 'image')->where('data_key', 'offer')->first();
+
+        return view('front.index', compact('config', 'banners', 'dataOffers', 'dataOfferImage'));       
     }
 
     // about page =======================================================================>

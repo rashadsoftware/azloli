@@ -15,6 +15,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Skills;
 use App\Models\Data;
+use App\Models\Banner;
 
 use Validator;
 use Carbon\Carbon;
@@ -565,7 +566,6 @@ class AdminController extends Controller {
             return redirect()->route('admin.pages.about');  
         }  
     }
-
     public function offerPost(Request $request){
         $request->validate([
             'exampleOffer' => 'required|min:3|max:600'
@@ -580,13 +580,11 @@ class AdminController extends Controller {
         toastr()->success('Təklif başarılı şəkildə yeniləndi', 'Təbriklər!');
         return redirect()->route('admin.pages.about');
     }
-
     public function offerDelete($id){
 		Data::find($id)->delete();
         toastr()->success('Təklif başarılı şəkildə silindi', 'Təbriklər!');
         return redirect()->route('admin.pages.about'); 
     }
-
     public function missionImage(Request $request){ 
         $validator = Validator::make($request->all(),[
             'imageMission' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
@@ -632,5 +630,46 @@ class AdminController extends Controller {
 
             return response()->json(['status'=>1, 'msg'=>'Təklif şəkli başarılı şəkildə yeniləndi', 'state'=>'Təbriklər!']);
         }
+    }
+
+    /* banner page 
+    ==================================================================> */
+    public function banner(){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+
+        $dataBanners=Banner::all();
+
+        return view('admin.banner', compact('user', 'dataBanners'));
+    }
+    public function bannerPost(Request $request){
+        $request->validate([
+            'exampleBannerTitle' => 'required|min:3|max:600',
+            'exampleBannerSubTitle' => 'required|min:3|max:600',
+            'exampleBannerImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        $newName=Str::slug($request->exampleBannerImage).'.'.$request->file('exampleBannerImage')->getClientOriginalExtension();
+        $request->file('exampleBannerImage')->move(public_path('front/img/banner'), $newName); 
+
+        $newBanner=new Banner;
+        $newBanner->banner_title=$request->exampleBannerTitle;
+        $newBanner->banner_subtitle=$request->exampleBannerSubTitle;
+        $newBanner->banner_image=$newName;
+        $newBanner->save();
+
+        toastr()->success('Banner başarılı şəkildə yaradıldı', 'Təbriklər!');
+        return redirect()->route('admin.pages.banner');          
+    }
+    public function bannerDelete($id){
+        $dataBanner=Banner::where('banner_id', $id)->first();
+            
+        $image_path = public_path().'/front/img/banner/'.$dataBanner->banner_image;                
+        unlink($image_path);
+
+        Banner::find($id)->delete();
+        toastr()->success('Banner başarılı şəkildə silindi', 'Təbriklər!');
+        return redirect()->route('admin.pages.banner');     
     }
 }

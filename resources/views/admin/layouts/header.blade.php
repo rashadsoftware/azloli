@@ -104,6 +104,12 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
+                                    <a href="{{ route('admin.pages.banner') }}" class="nav-link {{ Route::is('admin.pages.banner') ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p class="text-capitalize">Banner</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ route('admin.pages.about') }}" class="nav-link {{ Route::is('admin.pages.about') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p class="text-capitalize">Haqqımızda</p>
