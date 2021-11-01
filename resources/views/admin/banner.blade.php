@@ -59,7 +59,7 @@
                             <tbody>
                                 @foreach($dataBanners as $dataBanner)
                                 <tr>
-                                    <td><img id="previewBanner" alt="image" width="100" class="mt-4 mr-3" src="{{asset('front/')}}/img/banner/{{$dataBanner->banner_image}}" /></td>
+                                    <td><img id="previewBanner" alt="image" width="100" src="{{asset('front/')}}/img/banner/{{$dataBanner->banner_image}}" /></td>
                                     <td>{{$dataBanner->banner_title}}</td>
                                     <td class="text-center">
                                         <a href="{{route('admin.pages.banner.delete', $dataBanner->banner_id)}}" title="Sil" class="btn btn-danger mr-1"><i class="fas fa-trash-alt"></i></a>

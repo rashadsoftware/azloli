@@ -1,5 +1,5 @@
 @include('chat.layouts.header')
-	<body>
+	<body style="background:url('{{asset('chat/')}}/images/background.jpg'); background-repeat: no-repeat; background-size:cover">
 		<div class="wrapper">
 			<section class="chat-area">
 				@if(session()->has('LoggedUser'))

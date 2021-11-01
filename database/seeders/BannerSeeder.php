@@ -12,7 +12,7 @@ class BannerSeeder extends Seeder
         DB::table('banners')->insert([
             [
             'banner_image'      =>  'default.jpg',
-            'banner_title'      =>  'Saytımız ilə artıq istənilən sahə üzrə işçi tapmaq çox asandır',
+            'banner_title'      =>  'Loli ilə artıq istənilən sahə üzrə işçi tapmaq çox asandır',
             'banner_subtitle'   =>  'Bu platforma ilə artıq bütün işçilər qapınızdadır'],
         ]);
     }

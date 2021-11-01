@@ -90,7 +90,7 @@
                                 <ul id="nav">
                                     <li class="{{ Route::is('index') ? 'current-item' : '' }}"><a href="{{route('index')}}">Ana Səhifə</a></li>
                                     <li class="{{ Route::is('about') ? 'current-item' : '' }}"><a href="{{route('about')}}">Haqqımızda</a></li>
-                                    <li class="{{ Route::is('contact') ? 'current-item' : '' }}"><a href="{{route('contact')}}">Əlaqə</a></li>
+                                    <li class="{{ Route::is('contact') ? 'current-item' : '' }}"><a href="{{route('contact')}}">Bizimlə Əlaqə</a></li>
                                 </ul>
 
                                 <!-- Get A Quote -->

@@ -10,13 +10,13 @@ class ConfigSeeder extends Seeder
     public function run()
     {
         DB::table('configs')->insert([
-            'config_title' => 'Expert',
+            'config_title' => 'Loli.az',
             'config_logo' => '',
             'config_favicon' => '',
-            'config_phone' => '0558515673',
+            'config_phone' => '0605450075',
             'config_address' => 'Abşeron ray, Heydər Əliyev prospetki',
-            'config_description' => 'Usta Arıyorum devri kapandı, Ustabak.com devri başladı. Ustabak, Türkiye genelinde mesleğinde iyi olan tüm profesyonellerin biraraya geldiği hizmet platformudur. Lokasyonunuzu belirleyin ve en yakın ustalardan, yapılacak işinize teklifleri toplayın. En uygun teklifi veren ustaya işi verin.',
-            'config_email' => 'info@expert.com',
+            'config_description' => 'Biz XM Group olaraq 6 Noyabr 2021-ci il tarixindən fəaliyyətə başladıq. Şirkətimiz müştərilərimizə yeni iş imkanları  təmin edir, eyni zamanda işçi axtaranlarada eyni xidmətləri sunur. Bizim platforma etibarlı, güvənli və istifadəsi rahat xidmətlər təklif edir. Biz XM group olaraq Azərbaycan xalqına xidmət göstərməkdən məmnunuq!',
+            'config_email' => 'info@loli.az',
             'config_facebook' => '',
             'config_instagram' => '',
         ]);

@@ -33,7 +33,7 @@
         <div class="container">
             <div class="row justify-content-between">
                 <!-- Contact Form -->
-                <div class="col-12 col-lg-8">
+                <div class="col-12 col-lg-7">
                     <div class="uza-contact-form mb-80">
                         <div class="contact-heading mb-50">
                             <h4>Bizə göstərdiyiniz maraq üçün sizə təşəkkür edirik.</h4>
@@ -90,7 +90,7 @@
                 </div>
 
                 <!-- Single Contact Card -->
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-lg-4">
                     <div class="contact-sidebar-area mb-80">
                         <!-- Single Sidebar Area -->
                         <div class="single-contact-card mb-50">
