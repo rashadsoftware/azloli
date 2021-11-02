@@ -15,16 +15,18 @@ class CheckUserOnline
         $ip=\Request::ip();
         $checkIPUser=User::where('user_ip', $ip)->where('user_status', 'user')->first();
 
-        if(session()->has('LoggedUser')){
-            $requestUser=$checkIPUser->user_id;
-            if(Session::get('LoggedUser') != $requestUser){
+        if($checkIPUser){
+            if(session()->has('LoggedUser')){
+                $requestUser=$checkIPUser->user_id;
+                if(Session::get('LoggedUser') != $requestUser){
+                    $checkIPUser->user_online='offline';
+                    $checkIPUser->save();
+                }
+            } else {
                 $checkIPUser->user_online='offline';
                 $checkIPUser->save();
-            }
-        } else {
-            $checkIPUser->user_online='offline';
-            $checkIPUser->save();
-        } 
+            } 
+        }        
 
         return $next($request);
     }
