@@ -2,7 +2,7 @@ $(function () {
     function refresh() {
         setTimeout(function () {
             location.reload();
-        }, 3000);
+        }, 1000);
     }
 
     // close alert with setTimeout

@@ -29,13 +29,6 @@
     </head>
 
     <body>
-        <!-- Preloader -->
-        <div id="preloader">
-            <div class="wrapper">
-                <div class="cssload-loader"></div>
-            </div>
-        </div>
-
         <!-- ***** Area Start ***** -->
         <section class="section-padding-80">
             <div class="container">

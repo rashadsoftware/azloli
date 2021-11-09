@@ -25,14 +25,7 @@
 		@yield('css')
     </head>
 
-    <body>
-        <!-- Preloader -->
-        <div id="preloader">
-            <div class="wrapper">
-                <div class="cssload-loader"></div>
-            </div>
-        </div>
-		
+    <body>		
 		<!-- ***** Top Search Area Start ***** -->
 		<div class="top-search-area">
 			<!-- Search Modal -->
