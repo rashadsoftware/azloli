@@ -7,7 +7,7 @@
 @import url(css/style.css);
 /* :: 1.0 Reboot CSS */
 :root {
-    --main-color: red; /* #1583e9 */
+    --main-color: #dc143c;
 }
 
 * {
@@ -83,7 +83,6 @@ ul li {
 .ulCateList {
     padding: 0px;
 }
-
 .ulCateList li {
     padding: 3px 7px;
 }
@@ -183,9 +182,40 @@ ul li {
     background-color: #e7f2fd !important;
 }
 
+.classy-navbar .nav-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-text {
+    text-transform: uppercase;
+    font-size: 36px;
+    margin-left: 10px;
+    font-weight: 600;
+    color: var(--main-color);
+}
+
+@media only screen and (max-width: 1300px) {
+    .brand-text {
+        font-size: 29px;
+    }
+}
+@media only screen and (max-width: 991px) {
+    .brand-text {
+        font-size: 36px;
+    }
+}
+
 textarea:focus,
 input:focus {
     outline: none;
+}
+
+@media only screen and (max-width: 1460px) {
+    .text_login {
+        display: none;
+    }
 }
 
 #alert-noti {
@@ -328,7 +358,7 @@ input:focus {
 
 /* :: Profile Card Item CSS */
 .card-item {
-    height: 500px;
+    height: 510px;
     width: 100%;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     background: white;
@@ -336,7 +366,7 @@ input:focus {
     margin-bottom: 20px;
 }
 .card-item:hover {
-    height: 610px;
+    height: 630px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
 .card-item .img {

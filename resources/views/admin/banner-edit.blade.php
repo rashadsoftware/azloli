@@ -1,10 +1,18 @@
 @extends('admin.layouts.master')
 
-@section('title', 'Banner')
+@section('title', 'Banner Yeniləmə')
 
 @section('css')
     <!-- summernote -->
     <link rel="stylesheet" href="{{asset('back/')}}/plugins/summernote/summernote-bs4.min.css">
+@endsection
+
+@section('breadcrumb')
+<li class="breadcrumb-item">
+    <a href="{{route('admin.pages.banner')}}">
+        Banner
+    </a>
+</li>
 @endsection
 
 @section('content')
@@ -15,22 +23,23 @@
             <div class="col-md-6">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title text-capitalize">Banner</h3>
+                        <h3 class="card-title text-capitalize">Banner Yenilə</h3>
                     </div>
                     <!-- /.card-header -->
 
                     <!-- form start -->
-                    <form autocomplete="off" action="{{route('admin.pages.banner.post')}}" method="POST"  enctype="multipart/form-data">
+                    <form autocomplete="off" action="{{route('admin.pages.banner.update.post', $dataBanners->banner_id)}}" method="POST"  enctype="multipart/form-data">
+                        @method('PUT') 
                         @csrf
                         <div class="card-body"> 
                             <div class="form-group">
                                 <label for="exampleBannerTitle">Banner başlığı</label>
-                                <input type="text" class="form-control @error('exampleBannerTitle') is-invalid @enderror" id="exampleBannerTitle" placeholder="Banner başlığı daxil edin" name="exampleBannerTitle" value="{{old('exampleBannerTitle')}}">
+                                <input type="text" class="form-control @error('exampleBannerTitle') is-invalid @enderror" id="exampleBannerTitle" placeholder="Banner başlığı daxil edin" name="exampleBannerTitle" value="{{ $dataBanners->banner_title }}">
                                 <span class="text-danger">@error('exampleBannerTitle') {{$message}} @enderror</span>
                             </div>  
                             <div class="form-group">
                                 <label for="exampleBannerSubTitle">Banner alt başlığı</label>
-                                <textarea name="exampleBannerSubTitle" cols="30" rows="10" placeholder="Banner alt başlığı daxil edin" class="form-control" id="summernote"></textarea>
+                                <textarea name="exampleBannerSubTitle" cols="30" rows="10" placeholder="Banner alt başlığı daxil edin" class="form-control" id="summernote">{{ $dataBanners->banner_subtitle }}</textarea>
                                 <span class="text-danger">@error('exampleBannerSubTitle') {{$message}} @enderror</span>
                             </div>
                             <div class="form-group">
@@ -45,36 +54,9 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary float-right">Banner Yarat</button>
+                            <button type="submit" class="btn btn-primary float-right">Banner Yenilə</button>
                         </div>
                     </form>                                
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-primary">
-                    <div class="card-body">
-                        <table id="exampleDataTable" class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Şəkillər</th>
-                                    <th>Başlıq</th>
-                                    <th>Əməliyyat</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($dataBanners as $dataBanner)
-                                <tr>
-                                    <td><img id="previewBanner" alt="image" width="100" src="{{asset('front/')}}/img/banner/{{$dataBanner->banner_image}}" /></td>
-                                    <td>{{$dataBanner->banner_title}}</td>
-                                    <td class="text-center">
-                                        <a href="{{route('admin.pages.banner.update', $dataBanner->banner_id)}}" title="Yenile" class="btn btn-primary mr-1"><i class="fas fa-pencil-alt"></i></a>
-                                        <a href="{{route('admin.pages.banner.delete', $dataBanner->banner_id)}}" title="Sil" class="btn btn-danger mr-1"><i class="fas fa-trash-alt"></i></a>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
         </div>

@@ -36,6 +36,10 @@
                                 @if($config->config_youtube !='')
                                 <a href="{{$config->config_youtube}}" class="youtube" data-toggle="tooltip" data-placement="top" title="YouTube"><i class="fa fa-youtube-play"></i></a>
                                 @endif
+
+                                @if($config->config_whatsapp !='')
+                                <a href="{{$config->config_whatsapp}}" class="whatsapp" data-toggle="tooltip" data-placement="top" title="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -45,7 +49,7 @@
                         <div class="single-footer-widget mb-80">
                             <!-- Widget Title -->
                             <h4 class="widget-title" style="text-decoration:underline">Haqqımızda</h4>
-                            <p>{{$config->config_description}}</p>
+                            <p>{{$config->config_shortdescription}}</p>
 
                             <!-- Copywrite Text -->
                             <div class="copywrite-text mb-30">
@@ -78,9 +82,15 @@
         <script src="{{asset('front/')}}/js/main.js"></script>
 		
 		<script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 			$(function(){				
 				$('#top_search_bar').keyup(function(){ 
                     var query = $(this).val();
+                    
                     if(query != ''){
                         var _token = $('input[name="_token"]').val();
                         $.ajax({
@@ -96,9 +106,41 @@
                 });
 
                 $(document).on('click', '.ulCateList li', function(){  
-                    $('#top_search_bar').val($(this).text());  
+                    $('#top_search_bar').val($.trim($(this).text()));  
                     $('#categoryList').fadeOut();  
                 }); 
+
+                // dependent dropdown using AJAX
+                $("#selectCategory").change(function (e) {
+                    e.preventDefault();
+                    var cateDropdown = document.getElementById("selectCategory").value;
+
+                    $.ajax({
+                        type: "POST",
+                        url: "category/fetch",
+                        data: { cateID: cateDropdown },
+                        success: function (response) {
+                            var districtDropdown = "";
+                            var msg = response.content;
+
+                            if (response.status == "success") {
+                                $.each(msg, function (key, value) {
+                                    districtDropdown +=
+                                        "<option value='" +
+                                        key +
+                                        "' >" +
+                                        value +
+                                        "</option>";
+                                });
+                            } else {
+                                districtDropdown += "<option value=''>" + msg + "</option>";
+                            }
+
+                            document.getElementById("selectSkills").innerHTML =
+                                districtDropdown;
+                        },
+                    });
+                });
 			})
 		</script>
 

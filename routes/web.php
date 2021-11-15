@@ -22,6 +22,10 @@ Route::post('/login', 'HomeController@loginPost')->name('login.post');
 Route::get('/register', 'HomeController@register')->name('register');
 Route::post('/register', 'HomeController@registerPost')->name('register.post');
 
+// other
+Route::post('/category/fetch', 'HomeController@skillsFetch')->name('home.skills.fetch');    // dynamic dropdown
+Route::post('/form/advert', 'HomeController@advertCreate')->name('home.form.advert');    // dynamic dropdown
+
 
 /* Profile section 
 ====================================================> */
@@ -119,6 +123,15 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         Route::get('/delete/{id}', 'AdminController@deleteMail')->name('.delete'); 
     });
 
+    // advert
+    Route::prefix('/advert')->name('advert')->middleware('isLoggedAdmin')->group(function(){
+        Route::get('/', 'AdminController@advert');
+        Route::get('/read-advert/{id}', 'AdminController@readAdvert')->name('.show');
+        Route::get('/confirm-advert/{id}', 'AdminController@confirmAdvert')->name('.confirm');
+        Route::get('/cancel-advert/{id}', 'AdminController@cancelAdvert')->name('.cancel');
+        Route::get('/delete/{id}', 'AdminController@deleteAdvert')->name('.delete'); 
+    });
+
     // users
     Route::prefix('/users')->name('users')->middleware('isLoggedAdmin')->group(function(){
         Route::get('/', 'AdminController@users'); 
@@ -154,6 +167,8 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         Route::get('/about', 'AdminController@about')->name('.about');
         Route::put('/about/edit', 'AdminController@aboutUpdate')->name('.about.update');
         Route::post('/about/offer', 'AdminController@offerPost')->name('.about.offer');
+        Route::get('/about/offer/edit/{id}', 'AdminController@offerEdit')->name('.about.offer.edit');
+        Route::put('/about/offer/update', 'AdminController@offerUpdatePost')->name('.about.offer.update');
         Route::get('/about/offer/delete/{id}', 'AdminController@offerDelete')->name('.about.offer.delete');
         Route::put('/image/mission', 'AdminController@missionImage')->name('.about.image.mission');
         Route::put('/image/offer', 'AdminController@offerImage')->name('.about.image.offer');
@@ -161,6 +176,8 @@ Route::prefix('/admin')->name('admin.')->group(function(){
         // about
         Route::get('/banner', 'AdminController@banner')->name('.banner');
         Route::post('/banner/post', 'AdminController@bannerPost')->name('.banner.post');
+        Route::get('/banner/update/{id}', 'AdminController@bannerUpdate')->name('.banner.update');
+        Route::put('/banner/update/{id}', 'AdminController@bannerUpdatePost')->name('.banner.update.post'); 
         Route::get('/banner/delete/{id}', 'AdminController@bannerDelete')->name('.banner.delete');
     });
 });

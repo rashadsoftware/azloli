@@ -12,6 +12,10 @@ class Skills extends Model
     public $table='skills';
     protected $primaryKey = 'skill_id';
 
+    public function getCategory(){
+        return $this->hasOne(Category::class, 'category_id', 'categoryID');
+    }
+
     public function getSubCategory(){
         return $this->hasOne(SubCategory::class, 'subcategory_id', 'subcategoryID');
     }

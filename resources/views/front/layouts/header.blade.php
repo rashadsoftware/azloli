@@ -2,9 +2,16 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="description" content="">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="author" content="Rashad Alakbarov, 0558215673">
+		<meta name="description" content="İş vəya işçi axtaranlar üçün geniş fürsətlər">
+		<meta name="keywords" content="iş elanları, işçi elanları, iş axtaranlar, işçi axtaranlar, iş vakansiyaları">
+		<meta http-equiv="refresh" content="1800">
+		<meta name="revisit-after" content="1 days">
+		<meta data-rh="true" id="meta-description" name="description" content="İş vəya işçi axtarın. Yeni iş təklifləri sistemi">
+
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <!-- Title & Favicon-->
         <title>{{$config->config_title}} | @yield('title', 'Axtardığınız ustanı tapmanın yeganə yolu | Usta axtarıram')</title>
@@ -23,6 +30,39 @@
         <link rel="stylesheet" href="{{asset('front/')}}/style.css">
 		
 		@yield('css')
+
+        <style>
+            input[type="file"] {
+                display: block;
+            }
+            .imageThumb {
+                max-height: 75px;
+                padding: 1px;
+            }
+            .pip {
+                display: inline-block;
+                margin: 10px 10px 0 0;
+                position: relative;
+                background: #ccc;
+                padding: 3px
+            }
+            .remove {
+                color: #fff;
+                cursor: pointer;
+                position: absolute;
+                top: 1px;
+                right: 6px
+            }
+            .remove:hover {
+                color: black;
+            }
+            .form-control:focus{
+                box-shadow: none
+            }
+            #error_msg{
+                display: none
+            }
+        </style>
     </head>
 
     <body>		
@@ -50,6 +90,73 @@
 		</div>
 		<!-- ***** Top Search Area End ***** -->
 
+        <!-- Person Modal -->
+        <div class="modal fade" id="personModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Yeni İş Təklifi</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form autocomplete="off" enctype="multipart/form-data" action="{{route('home.form.advert')}}" method="POST" id="formOrder">
+                            @csrf
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="name" placeholder="Adınızı daxil edin">
+                                        <span class="text-danger error-text name_error"></span>
+                                    </div>                                
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="surname" placeholder="Soyadınızı daxil edin">
+                                        <span class="text-danger error-text surname_error"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @php $cate = DB::table('categories')->where('category_state','active')->get(); @endphp
+                            <div class="form-group">
+                                <select class="form-control" name="selectCategory" id="selectCategory">
+                                    <option>Kateqoriya seçin</option>
+                                    @foreach ($cate as $cat_item)                                        
+                                        <option value="{{$cat_item->category_id}}">{{$cat_item->category_title}}</option>
+                                    @endforeach
+                                </select>
+                                <span class="text-danger error-text selectCategory_error"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <select class="form-control" name="selectSubcategory" id="selectSkills">
+                                    <option>Alt kateqoriya seçin</option>
+                                </select>
+                                <span class="text-danger error-text selectSubcategory_error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="phone" aria-describedby="phoneHelp" placeholder="Nümunə: 0551234567" minLength="10" maxLength="10">
+                                <small id="phoneHelp" class="form-text text-muted ml-1">Əlaqəsi nömrəsi ilə heç kim ilə paylaşılmayacaq</small>
+                                <span class="text-danger error-text phone_error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <textarea class="form-control" rows="7" placeholder="İş vəya xidmət təklifiniz barədə ətraflı məlumat daxil edin" name="message"></textarea>
+                                <span class="text-danger error-text message_error"></span>
+                            </div>
+
+                            <div class="alert" id="alert-noti"></div>
+
+                            <button type="submit" class="btn uza-btn mt-2">Sorğunu Göndər</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ***** Header Area Start ***** -->
         <header class="header-area">
             <!-- Main Header Start -->
@@ -63,7 +170,8 @@
                                 <img src="{{asset('front/')}}/img/logo.png" width="90" alt="{{$config->config_title}}">
                             @else
                                 <img src="{{asset('front/')}}/img/{{$config->config_logo}}" width="90" alt="{{$config->config_title}}">
-                            @endif                            
+                            @endif   
+                            <span class="brand-text">AZloli.com </span>                        
                         </a>
 
                         <!-- Navbar Toggler -->
@@ -87,8 +195,9 @@
                                 </ul>
 
                                 <!-- Get A Quote -->
-                                <div class="get-a-quote ml-4 mr-3">
+                                <div class="get-a-quote mx-2">
                                     <div data-toggle="modal" data-target="#searchModal" class="btn uza-btn">İşçi Axtar</div>
+                                    <div data-toggle="modal" data-target="#personModal" class="btn uza-btn">İş Təklifi Ver</div>
                                 </div>
 
                                 <!-- Login / Register -->
@@ -105,7 +214,7 @@
                                     </a>
                                     @else
                                     <a href="{{route('login')}}">
-                                        <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> İş tap / Qeydiyyat</span>
+                                        <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> <span class="text_login">İş tap / Qeydiyyat</span> </span>
                                     </a>
                                     @endif
                                 </div>

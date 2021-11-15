@@ -99,6 +99,7 @@
                         </div>
                     </form>                                
                 </div>
+                @if(DB::table('datas')->where('data_cat','offer')->count() > 0)
                 <div class="card card-primary">
                     <div class="card-body">
                         <table id="exampleDataTable" class="table table-bordered table-hover">
@@ -112,15 +113,17 @@
                                 @foreach($dataOffers as $dataOffer)
                                 <tr>
                                     <td>{{$dataOffer->data_value}}</td>
-                                    <td class="text-center">
+                                    <td class="text-center w-25">
                                         <a href="{{route('admin.pages.about.offer.delete', $dataOffer->data_id)}}" title="Sil" class="btn btn-danger mr-1"><i class="fas fa-trash-alt"></i></a>
+                                        <a href="{{route('admin.pages.about.offer.edit', $dataOffer->data_id)}}" title="Edit" class="btn btn-primary mr-1"><i class="fas fa-pencil-alt"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
-                </div>                
+                </div> 
+                @endif               
             </div>
         </div>
     </div>

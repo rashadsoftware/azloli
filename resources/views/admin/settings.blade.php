@@ -2,6 +2,11 @@
 
 @section('title', 'Sayt Tənzimləmələri')
 
+@section('css')
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{asset('back/')}}/plugins/summernote/summernote-bs4.min.css">
+@endsection
+
 @section('content')
     <!-- Main content -->
     <section class="content">
@@ -45,6 +50,7 @@
                                 <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Ümumi Məlumatlar</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#parametres" data-toggle="tab">Şəkillər</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#advert" data-toggle="tab">Sosial Hesablar</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#other" data-toggle="tab">Digər</a></li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
@@ -63,10 +69,25 @@
                                             <input type="email" class="form-control" name="companyEmail" placeholder="Şirkətin Email ünvanını daxil edin" value="{{$configs->config_email}}"/>
                                             <span class="text-danger error-text companyEmail_error"></span>
                                         </div>
+										<div class="form-group">
+                                            <label for="companyEmail2">E-poçt 2</label>
+                                            <input type="email" class="form-control" name="companyEmail2" placeholder="Şirkətin ehtiyyat email ünvanını daxil edin" value="{{$configs->config_email2}}"/>
+                                            <span class="text-danger error-text companyEmail2_error"></span>
+                                        </div>
                                         <div class="form-group">
                                             <label for="companyPhone">Telefon</label>
                                             <input type="text" class="form-control" name="companyPhone" placeholder="Əlaqə nömrəsini daxil edin" value="{{$configs->config_phone}}" minlength=10 maxlength=10/>
                                             <span class="text-danger error-text companyPhone_error"></span>
+                                        </div>
+										<div class="form-group">
+                                            <label for="companyPhone2">Telefon 2</label>
+                                            <input type="text" class="form-control" name="companyPhone2" placeholder="Birinci rezerv əlaqə nömrəsini daxil edin" value="{{$configs->config_phone2}}" minlength=10 maxlength=10/>
+                                            <span class="text-danger error-text companyPhone2_error"></span>
+                                        </div>
+										<div class="form-group">
+                                            <label for="companyPhone3">Telefon 3</label>
+                                            <input type="text" class="form-control" name="companyPhone3" placeholder="İkinci rezerv əlaqə nömrəsini daxil edin" value="{{$configs->config_phone3}}" minlength=10 maxlength=10/>
+                                            <span class="text-danger error-text companyPhone3_error"></span>
                                         </div>
                                         <div class="form-group">
                                             <label for="companyAddress">Hüquqi Ünvan</label>
@@ -74,8 +95,13 @@
                                             <span class="text-danger error-text companyAddress_error"></span>
                                         </div>
                                         <div class="form-group">
+                                            <label for="companyShortDescription">Qısa Məlumat</label>
+                                            <textarea name="companyShortDescription" cols="30" rows="5" placeholder="Şirkət haqqında qısa məlumat daxil edin" class="form-control" maxlength="200" minlength="5">{{$configs->config_shortdescription}}</textarea>
+                                            <span class="text-danger error-text companyShortDescription_error"></span>
+                                        </div>
+                                        <div class="form-group">
                                             <label for="companyDescription">Ətraflı Məlumat</label>
-                                            <textarea name="companyDescription" cols="30" rows="10" placeholder="Şirkət haqqında ətraflı məlumat daxil edin" class="form-control">{{$configs->config_description}}</textarea>
+                                            <textarea name="companyDescription" cols="30" rows="10" placeholder="Şirkət haqqında ətraflı məlumat daxil edin" class="form-control" id="summernote">{{$configs->config_description}}</textarea>
                                             <span class="text-danger error-text companyDescription_error"></span>
                                         </div>
                                         
@@ -129,6 +155,25 @@
                                             <input type="text" class="form-control" name="companyInstagram" placeholder="İnstagram addressinizi daxil edin" value="{{$configs->config_instagram}}" />
                                             <span class="text-danger error-text companyInstagram_error"></span>
                                         </div>
+                                        <div class="form-group">
+                                            <label for="companyWhatsapp">Whatsapp</label>
+                                            <input type="text" class="form-control" name="companyWhatsapp" placeholder="Whatsapp addressinizi daxil edin" value="{{$configs->config_whatsapp}}" />
+                                            <span class="text-danger error-text companyWhatsapp_error"></span>
+                                        </div>
+                                        
+                                        <button type="submit" class="btn btn-primary float-right">Məlumatları Yenilə</button>
+                                    </form>
+                                </div>
+								
+								<div class="tab-pane" id="other">
+                                    <form autocomplete="off" action="{{route('admin.settings.ajax.social')}}" method="POST" id="formOtherCompany">
+                                        @method('PUT')
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="companyFacebook">Facebook</label>
+                                            <input type="text" class="form-control" name="companyFacebook" placeholder="Facebook addressinizi daxil edin" value="{{$configs->config_facebook}}" />
+                                            <span class="text-danger error-text companyFacebook_error"></span>
+                                        </div>
                                         
                                         <button type="submit" class="btn btn-primary float-right">Məlumatları Yenilə</button>
                                     </form>
@@ -144,6 +189,9 @@
 @endsection
 
 @section('js')
+<!-- summernote -->
+<script src="{{asset('back/')}}/plugins/summernote/summernote-bs4.min.js"></script>
+
     <script>
         $(function(){              
             $("#formOptionalCompany").on('submit', function(e){
@@ -249,6 +297,9 @@
                     }
                 });
             });
+
+            // Summernote
+            $('#summernote').summernote();
         });
     </script>
 @endsection

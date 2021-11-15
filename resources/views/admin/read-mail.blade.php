@@ -2,6 +2,14 @@
 
 @section('title', 'Poçt Oxuma')
 
+@section('breadcrumb')
+<li class="breadcrumb-item">
+    <a href="{{route('admin.mail')}}">
+        Poçt Qutusu
+    </a>
+</li>
+@endsection
+
 @section('content')
 	  <!-- Main content -->
     <section class="content">
@@ -32,7 +40,7 @@
                         <div class="card-footer">
                             <a href="{{route('admin.mail')}}" class="btn btn-default"><i class="fas fa-arrow-left"></i> Geri Qayıt</a>
                             <div class="float-right">
-                                <a href="{{route('admin.mail.delete', $detail->mail_id)}}" class="btn btn-danger"><i class="far fa-trash-alt"></i> Delete</a>
+                                <a href="{{route('admin.mail.delete', $detail->mail_id)}}" class="btn btn-danger"><i class="far fa-trash-alt"></i> İsmarıcı sil</a>
                             </div>
                         </div>
                         <!-- /.card-footer -->

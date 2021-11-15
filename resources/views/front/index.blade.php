@@ -20,13 +20,13 @@
                                 <div class="col-12 col-md-6">
                                     <div class="welcome-text">
                                         <h2 data-animation="fadeInUp" data-delay="100ms">{{$banner->banner_title}}</h2>
-                                        <h5 data-animation="fadeInUp" data-delay="400ms">{{$banner->banner_subtitle}}</h5>
+                                        <h5 data-animation="fadeInUp" data-delay="200ms">{!! $banner->banner_subtitle !!}</h5>
                                     </div>
                                 </div>
                                 <!-- Welcome Thumbnail -->
                                 <div class="col-12 col-md-6">
                                     <div class="welcome-thumbnail">
-                                        <img src="{{asset('front/')}}/img/banner/{{$banner->banner_image}}" alt="" data-animation="slideInRight" data-delay="400ms">
+                                        <img src="{{asset('front/')}}/img/banner/{{$banner->banner_image}}" alt="" data-animation="slideInRight" data-delay="300ms">
                                     </div>
                                 </div>
                             </div>
@@ -60,13 +60,9 @@
                     <div class="col-12 col-md-6">
                         <div class="choose-us-content mb-80">
                             <div class="section-heading mb-4">
-                                <h2>Nəyə görə bizim platformu seçməlisən</h2>
+                                <h2>Bizim Haqqımızda</h2>
                             </div>
-                            <ul>
-                                @foreach($dataOffers as $dataOffer)
-                                <li><i class="fa fa-check" aria-hidden="true"></i> {{$dataOffer->data_value}}</li>
-                                @endforeach
-                            </ul>
+                            {!! $config->config_description !!}
                         </div>
                     </div>
                 </div>

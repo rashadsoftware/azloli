@@ -123,11 +123,16 @@ return [
         // admin section -> company settings
         'companyTitle'          => 'Şirkətin adı',
         'companyEmail'          => 'Şirkətin E-poçtu',
+        'companyEmail2'         => 'Şirkətin rezerv E-poçtu',
         'companyPhone'          => 'Əlaqə nömrəsi',
+        'companyPhone2'         => 'Birinci rezerv əlaqə nömrəsi',
+        'companyPhone3'         => 'İkinci rezerv əlaqə nömrəsi',
         'companyAddress'        => 'Şirkətin ünvanı',
         'companyDescription'    => 'Şirkət haqqında məlumat',
+        'config_shortdescription'    => 'Şirkət haqqında qısa məlumat',
         'companyFacebook'       => 'Facebook addressi',
         'companyInstagram'      => 'İnstagram addressi',
+        'companyWhatsapp'      => 'Whatsapp addressi',
         'companyLogo'           => 'Şirkətin logosu',
         'companyFavicon'        => 'Şirkət faviconu',
         // admin section -> profile settings

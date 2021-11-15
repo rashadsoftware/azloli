@@ -16,6 +16,7 @@ use App\Models\Jobs;
 use App\Models\Skills;
 use App\Models\Data;
 use App\Models\Banner;
+use App\Models\Advert;
 
 use Mail;
 use Validator;
@@ -187,16 +188,16 @@ class HomeController extends Controller
 		
 		$data=$request->top_search_bar;
 
-        $catCount=Category::where('category_seftitle', Str::slug($data))->where('category_state', 'active')->count();   
-        $catID=Category::where('category_seftitle', Str::slug($data))->where('category_state', 'active')->first();    
+        $catCount=SubCategory::where('subcategory_seftitle', Str::slug($data))->where('subcategory_state', 'active')->count();   
+        $catID=SubCategory::where('subcategory_seftitle', Str::slug($data))->where('subcategory_state', 'active')->first();    
                      
 		if($catCount > 0){
 			$skills=array();
             $workers=array();
             $publish=array();
 			
-			$skills_check=Skills::where('categoryID', $catID->category_id)->get();
-            $skills_count=Skills::where('categoryID', $catID->category_id)->count();
+			$skills_check=Skills::where('subcategoryID', $catID->subcategory_id)->get();
+            $skills_count=Skills::where('subcategoryID', $catID->subcategory_id)->count();
 
             if($skills_count > 0){
                 foreach($skills_check as $skillItem){
@@ -268,20 +269,57 @@ class HomeController extends Controller
 		if($request->get('query')){
             $query = $request->get('query');
 
-            $data = Category::where('category_title', 'LIKE', "%{$query}%")->where('category_state', 'active')->get();
+            $dataSub = SubCategory::where('subcategory_title', 'LIKE', "%{$query}%")->where('subcategory_state', 'active')->get();
+            $dataSubCount = SubCategory::where('subcategory_title', 'LIKE', "%{$query}%")->where('subcategory_state', 'active')->count();
 
-            $dataCount = Category::where('category_title', 'LIKE', "%{$query}%")->where('category_state', 'active')->count();
-
-            if($dataCount > 0){
-                $output = '<ul class="dropdown-menu w-100 ulCateList" style="display:block; position:relative">';
-                foreach($data as $row){
+            if($dataSubCount > 0){
+                $output = '<ul class="dropdown-menu w-100 ulCateList" style="display:block; position:relative; ">';
+                foreach($dataSub as $row){
                 $output .= '
-                    <li><a href="#">'.$row->category_title.'</a></li>
-                ';
+                    <li>
+                        <a href="#">'.$row->subcategory_title.'</a>      
+                    </li>';
                 }
                 $output .= '</ul>';
                 echo $output;
-            }            
+            }         
         }
+    }
+
+    public function skillsFetch(Request $request){
+        
+        $districtsCount=SubCategory::where('categoryID', '=', $request->cateID)->count();
+        $districtsFetch=SubCategory::where('categoryID', '=', $request->cateID)->pluck('subcategory_title', 'subcategory_id');
+        
+        if($districtsCount > 0){
+            return response(['status'=>'success', 'content'=>$districtsFetch]);
+        } else {
+            return response(['status'=>'error', 'content'=>'Alt kateqoriya seçiniz']);
+        }        
+    }
+
+    public function advertCreate(Request $request){
+        $validator = Validator::make($request->all(),[
+            'name'=>'required|min:2|max:50|string',
+            'surname'=>'required|min:2|max:50|string',
+            'selectCategory'=>'required',
+            'selectSubcategory'=>'required',
+            'phone'=>'required|regex:/^0[0-9]{9}/i|numeric',
+            'message'=>'required|min:5',
+        ]);
+
+        if(!$validator->passes()){
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $advert=new Advert; 
+            $advert->advert_name=$request->name." ".$request->surname;
+            $advert->advert_category=$request->selectCategory;
+            $advert->advert_subcategory=$request->selectSubcategory;
+            $advert->advert_phone=$request->phone;
+            $advert->advert_description=$request->message;
+            $advert->save();       
+
+            return response()->json(['status'=>1, 'msg'=>'Sorğunuz başarılı şəkildə göndərildi', 'state'=>'Təbriklər!']);
+        } 
     }
 }

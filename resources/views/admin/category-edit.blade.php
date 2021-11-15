@@ -32,16 +32,18 @@
                                             <input type="text" class="form-control @error('exampleCategory') is-invalid @enderror" id="exampleCategory" placeholder="Kateqoriyanın adını daxil edin" name="exampleCategory" value="{{$category->category_title}}">
                                             <span class="text-danger">@error('exampleCategory') {{$message}} @enderror</span>
                                         </div>   
-                                        <div class="form-group">
-                                            <label for="exampleCategoryImage">Kateqoriya şəkli</label>
-                                            <input class="form-control" type="file" id="exampleCategoryImage" name="exampleCategoryImage" onchange="document.getElementById('previewImage').src = window.URL.createObjectURL(this.files[0])"> 
-                                            <span class="text-danger">@error('exampleCategoryImage') {{$message}} @enderror</span>
-                                        </div>  
-                                        @if($category->category_image == '')
-                                            <img id="previewImage" alt="{{$category->category_seftitle}}" width="100" src="{{asset('back/')}}/img/icons/image_path.png" class="mt-4" />
-                                        @else
-                                            <img id="previewImage" alt="{{$category->category_seftitle}}" width="100" src="{{asset('front/')}}/img/categories/{{$category->category_image}}" class="mt-4" />
-                                        @endif
+                                        <!--
+                                            <div class="form-group">
+                                                <label for="exampleCategoryImage">Kateqoriya şəkli</label>
+                                                <input class="form-control" type="file" id="exampleCategoryImage" name="exampleCategoryImage" onchange="document.getElementById('previewImage').src = window.URL.createObjectURL(this.files[0])"> 
+                                                <span class="text-danger">@error('exampleCategoryImage') {{$message}} @enderror</span>
+                                            </div>  
+                                            @if($category->category_image == '')
+                                                <img id="previewImage" alt="{{$category->category_seftitle}}" width="100" src="{{asset('back/')}}/img/icons/image_path.png" class="mt-4" />
+                                            @else
+                                                <img id="previewImage" alt="{{$category->category_seftitle}}" width="100" src="{{asset('front/')}}/img/categories/{{$category->category_image}}" class="mt-4" />
+                                            @endif
+                                        -->
                                     </div>
                                     <!-- /.card-body -->
 

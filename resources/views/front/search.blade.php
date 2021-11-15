@@ -31,7 +31,7 @@
                                 <li class="breadcrumb-item"><a href="{{route('index')}}"><i class="fa fa-home"></i> Ana Səhifə</a></li>
 								@if($catCount > 0)
 									<li class="breadcrumb-item active" aria-current="page">Axtarış</li>
-									<li class="breadcrumb-item active" aria-current="page">{{$catID->category_title}}</li>
+									<li class="breadcrumb-item active" aria-current="page">{{$catID->subcategory_title}}</li>
 								@else
 									<li class="breadcrumb-item active" aria-current="page">Axtarış</li>
 								@endif
@@ -76,9 +76,9 @@
 							<div class="card-item">
 								<div class="img">
 									@if($worker->user_image == '')
-									<img src="{{asset('front/')}}/img/icons/image_default.png" alt="{{$worker->user_name}}">
+									<img src="{{asset('public/front/')}}/img/icons/image_default.png" alt="{{$worker->user_name}}">
 									@else
-									<img src="{{asset('front/')}}/img/user/{{$worker->user_image}}" alt="{{$worker->user_name}}">
+									<img src="{{asset('public/front/')}}/img/user/{{$worker->user_image}}" alt="{{$worker->user_name}}">
 									@endif
 									@if($worker->user_online == 'online')
 									<div class="img-online"><span class="user-online">Online</span></div>									
@@ -86,7 +86,7 @@
 								</div>
 								<div class="top-text">
 									<div class="name">{{$worker->user_name}}</div>
-									<p>{{$catID->category_title}} / {{$worker->getSkill->getSubCategory->subcategory_title}}</p>
+									<p>{{$worker->getSkill->getCategory->category_title}} / {{$worker->getSkill->getSubCategory->subcategory_title}}</p>
 								</div>		
 								<div class="bottom-text">
 									<div class="text">{{ Str::limit($worker->user_description,120) }}</div>

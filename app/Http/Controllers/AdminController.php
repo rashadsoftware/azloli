@@ -16,13 +16,14 @@ use App\Models\SubCategory;
 use App\Models\Skills;
 use App\Models\Data;
 use App\Models\Banner;
+use App\Models\Advert;
 
 use Validator;
 use Carbon\Carbon;
 
 class AdminController extends Controller {
     public function __construct(){
-        $this->middleware('isLoggedIP');
+        // $this->middleware('isLoggedIP');
     }
     
     /* login page
@@ -90,8 +91,12 @@ class AdminController extends Controller {
         $validator = Validator::make($request->all(),[
             'companyTitle'=>'required|min:2|max:15',
             'companyEmail'=>'required|email',
+            'companyEmail2'=>'required|email',
             'companyPhone'=>'required|regex:/^0[0-9]{9}/i|numeric',
+            'companyPhone2'=>'required|regex:/^0[0-9]{9}/i|numeric',
+            'companyPhone3'=>'required|regex:/^0[0-9]{9}/i|numeric',
             'companyAddress'=>'required|min:5|max:100',
+            'companyShortDescription'=>'required|min:5|max:200',
             'companyDescription'=>'required|min:5|max:1000',
         ]);
 
@@ -101,8 +106,12 @@ class AdminController extends Controller {
             $config=Config::where('config_id', 1)->first(); 
             $config->config_title=$request->companyTitle;
             $config->config_email=$request->companyEmail;
+            $config->config_email2=$request->companyEmail2;
             $config->config_phone=$request->companyPhone;
+            $config->config_phone2=$request->companyPhone2;
+            $config->config_phone3=$request->companyPhone3;
             $config->config_address=$request->companyAddress;
+            $config->config_shortdescription=$request->companyShortDescription;
             $config->config_description=$request->companyDescription;
             $config->save();        
 
@@ -180,6 +189,18 @@ class AdminController extends Controller {
                 return response()->json(['status'=>0, 'error'=>$validatorInstagram->errors()->toArray()]);
             }else{
                 $config->config_instagram=$request->companyInstagram;
+            }
+        }
+
+        if ($request->filled('companyWhatsapp')) {
+            $validatorWhatsapp = Validator::make($request->all(),[
+                'companyWhatsapp'=>'url',
+            ]);
+
+            if(!$validatorWhatsapp->passes()){
+                return response()->json(['status'=>0, 'error'=>$validatorWhatsapp->errors()->toArray()]);
+            }else{
+                $config->config_whatsapp=$request->companyWhatsapp;
             }
         }
 
@@ -289,6 +310,53 @@ class AdminController extends Controller {
         return redirect()->route('admin.mail'); 
     }
 
+    /* Advert page 
+    ==================================================================> */
+    public function advert(){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+
+        $configs=Config::where('config_id', 1)->first();
+        $adverts=Advert::all();
+
+        return view('admin.advert', compact('user', 'configs', 'adverts'));
+    }
+	public function confirmAdvert($id){		
+        $detail=Advert::where('advert_id', $id)->first();
+        $detail->advert_status="active";
+        $detail->save();
+
+		toastr()->success('İş təklifi başarılı şəkildə təsdiqləndi', 'Təbriklər!');
+        return redirect()->route('admin.advert'); 
+    }
+	public function cancelAdvert($id){		
+        $detail=Advert::where('advert_id', $id)->first();
+        $detail->advert_status="passive";
+        $detail->save();
+
+		toastr()->success('İş təklifi başarılı şəkildə deaktiv edildi', 'Təbriklər!');
+        return redirect()->route('admin.advert'); 
+    }
+	public function readAdvert($id){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }        
+
+        $configs=Config::where('config_id', 1)->first();
+		
+        $detail=Advert::where('advert_id', $id)->first();
+        $detail->advert_read="read";
+        $detail->save();
+
+        return view('admin.read-advert', compact('user', 'configs', 'detail'));
+    }
+	public function deleteAdvert($id){
+        Advert::find($id)->delete();
+        toastr()->success('İş təklifi başarılı şəkildə silindi', 'Təbriklər!');
+        return redirect()->route('admin.advert'); 
+    }
+
     /* Users page 
     ==================================================================> */
     public function users(){
@@ -338,7 +406,7 @@ class AdminController extends Controller {
     public function categoryInsert(Request $request){        
         $request->validate([
             'exampleCategory' => 'required|min:3|max:60',
-            'exampleCategoryImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            // 'exampleCategoryImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         $isExistCategory=Category::where('category_seftitle', Str::slug($request->exampleCategory))->first();
@@ -351,10 +419,11 @@ class AdminController extends Controller {
             $category->category_title=$request->exampleCategory;        
             $category->category_seftitle=Str::slug($request->exampleCategory);
 
-            $newName=Str::slug($request->exampleCategoryImage).'.'.$request->file('exampleCategoryImage')->getClientOriginalExtension();
-            $request->file('exampleCategoryImage')->move(public_path('front/img/categories'), $newName);   
+            // $newName=Str::slug($request->exampleCategoryImage).'.'.$request->file('exampleCategoryImage')->getClientOriginalExtension();
+            // $request->file('exampleCategoryImage')->move(public_path('front/img/categories'), $newName);   
+            // $category->category_image=$newName;
 
-            $category->category_image=$newName;
+            $category->category_image="";
             $category->save();
 
             toastr()->success('Kateqoriya başarılı şəkildə qeydə alındı', 'Təbriklər!');
@@ -386,6 +455,7 @@ class AdminController extends Controller {
             $category->category_title=$request->exampleCategory;
             $category->category_seftitle=Str::slug($request->exampleCategory);
 
+            /*
             if($request->has('exampleCategoryImage')){
                 if($category->category_image != ''){
                     $image_path = public_path().'/front/img/categories/'.$category->category_image;                
@@ -396,6 +466,7 @@ class AdminController extends Controller {
                 $request->file('exampleCategoryImage')->move(public_path('front/img/categories'), $newName);   
                 $category->category_image=$newName;
             }
+            */
 
             $category->save();
 
@@ -418,10 +489,12 @@ class AdminController extends Controller {
 				toastr()->error('Bu kateqoriya bacarıqlar bölməsində istifadə olunur. Silinmə belə olan halda mümkün deyil.', 'Ooops!');
 				return redirect()->route('admin.category');
 			} else {
+                /*
 				if($fetchCategory->category_image != ''){
 					$image_path = public_path().'/front/img/categories/'.$fetchCategory->category_image;                
 					unlink($image_path);
 				}
+                */
 
 				Category::find($id)->delete();
 				toastr()->success('Kateqoriya başarılı silindi', 'Təbriklər!');
@@ -577,12 +650,33 @@ class AdminController extends Controller {
         $data->data_cat='offer';
         $data->save();
 
+        toastr()->success('Təklif başarılı şəkildə yaradıldı', 'Təbriklər!');
+        return redirect()->route('admin.pages.about');
+    }
+    public function offerEdit($id){
+		if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+
+        $dataOffer=Data::where('data_id', $id)->where('data_cat', 'offer')->first();
+
+        return view('admin.offer-edit', compact('user', 'dataOffer'));
+    }
+    public function offerUpdatePost(Request $request){
+        $request->validate([
+            'exampleOffer' => 'required|min:3|max:600'
+        ]);
+
+        $data=Data::where('data_id', $request->hiddenID)->where('data_cat', 'offer')->first();
+        $data->data_value=$request->exampleOffer;
+        $data->save();
+
         toastr()->success('Təklif başarılı şəkildə yeniləndi', 'Təbriklər!');
         return redirect()->route('admin.pages.about');
     }
     public function offerDelete($id){
 		Data::find($id)->delete();
-        toastr()->success('Təklif başarılı şəkildə silindi', 'Təbriklər!');
+        
         return redirect()->route('admin.pages.about'); 
     }
     public function missionImage(Request $request){ 
@@ -645,8 +739,8 @@ class AdminController extends Controller {
     }
     public function bannerPost(Request $request){
         $request->validate([
-            'exampleBannerTitle' => 'required|min:3|max:600',
-            'exampleBannerSubTitle' => 'required|min:3|max:600',
+            'exampleBannerTitle' => 'required|min:3|max:1000',
+            'exampleBannerSubTitle' => 'required|min:3|max:1000',
             'exampleBannerImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -660,6 +754,42 @@ class AdminController extends Controller {
         $newBanner->save();
 
         toastr()->success('Banner başarılı şəkildə yaradıldı', 'Təbriklər!');
+        return redirect()->route('admin.pages.banner');          
+    }
+    public function bannerUpdate($id){
+        if(session()->has('LoggedAdmin')){
+            $user=User::where('user_id', '=', session('LoggedAdmin'))->first();            
+        }
+
+        $dataBanners=Banner::where("banner_id", $id)->first();
+
+        return view('admin.banner-edit', compact('user', 'dataBanners'));
+    }
+    public function bannerUpdatePost(Request $request, $id){
+        $request->validate([
+            'exampleBannerTitle' => 'required|min:3|max:1000',
+            'exampleBannerSubTitle' => 'required|min:3|max:1000',
+        ]);
+
+        $newBanner=Banner::where("banner_id", $id)->first();
+        $newBanner->banner_title=$request->exampleBannerTitle;
+        $newBanner->banner_subtitle=$request->exampleBannerSubTitle;
+        
+
+        if($request->has('exampleBannerImage')){
+            if($newBanner->banner_image != ''){
+                $image_path = public_path().'/front/img/banner/'.$newBanner->banner_image;                
+                unlink($image_path);
+            }
+    
+            $newName=Str::slug($request->exampleBannerImage).'.'.$request->file('exampleBannerImage')->getClientOriginalExtension();
+            $request->file('exampleBannerImage')->move(public_path('front/img/banner'), $newName); 
+            $newBanner->banner_image=$newName;
+        }
+
+        $newBanner->save();
+
+        toastr()->success('Banner başarılı şəkildə yeniləndi', 'Təbriklər!');
         return redirect()->route('admin.pages.banner');          
     }
     public function bannerDelete($id){

@@ -30,7 +30,6 @@
                                         <thead>
                                             <tr>
                                                 <th style="width:10%">ID</th>
-                                                <th>Şəkil</th>
                                                 <th>Kateqoriya adı</th>
                                                 <th>Status</th>
                                                 <th>Əməliyyatlar</th>
@@ -40,13 +39,6 @@
                                             @foreach($categories as $category)
                                             <tr>
                                                 <td class="text-center">{{$category->category_id}}</td>
-                                                <td>
-                                                    @if($category->category_image == '')
-                                                        <img alt="{{$category->category_seftitle}}" width="20" src="{{asset('back/')}}/img/icons/image_path.png" />
-                                                    @else
-                                                        <img alt="{{$category->category_seftitle}}" width="20" src="{{asset('front/')}}/img/categories/{{$category->category_image}}" />
-                                                    @endif                                                    
-                                                </td>
                                                 <td>{{$category->category_title}}</td>
                                                 <td class="text-center"> 
                                                     <input type="checkbox" data-id="{{$category->category_id}}" data-toggle="toggle" data-off="Passiv" data-on="Aktiv" class="toggleCategory" data-size="normal" @if($category->category_state == 'active') ? checked : '' @endif>

@@ -31,12 +31,14 @@
                                             <input type="text" class="form-control @error('exampleCategory') is-invalid @enderror" id="exampleCategory" placeholder="Kateqoriyanın adını daxil edin" name="exampleCategory" value="{{old('exampleCategory')}}">
                                             <span class="text-danger">@error('exampleCategory') {{$message}} @enderror</span>
                                         </div>  
-                                        <div class="form-group">
-                                            <label for="exampleCategoryImage">Kateqoriya şəkli</label>
-                                            <input class="form-control" type="file" id="exampleCategoryImage" name="exampleCategoryImage" onchange="document.getElementById('previewImage').src = window.URL.createObjectURL(this.files[0])"> 
-                                            <span class="text-danger">@error('exampleCategoryImage') {{$message}} @enderror</span>
-                                        </div>       
-                                        <img id="previewImage" alt="image" width="100" class="mt-4" src="{{asset('back/')}}/img/icons/image_path.png" />                               
+                                        <!--
+                                            <div class="form-group">
+                                                <label for="exampleCategoryImage">Kateqoriya şəkli</label>
+                                                <input class="form-control" type="file" id="exampleCategoryImage" name="exampleCategoryImage" onchange="document.getElementById('previewImage').src = window.URL.createObjectURL(this.files[0])"> 
+                                                <span class="text-danger">@error('exampleCategoryImage') {{$message}} @enderror</span>
+                                            </div>       
+                                            <img id="previewImage" alt="image" width="100" class="mt-4" src="{{asset('back/')}}/img/icons/image_path.png" />
+                                        -->                               
                                     </div>
                                     <!-- /.card-body -->
 

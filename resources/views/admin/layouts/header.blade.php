@@ -16,9 +16,10 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Notifications Dropdown Menu -->
-                @php $mailCount = DB::table('mails')->where('mail_read','unread')->count(); @endphp
+                @php $mailCount=DB::table('mails')->where('mail_read','unread')->count(); @endphp
+                @php $advertCount=DB::table('adverts')->where('advert_read', 'unread')->count(); @endphp
 
-                @php $optional_count=$mailCount @endphp
+                @php $optional_count=$mailCount+$advertCount @endphp
                 <li class="nav-item dropdown mr-2">
                     <a class="nav-link" data-toggle="dropdown" href="#">
                         <i class="far fa-bell"></i>
@@ -32,8 +33,16 @@
 
                         <!-- mail notificaions -->
                         @if($mailCount > 0)
-                        <a href="#" class="dropdown-item">
+                        <a href="{{route('admin.mail')}}" class="dropdown-item">
                             <i class="fa fa-envelope mr-2"></i> {{$mailCount}} yeni ismarıc
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        @endif
+
+                        <!-- mail notificaions -->
+                        @if($advertCount > 0)
+                        <a href="{{route('admin.advert')}}" class="dropdown-item">
+                            <i class="fa fa-user-md mr-2"></i> {{$advertCount}} yeni iş təklifi
                         </a>
                         <div class="dropdown-divider"></div>
                         @endif
@@ -86,7 +95,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('admin.mail')}}" class="nav-link {{ Route::is('admin.mail') ? 'active' : '' }}" >
+                            <a href="{{route('admin.mail')}}" class="nav-link {{ Route::is('admin.mail') || Route::is('admin.mail.show') ? 'active' : '' }}" >
                                 <i class="nav-icon fas fa-envelope"></i>
                                 <p>Poçt Qutusu</p>
                                 @if(DB::table('mails')->where('mail_read', 'unread')->count() > 0)
@@ -104,18 +113,27 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.pages.banner') }}" class="nav-link {{ Route::is('admin.pages.banner') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.pages.banner') }}" class="nav-link {{ Route::is('admin.pages.banner') || Route::is('admin.pages.banner.update') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p class="text-capitalize">Banner</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.pages.about') }}" class="nav-link {{ Route::is('admin.pages.about') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.pages.about') }}" class="nav-link {{ Route::is('admin.pages.about') || Route::is('admin.pages.about.offer.edit') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p class="text-capitalize">Haqqımızda</p>
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('admin.advert')}}" class="nav-link {{ Route::is('admin.advert') || Route::is('admin.advert.show') ? 'active' : '' }}" >
+                                <i class="nav-icon fas fa-user-md"></i>
+                                <p>İş Təklifləri</p>
+                                @if(DB::table('adverts')->where('advert_read', 'unread')->count() > 0)
+                                <span class="badge badge-info right">{{DB::table('adverts')->where('advert_read', 'unread')->count()}}</span>
+                                @endif
+                            </a>
                         </li>
                         <li class="nav-header">Sayt Tənzimləmələri</li>
 						<li class="nav-item @if(Request::segment(2) == 'category') menu-open @endif">
