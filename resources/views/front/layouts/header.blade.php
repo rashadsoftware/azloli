@@ -7,7 +7,6 @@
 		<meta name="author" content="Rashad Alakbarov, 0558215673">
 		<meta name="description" content="İş vəya işçi axtaranlar üçün geniş fürsətlər">
 		<meta name="keywords" content="iş elanları, işçi elanları, iş axtaranlar, işçi axtaranlar, iş vakansiyaları">
-		<meta http-equiv="refresh" content="1800">
 		<meta name="revisit-after" content="1 days">
 		<meta data-rh="true" id="meta-description" name="description" content="İş vəya işçi axtarın. Yeni iş təklifləri sistemi">
 
@@ -117,6 +116,11 @@
                                         <span class="text-danger error-text surname_error"></span>
                                     </div>
                                 </div>
+                            </div>
+							
+							<div class="form-group">
+                                <input type="text" class="form-control" name="title" placeholder="Başlıq daxil edin" minLength="3" maxLength="200">
+                                <span class="text-danger error-text title_error"></span>
                             </div>
 
                             @php $cate = DB::table('categories')->where('category_state','active')->get(); @endphp

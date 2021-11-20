@@ -14,6 +14,12 @@
                                 <h3>(+994){{$config->getPhoneAttribute()}}</h3>
                                 <p>{{$config->config_address}} <br> {{$config->config_email}}</p>
                             </div>
+							
+							<p>Şikayət və təklifləriniz üçün: <br>
+                            {{$config->config_email2}}</p>
+							
+							<p class="mb-0">Reklam Təklifləri üçün: <br>
+                            (+994){{$config->getPhoneAttribute2()}}</p>
 
                             <!-- Social Info -->
                             <div class="footer-social-info">

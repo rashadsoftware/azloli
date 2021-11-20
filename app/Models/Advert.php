@@ -11,4 +11,8 @@ class Advert extends Model
 
     public $table='adverts';
     protected $primaryKey = 'advert_id';
+	
+	public function getSubCategory(){
+        return $this->hasOne(SubCategory::class, 'subcategory_id', 'advert_subcategory');
+    }
 }

@@ -17,6 +17,7 @@ use App\Models\Skills;
 use App\Models\Data;
 use App\Models\Banner;
 use App\Models\Advert;
+use App\Models\Checks;
 
 use Mail;
 use Validator;
@@ -299,9 +300,12 @@ class HomeController extends Controller
     }
 
     public function advertCreate(Request $request){
+		$ip=\Request::ip();
+		
         $validator = Validator::make($request->all(),[
             'name'=>'required|min:2|max:50|string',
             'surname'=>'required|min:2|max:50|string',
+            'title'=>'required|min:3|max:200',
             'selectCategory'=>'required',
             'selectSubcategory'=>'required',
             'phone'=>'required|regex:/^0[0-9]{9}/i|numeric',
@@ -313,13 +317,26 @@ class HomeController extends Controller
         }else{
             $advert=new Advert; 
             $advert->advert_name=$request->name." ".$request->surname;
+            $advert->advert_title=$request->title;
+            $advert->unique_id=$ip;
             $advert->advert_category=$request->selectCategory;
             $advert->advert_subcategory=$request->selectSubcategory;
             $advert->advert_phone=$request->phone;
             $advert->advert_description=$request->message;
+            $advert->advert_count="0";
             $advert->save();       
 
             return response()->json(['status'=>1, 'msg'=>'Sorğunuz başarılı şəkildə göndərildi', 'state'=>'Təbriklər!']);
         } 
+    }
+	
+	public function advertShow($id){
+		$config=Config::where('config_id', 1)->first();
+		
+		$advertDetail=Advert::where('advert_id', $id)->first();
+
+        $getAllAdvertUser=Checks::where('advertID', $advertDetail->advert_id)->where('check_status', 'confirm')->get();
+		
+		return view('front.advert-detail', compact('config', 'advertDetail', 'getAllAdvertUser'));       
     }
 }

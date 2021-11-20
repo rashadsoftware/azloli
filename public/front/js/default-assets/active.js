@@ -72,7 +72,7 @@
     if ($.fn.owlCarousel) {
         var portfolioSlide = $(".portfolio-sildes");
         portfolioSlide.owlCarousel({
-            items: 4,
+            items: 3,
             margin: 50,
             loop: true,
             autoplay: true,
@@ -87,9 +87,6 @@
                 },
                 992: {
                     items: 3,
-                },
-                1400: {
-                    items: 4,
                 },
             },
         });

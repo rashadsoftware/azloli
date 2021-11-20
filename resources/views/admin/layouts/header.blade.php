@@ -17,7 +17,7 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Notifications Dropdown Menu -->
                 @php $mailCount=DB::table('mails')->where('mail_read','unread')->count(); @endphp
-                @php $advertCount=DB::table('adverts')->where('advert_read', 'unread')->count(); @endphp
+                @php $advertCount=DB::table('adverts')->where('advert_status', 'waiting')->count(); @endphp
 
                 @php $optional_count=$mailCount+$advertCount @endphp
                 <li class="nav-item dropdown mr-2">
@@ -98,8 +98,8 @@
                             <a href="{{route('admin.mail')}}" class="nav-link {{ Route::is('admin.mail') || Route::is('admin.mail.show') ? 'active' : '' }}" >
                                 <i class="nav-icon fas fa-envelope"></i>
                                 <p>Poçt Qutusu</p>
-                                @if(DB::table('mails')->where('mail_read', 'unread')->count() > 0)
-                                <span class="badge badge-info right">{{DB::table('mails')->where('mail_read', 'unread')->count()}}</span>
+                                @if($mailCount > 0)
+                                <span class="badge badge-info right">{{$mailCount}}</span>
                                 @endif
                             </a>
                         </li>
@@ -130,8 +130,8 @@
                             <a href="{{route('admin.advert')}}" class="nav-link {{ Route::is('admin.advert') || Route::is('admin.advert.show') ? 'active' : '' }}" >
                                 <i class="nav-icon fas fa-user-md"></i>
                                 <p>İş Təklifləri</p>
-                                @if(DB::table('adverts')->where('advert_read', 'unread')->count() > 0)
-                                <span class="badge badge-info right">{{DB::table('adverts')->where('advert_read', 'unread')->count()}}</span>
+                                @if($advertCount > 0)
+                                <span class="badge badge-info right">{{$advertCount}}</span>
                                 @endif
                             </a>
                         </li>

@@ -25,6 +25,7 @@ Route::post('/register', 'HomeController@registerPost')->name('register.post');
 // other
 Route::post('/category/fetch', 'HomeController@skillsFetch')->name('home.skills.fetch');    // dynamic dropdown
 Route::post('/form/advert', 'HomeController@advertCreate')->name('home.form.advert');    // dynamic dropdown
+Route::get('/advert/{id}', 'HomeController@advertShow')->name('home.advert.detail');    // advert detail
 
 
 /* Profile section 
@@ -52,6 +53,11 @@ Route::prefix('/profile')->name('profile.')->group(function(){
     Route::post('/skills', 'ProfileController@skillsAdd')->name('skills.add');
     Route::post('/skills/fetch', 'ProfileController@skillsFetch')->name('skills.fetch');    // dynamic dropdown
     Route::get('/skills/delete/{id}', 'ProfileController@skillsDelete')->name('skills.delete');
+	
+	// advert
+    Route::get('/advert', 'ProfileController@advert')->name('advert');
+    Route::get('/advert/{id}', 'ProfileController@advertDetail')->name('advert.detail');
+    Route::get('/advert/confirm/{id}', 'ProfileController@advertConfirm')->name('advert.confirm');
     
     // logout
     Route::get('/logout', 'ProfileController@logout')->name('logout');

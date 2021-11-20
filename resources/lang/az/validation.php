@@ -164,6 +164,7 @@ return [
         'surname'               =>'Soyadınız',
         'phone'                 =>'Əlaqə nömrəniz',
         'theme'                 =>'Mövzu başlığı',
+        'title'                 =>'Başlıq',
         'message'               =>'İsmarıc sahəsi',
         'username'              =>'İstifadəçi adı',
         'password_confirmation' =>'Təkrar şifrə',

@@ -14,6 +14,7 @@ use App\Models\Jobs;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Skills;
+use App\Models\Checks;
 
 use Validator;
 
@@ -181,6 +182,52 @@ class ProfileController extends Controller
 	public function skillsDelete($id){		
 		Skills::find($id)->delete();
         return redirect()->route('profile.skills')->with('successSkills', 'Təbriklər! Başarılı şəkildə qeyd olunan bacarığı sildiniz.'); 
+    }
+	
+	// advert page =======================================================================>
+    public function advert(){		
+        $config=Config::where('config_id', 1)->first();
+        $id=session('LoggedUser');		
+
+        if(session()->has('LoggedUser')){
+            $user=User::where('user_id', $id)->first();
+        }
+		
+		$unreadChecks=Checks::where('userID', $id)->where('check_read', 'unread')->get();
+		$readChecks=Checks::where('userID', $id)->where('check_read', 'read')->get();
+		$allChecks=Checks::where('userID', $id)->get();
+		
+        return view('profile.advert', compact('user', 'config', 'readChecks', 'unreadChecks', 'allChecks'));
+    }
+	public function advertDetail($advertID){ 
+        $config=Config::where('config_id', 1)->first();
+        $idUser=session('LoggedUser');
+
+        if(session()->has('LoggedUser')){
+            $user=User::where('user_id', $idUser)->first();
+        }
+		
+        if($user->user_publish == "publish"){
+            $check=Checks::where('advertID', $advertID)->where('userID', $idUser)->first();
+            $check->check_read='read';
+            $check->save();
+            
+            $getAdvert=Advert::where('advert_id', $advertID)->first();
+            
+            return view('profile.advert-detail', compact('user', 'config', 'getAdvert', 'idUser'));
+        } else {
+            return redirect()->route('profile.advert')->with('alertDashboard', 'Ooops! Bu bölməyə gedə bilmək üçün siz profilinizi aktivləşdirməlisiniz'); 
+        }
+		
+    }
+	public function advertConfirm($advertID){
+		$idUser=session('LoggedUser');
+		
+		$check=Checks::where('advertID', $advertID)->where('userID', $idUser)->first();
+		$check->check_status='confirm';
+		$check->save();
+		
+		return redirect()->route('profile.advert')->with('successDashboard', 'Təbriklər! Başarılı şəkildə gələn təklifi təsdiqləmiş oldunuz'); 
     }
 
     // settings page =======================================================================>

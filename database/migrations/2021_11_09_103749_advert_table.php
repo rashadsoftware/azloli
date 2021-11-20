@@ -13,6 +13,8 @@ class AdvertTable extends Migration
             $table->charset = 'utf8';
             $table->collation = 'utf8_turkish_ci';
             $table->bigIncrements('advert_id');
+            $table->string('advert_title', 200);
+			$table->string('unique_id', 100);
             $table->string('advert_name', 100);
             $table->string('advert_category', 20);
             $table->string('advert_subcategory', 20);
@@ -20,6 +22,7 @@ class AdvertTable extends Migration
             $table->text('advert_description', 250);
             $table->string('advert_status', 10)->default('waiting')->comment('active, passive, waiting');
             $table->string('advert_read', 10)->default('unread')->comment('read, unread');
+            $table->string('advert_count', 255);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

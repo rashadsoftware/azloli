@@ -2677,14 +2677,18 @@ input:focus {
 .footer-area {
     position: relative;
     z-index: 1;
+	background: #4d5656
 }
 
 .single-footer-widget {
     position: relative;
     z-index: 1;
 }
+.single-footer-widget p{
+    color: #fff
+}
 .single-footer-widget .widget-title {
-    color: #303030;
+    color: #fff;
     margin-bottom: 20px;
     display: block;
     font-weight: 600;
@@ -2793,11 +2797,11 @@ input:focus {
 }
 .copywrite-text p {
     font-size: 16px;
-    color: #a6a6a6;
+    color: #fff;
     margin-bottom: 0;
 }
 .copywrite-text p a {
-    color: #a6a6a6;
+    color: #fff;
 }
 .copywrite-text p a:focus,
 .copywrite-text p a:hover {

@@ -20,7 +20,7 @@
                         <div class="card-body p-0">
                             <div class="mailbox-read-info d-flex align-items-center justify-content-between">
                                 <div>
-                                    <h5 class="font-weight-bold"> Yeni İş Təklifi</h5>
+                                    <h5 class="font-weight-bold"> {{$detail->advert_title}}</h5>
                                     <h6>Kimdən: {{$detail->advert_name}}
                                 </div> 
                                 @if($detail->advert_status == 'waiting')                               

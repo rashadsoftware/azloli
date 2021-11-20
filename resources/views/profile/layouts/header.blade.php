@@ -26,6 +26,38 @@
         <link rel="stylesheet" href="{{asset('front/')}}/css/profile.css">
 
         @yield('css')
+		
+		@php
+			$newArray=array();
+			$newAdverts=array();
+		
+			$getSkill=DB::table('skills')->where('userID', $user->user_id)->get();
+
+			foreach($getSkill as $getSkillItem){
+				$adverts=DB::table('adverts')->where('advert_status', 'active')->where('advert_subcategory', $getSkillItem->subcategoryID)->get();
+				
+				array_push($newArray, $adverts);            
+			}
+
+			for($g=0; $g < count($newArray); $g++){
+				foreach($newArray[$g] as $newArrayItem){
+					array_push($newAdverts, $newArrayItem->advert_id);  
+				}                      
+			}
+
+			for($f=0; $f < count($newAdverts); $f++){
+				$queryCheck=DB::table('checks')->where('userID', $user->user_id)->where('advertID', $newAdverts[$f])->count();
+				
+				if(!$queryCheck > 0){
+					DB::table('checks')->insert([
+						'userID'=>$user->user_id,
+						'advertID'=>$newAdverts[$f],
+						'ownerID'=>'',
+						'check_status'=>'',
+					]);
+				}                     
+			}
+		@endphp
     </head>
 
     <body>
@@ -65,6 +97,22 @@
 												<i class="fas fa-tasks"></i> Referans İşlər
 											</div>
 											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
+										</a>
+									</li>
+									<li class="{{ Route::is('profile.advert') ? 'active' : '' }}">	
+										<a href="{{route('profile.advert')}}">
+											<div>
+												<i class="fas fa-briefcase"></i> iş Təklifləri
+											</div>
+											<div>
+												@php $checksCount=DB::table('checks')->where('check_read','unread')->where('userID', $user->user_id )->count(); @endphp
+												@if($user->user_publish == 'publish')
+													@if($checksCount > 0)
+													<span class="badge badge-info mr-2">{{ $checksCount }}</span>
+													@endif
+												@endif
+												<i class="fa fa-arrow-right"  style="font-size:16px"></i>
+											</div>											
 										</a>
 									</li>
 									<li class="{{ Route::is('profile.settings') ? 'active' : '' }}">	

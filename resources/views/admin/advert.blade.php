@@ -38,7 +38,7 @@
                                                 @if($advert->advert_read == 'unread')
                                                     Yeni Təklif - 
                                                 @endif
-                                            </b>{{Str::substr($advert->advert_description, 0, 70)}}...
+                                            </b>{{$advert->advert_title}}
                                         </td>
 										<td class="text-center">
 											@if($advert->advert_status == 'waiting')

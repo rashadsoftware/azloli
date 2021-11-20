@@ -21,4 +21,26 @@ class Config extends Model
     
         return "{$prefix} {$suffix3}-{$suffix2}-{$suffix}";
     }
+	
+	public function getPhoneAttribute2() {
+        $phone = $this->config_phone2;
+    
+        $prefix = substr($phone, 1, 2);
+        $suffix3 = substr($phone, 3, 3);
+        $suffix2 = substr($phone, 6, 2);
+        $suffix = substr($phone, 8, 2);
+    
+        return "{$prefix} {$suffix3}-{$suffix2}-{$suffix}";
+    }
+	
+	public function getPhoneAttribute3() {
+        $phone = $this->config_phone3;
+    
+        $prefix = substr($phone, 1, 2);
+        $suffix3 = substr($phone, 3, 3);
+        $suffix2 = substr($phone, 6, 2);
+        $suffix = substr($phone, 8, 2);
+    
+        return "{$prefix} {$suffix3}-{$suffix2}-{$suffix}";
+    }
 }

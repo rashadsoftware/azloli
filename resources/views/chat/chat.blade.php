@@ -1,5 +1,5 @@
 @include('chat.layouts.header')
-	<body style="background:url('{{asset('chat/')}}/images/background.jpg'); background-repeat: no-repeat; background-size:cover">
+	<body>
 		<div class="wrapper">
 			<section class="chat-area">
 				@if(session()->has('LoggedUser'))
@@ -13,7 +13,7 @@
 							</div>
 						</div>					
 					</header>
-					<div class="chat-box">
+					<div class="chat-box" style="background:url('{{asset('chat/')}}/images/chat_background.png'); background-repeat: no-repeat; background-size:cover">
 						
 					</div>
 					<form action="{{route('chat.insert')}}" method="POST" class="typing-area" id="formInsertMessage">
@@ -37,7 +37,7 @@
 							</div>
 						</div>					
 					</header>
-					<div class="chat-box">
+					<div class="chat-box" style="background:url('{{asset('chat/')}}/images/chat_background.png'); background-repeat: no-repeat; background-size:cover">
 						
 					</div>
 					<form action="{{route('chat.insert')}}" method="POST" class="typing-area" id="formInsertMessage">
