@@ -27,6 +27,12 @@ Route::post('/category/fetch', 'HomeController@skillsFetch')->name('home.skills.
 Route::post('/form/advert', 'HomeController@advertCreate')->name('home.form.advert');    // dynamic dropdown
 Route::get('/advert/{id}', 'HomeController@advertShow')->name('home.advert.detail');    // advert detail
 
+// forgot password system
+Route::get('/profile/forgot', 'HomeController@forgotPassword')->name('password.forgot');
+Route::post('/profile/forgot', 'HomeController@forgotPasswordPost')->name('password.forgot.post');
+Route::get('/profile/reset/{reset_code}', 'HomeController@resetPassword')->name('password.reset');
+Route::post('/profile/reset/{reset_code}', 'HomeController@resetPasswordPost')->name('password.reset.post');
+
 
 /* Profile section 
 ====================================================> */

@@ -18,9 +18,13 @@ use App\Models\Data;
 use App\Models\Banner;
 use App\Models\Advert;
 use App\Models\Checks;
+use App\Models\PasswordReset;
 
 use Mail;
 use Validator;
+
+use App\Mail\ForgetPasswordMail;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -338,5 +342,83 @@ class HomeController extends Controller
         $getAllAdvertUser=Checks::where('advertID', $advertDetail->advert_id)->where('check_status', 'confirm')->get();
 		
 		return view('front.advert-detail', compact('config', 'advertDetail', 'getAllAdvertUser'));       
+    }
+
+    // forgot password page =======================================================================>
+    public function forgotPassword(){
+		if(session()->has('LoggedUser')){
+			return redirect()->route('profile.dashboard');       
+        }
+		
+        $config=Config::where('config_id', 1)->first();
+
+        return view('front.forgot', compact('config'));       
+    }
+    public function forgotPasswordPost(Request $request){
+		$request->validate([
+            'email'=>'required|email',
+        ]);
+
+        $reset_code=Str::random(200);
+
+        $checkUser=User::where('user_email', $request->email)->where('user_status', 'user')->first();
+
+        if($checkUser){
+            $checkEmail=PasswordReset::where('reset_email', $request->email)->first();
+
+            if($checkEmail){
+                $checkEmail->reset_code=$reset_code;
+                $checkEmail->save();
+
+                Mail::to($checkUser->user_email)->send(new ForgetPasswordMail($checkUser->user_email, $reset_code, $checkUser->user_name));
+
+                return redirect()->route('password.forgot')->with('successForgot', 'Təbriklər! Linkiniz başarılı şəkildə göndərildi. Zəhmət olmasa email addressiniz yoxlayın');
+            } else {
+                $forgot=new PasswordReset; 
+                $forgot->reset_email=$request->email;
+                $forgot->reset_code=$reset_code;
+                $forgot->save();
+
+                Mail::to($checkUser->user_email)->send(new ForgetPasswordMail($checkUser->user_email, $reset_code, $checkUser->user_name));
+
+                return redirect()->route('password.forgot')->with('successForgot', 'Təbriklər! Linkiniz başarılı şəkildə göndərildi. Zəhmət olmasa email addressiniz yoxlayın');
+            }
+        } else {
+            return back()->with('failForgot', 'Bu hesab qeydiyyatdan keçməmişdir. Yenidən cəhd edin!');
+        }
+    }
+
+    public function resetPassword($reset_code){
+		$reset_code_data=PasswordReset::where('reset_code', $reset_code)->first();
+
+        if(!$reset_code_data || Carbon::now()->subMinutes(10) > $reset_code_data->updated_at){
+            return redirect()->route('password.forgot')->with('failForgot', 'Ooops! Linkiniz yalnışdır vəya vaxtı bitib. Yenidən cəhd edin!');
+        } else {
+            $config=Config::where('config_id', 1)->first();
+
+            return view('front.reset', compact('config', 'reset_code')); 
+        }
+    }
+    public function resetPasswordPost(Request $request, $reset_code){
+		$request->validate([
+            'password'=> 'required|min:5|max:13|required_with:password_confirmation|same:password_confirmation',
+            'password_confirmation'=> 'required|min:5|max:13'
+        ]);
+
+        if($request->password == $request->password_confirmation){
+            $reset_code_check=PasswordReset::where('reset_code', $reset_code)->first();
+
+            $checkUser=User::where('user_email', $reset_code_check->reset_email)->where('user_status', 'user')->first();
+            $checkUser->user_password=Hash::make($request->password);
+            $checkUser->save();
+
+            $reset_code_check->delete();
+
+            $request->session()->put('LoggedUser', $checkUser->user_id);
+            return redirect()->route('profile.dashboard');
+            
+        } else {
+            return back()->with('failReset', 'Şifrə doğrulanması yalnışdır. Yenidən cəhd edin!');
+        } 
     }
 }

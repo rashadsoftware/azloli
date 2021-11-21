@@ -1,18 +1,6 @@
 @extends('front.layouts.header')
 
-@section('title', 'Giriş')
-
-@section('css')
-	<style>
-		#forgot-password{
-			color: #6c757d;
-			font-size:14px
-		}
-		#forgot-password:hover{
-			text-decoration:underline
-		}
-	</style>
-@endsection
+@section('title', 'Şifrəni Unutdum')
 
 		<!-- ***** Login Area Start ***** -->
 		<section class="position-relative" style="padding:120px 0">
@@ -24,23 +12,21 @@
 				<div class="d-flex align-items-center justify-content-center" style="min-height:63vh">
 					<div class="card box-shadow" style="max-width:400px">
 						<div class="card-body">
-							<h2 class="mb-4">Giriş</h2>
-							@if(!session()->has('successRegister') && !session()->has('failLogin'))
-							<div class="alert alert-info text-center">İş tapmaq üçün qeydiyyatdan keçməlisiniz</div>
-							@endif							
-							<form action="{{route('login.post')}}" method="post" autocomplete="off">
+							<h2 class="mb-4" style="font-size:26px">Şifrəni Unutdum</h2>
+                            
+							<form action="{{route('password.forgot.post')}}" method="post" autocomplete="off">
 								@csrf
 								
-								@if($message=Session::get('failLogin'))
-								<div class="w-100 mt-1">
+								@if($message=Session::get('failForgot'))
+								<div class="w-100 mt-1 j_Alert">
 									<div class="alert alert-danger">
 										{{ $message }}
 									</div>
 								</div>
 								@endif
 
-                                @if($message=Session::get('successRegister'))
-								<div class="w-100 mt-1">
+                                @if($message=Session::get('successForgot'))
+								<div class="w-100 mt-1 j_Alert">
 									<div class="alert alert-success">
 										{{ $message }}
 									</div>
@@ -50,24 +36,15 @@
 								<div class="row">
 									<div class="col-lg-12 mb-3">
 										<div class="form-group">
-											<input type="email" class="form-control @error('email') is-invalid @enderror mb-1" name="email" placeholder="E-poçt" value="{{old('email')}}">
+                                            <label for="emailForgot">E-poçt</label>
+											<input type="email" id="emailForgot" class="form-control @error('email') is-invalid @enderror mb-1" name="email" placeholder="E-poçtunuzu daxil edin" value="{{old('email')}}">
 											<span class="text-danger">@error('email') {{$message}} @enderror</span>
-											<a href="{{route('password.forgot')}}" class="float-right" id="forgot-password">Şifrəni Unutdum</a>
-										</div>
-									</div>
-									<div class="col-lg-12">
-										<div class="form-group">
-											<div class="position-relative">
-												<input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Şifrə" id="loginPassword" value="{{old('password')}}">
-												<i class="fa fa-eye position-absolute" id="login_eye"></i>
-											</div>                                        
-											<span class="text-danger">@error('password') {{$message}} @enderror</span>
 										</div>
 									</div>
                                     
 									<div class="col-12 d-flex align-items-center justify-content-between">
-										<button class="btn uza-btn btn-3">Giriş</button>
-                                        <a href="{{route('register')}}" class="text-muted mx-auto">Qeydiyyatdan keç</a>
+										<button class="btn uza-btn btn-3 mr-1">Şifrə Linkini Göndər</button>
+										<a href="{{route('login')}}" class="text-muted mx-auto">Hesabınız var?</a>
 									</div>
 								</div>
 							</form>
