@@ -332,9 +332,11 @@ class HomeController extends Controller
 
             return response()->json(['status'=>1, 'msg'=>'Sorğunuz başarılı şəkildə göndərildi', 'state'=>'Təbriklər!']);
         } 
-    }
-	
+    }	
 	public function advertShow($id){
+        // create visitor views
+        Advert::find($id)->increment('advert_count');
+        
 		$config=Config::where('config_id', 1)->first();
 		
 		$advertDetail=Advert::where('advert_id', $id)->first();
@@ -342,6 +344,10 @@ class HomeController extends Controller
         $getAllAdvertUser=Checks::where('advertID', $advertDetail->advert_id)->where('check_status', 'confirm')->get();
 		
 		return view('front.advert-detail', compact('config', 'advertDetail', 'getAllAdvertUser'));       
+    }
+    public function advertDelete($id){
+        Advert::find($id)->delete();
+        return redirect()->route('index');        
     }
 
     // forgot password page =======================================================================>

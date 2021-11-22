@@ -49,10 +49,13 @@
 						@if( $dataOfferImage->data_value != '' )
 						<img src="{{asset('front/')}}/img/about/{{$dataOfferImage->data_value}}" alt="">
 						@endif
+
+						@if($config->config_video_rolik != '')
 						<!-- Video Area -->
 						<div class="uza-video-area hi-icon-effect-8">
-							<a href="https://www.youtube.com/watch?v=sSakBz_eYzQ" class="hi-icon video-play-btn"><i class="fa fa-play" aria-hidden="true"></i></a>
+							<a href="{{$config->config_video_rolik}}" class="hi-icon video-play-btn"><i class="fa fa-play" aria-hidden="true"></i></a>
 						</div>
+						@endif
 					</div>
 				</div>
 

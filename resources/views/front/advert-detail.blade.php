@@ -41,12 +41,21 @@
                                 <div class="col-12 col-lg-10">
                                     <div class="post-content text-center mb-4">                                        
                                         <h2>{{$advertDetail->advert_title}}</h2>
-										<a href="#" class="post-date text-left mb-2">{{$advertDetail->updated_at->format('d m, Y')}}</a>
+										<a href="#" class="post-date text-left mb-2">{{ Carbon\Carbon::parse($advertDetail->updated_at)->toFormattedDateString() }}</a>
 										<span class="post-date text-left">Baxış sayı: {{$advertDetail->advert_count}}</span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-10">
                                     <p>{{$advertDetail->advert_description}}</p>
+
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <!-- Post Catagories -->
+                                        <div class="post-catagories">
+                                            <ul class="d-flex flex-wrap align-items-center">
+                                                <li><a href="{{route('home.advert.delete', $advertDetail->advert_id)}}">Elanı sil</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
 
                                     <!-- Comments Area -->
                                     <div class="comment_area mb-50 clearfix">
@@ -84,7 +93,7 @@
                                                         </div>
                                                         <!-- Comment Meta -->
                                                         <div class="comment-meta">
-                                                            <a href="#" class="post-date">{{ Carbon\Carbon::parse($itemAdvertUser->updated_at)->toFormattedDateString() }}</a>
+                                                            <a class="post-date">{{ Carbon\Carbon::parse($itemAdvertUser->updated_at)->toFormattedDateString() }}</a>
                                                             <h5>{{$getUserData->user_name}}</h5>
                                                             <a href="{{route('user.detail', $getUserData->user_id)}}" class="reply">Profile get</a>
                                                         </div>

@@ -24,6 +24,8 @@ class ConfigSeeder extends Seeder
             'config_facebook' => '',
             'config_instagram' => '',
             'config_whatsapp' => '',
+            'config_youtube' => '',
+            'config_video_rolik' => '',
         ]);
     }
 }

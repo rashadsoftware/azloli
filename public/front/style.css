@@ -2194,7 +2194,6 @@ input:focus {
 
 .comment_area {
     border-top: 1px solid #ebebeb;
-    border-bottom: 1px solid #ebebeb;
     padding-top: 50px;
     padding-bottom: 50px;
 }
@@ -2677,15 +2676,15 @@ input:focus {
 .footer-area {
     position: relative;
     z-index: 1;
-	background: #4d5656
+    background: #4d5656;
 }
 
 .single-footer-widget {
     position: relative;
     z-index: 1;
 }
-.single-footer-widget p{
-    color: #fff
+.single-footer-widget p {
+    color: #fff;
 }
 .single-footer-widget .widget-title {
     color: #fff;

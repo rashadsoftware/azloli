@@ -26,6 +26,7 @@ Route::post('/register', 'HomeController@registerPost')->name('register.post');
 Route::post('/category/fetch', 'HomeController@skillsFetch')->name('home.skills.fetch');    // dynamic dropdown
 Route::post('/form/advert', 'HomeController@advertCreate')->name('home.form.advert');    // dynamic dropdown
 Route::get('/advert/{id}', 'HomeController@advertShow')->name('home.advert.detail');    // advert detail
+Route::get('/advert/delete/{id}', 'HomeController@advertDelete')->name('home.advert.delete');    // advert detail
 
 // forgot password system
 Route::get('/profile/forgot', 'HomeController@forgotPassword')->name('password.forgot');

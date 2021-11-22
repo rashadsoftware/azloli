@@ -18,35 +18,11 @@
 							<p>Şikayət və təklifləriniz üçün: <br>
                             {{$config->config_email2}}</p>
 							
-							<p class="mb-0">Reklam Təklifləri üçün: <br>
+							<p>Reklam Təklifləri üçün: <br>
                             (+994){{$config->getPhoneAttribute2()}}</p>
 
-                            <!-- Social Info -->
-                            <div class="footer-social-info">
-                                @if($config->config_facebook !='')
-                                <a href="{{$config->config_facebook}}" class="facebook" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
-                                @endif
-
-                                @if($config->config_twitter !='')
-                                <a href="{{$config->config_twitter}}" class="twitter" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a>
-                                @endif
-
-                                @if($config->config_pinterest !='')
-                                <a href="{{$config->config_pinterest}}" class="pinterest" data-toggle="tooltip" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a>
-                                @endif
-
-                                @if($config->config_instagram !='')
-                                <a href="{{$config->config_instagram}}" class="instagram" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram"></i></a>
-                                @endif
-
-                                @if($config->config_youtube !='')
-                                <a href="{{$config->config_youtube}}" class="youtube" data-toggle="tooltip" data-placement="top" title="YouTube"><i class="fa fa-youtube-play"></i></a>
-                                @endif
-
-                                @if($config->config_whatsapp !='')
-                                <a href="{{$config->config_whatsapp}}" class="whatsapp" data-toggle="tooltip" data-placement="top" title="Whatsapp"><i class="fab fa-whatsapp"></i></a>
-                                @endif
-                            </div>
+                            <p>Vakansiyalar üçün: <br>
+                            (+994){{$config->getPhoneAttribute3()}}</p>
                         </div>
                     </div>
 
@@ -56,6 +32,25 @@
                             <!-- Widget Title -->
                             <h4 class="widget-title" style="text-decoration:underline">Haqqımızda</h4>
                             <p>{{$config->config_shortdescription}}</p>
+
+                            <!-- Social Info -->
+                            <div class="footer-social-info">
+                                @if($config->config_facebook !='')
+                                <a href="{{$config->config_facebook}}" class="facebook" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                @endif
+
+                                @if($config->config_instagram !='')
+                                <a href="{{$config->config_instagram}}" class="instagram" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram"></i></a>
+                                @endif
+
+                                @if($config->config_whatsapp !='')
+                                <a href="{{$config->config_whatsapp}}" class="whatsapp" data-toggle="tooltip" data-placement="top" title="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                @endif
+
+                                @if($config->config_youtube !='')
+                                <a href="{{$config->config_youtube}}" class="youtube" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fab fa-youtube"></i></a>
+                                @endif
+                            </div>
 
                             <!-- Copywrite Text -->
                             <div class="copywrite-text mb-30">

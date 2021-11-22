@@ -113,6 +113,19 @@ class AdminController extends Controller {
             $config->config_address=$request->companyAddress;
             $config->config_shortdescription=$request->companyShortDescription;
             $config->config_description=$request->companyDescription;
+
+            if ($request->filled('companyVideoRolik')) {
+                $validatorVideoRolik = Validator::make($request->all(),[
+                    'companyVideoRolik'=>'url',
+                ]);
+    
+                if(!$validatorVideoRolik->passes()){
+                    return response()->json(['status'=>0, 'error'=>$validatorVideoRolik->errors()->toArray()]);
+                }else{                
+                    $config->config_video_rolik=$request->companyVideoRolik;
+                }
+            }
+
             $config->save();        
 
             return response()->json(['status'=>1, 'msg'=>'Şirkət məlumatları başarılı şəkildə yeniləndi', 'state'=>'Təbriklər!']);
@@ -201,6 +214,18 @@ class AdminController extends Controller {
                 return response()->json(['status'=>0, 'error'=>$validatorWhatsapp->errors()->toArray()]);
             }else{
                 $config->config_whatsapp=$request->companyWhatsapp;
+            }
+        }
+
+        if ($request->filled('companyYoutube')) {
+            $validatorYoutube = Validator::make($request->all(),[
+                'companyYoutube'=>'url',
+            ]);
+
+            if(!$validatorYoutube->passes()){
+                return response()->json(['status'=>0, 'error'=>$validatorYoutube->errors()->toArray()]);
+            }else{
+                $config->config_youtube=$request->companyYoutube;
             }
         }
 

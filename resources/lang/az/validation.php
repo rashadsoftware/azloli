@@ -132,7 +132,9 @@ return [
         'config_shortdescription'    => 'Şirkət haqqında qısa məlumat',
         'companyFacebook'       => 'Facebook addressi',
         'companyInstagram'      => 'İnstagram addressi',
-        'companyWhatsapp'      => 'Whatsapp addressi',
+        'companyWhatsapp'       => 'Whatsapp addressi',
+        'companyYoutube'        => 'Youtube addressi',
+        'companyVideoRolik'     => 'Video Rolik link addressi',
         'companyLogo'           => 'Şirkətin logosu',
         'companyFavicon'        => 'Şirkət faviconu',
         // admin section -> profile settings

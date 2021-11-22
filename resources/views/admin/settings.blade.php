@@ -50,7 +50,6 @@
                                 <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Ümumi Məlumatlar</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#parametres" data-toggle="tab">Şəkillər</a></li>
                                 <li class="nav-item"><a class="nav-link" href="#advert" data-toggle="tab">Sosial Hesablar</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#other" data-toggle="tab">Digər</a></li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
@@ -103,6 +102,11 @@
                                             <label for="companyDescription">Ətraflı Məlumat</label>
                                             <textarea name="companyDescription" cols="30" rows="10" placeholder="Şirkət haqqında ətraflı məlumat daxil edin" class="form-control" id="summernote">{{$configs->config_description}}</textarea>
                                             <span class="text-danger error-text companyDescription_error"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="companyVideoRolik">Video Rolik</label>
+                                            <input type="text" class="form-control" name="companyVideoRolik" placeholder="Şirkətin video rolik linkini daxil edin" value="{{$configs->config_video_rolik}}"/>
+                                            <span class="text-danger error-text companyVideoRolik_error"></span>
                                         </div>
                                         
                                         <button type="submit" class="btn btn-primary float-right">Məlumatları Yenilə</button>
@@ -160,19 +164,10 @@
                                             <input type="text" class="form-control" name="companyWhatsapp" placeholder="Whatsapp addressinizi daxil edin" value="{{$configs->config_whatsapp}}" />
                                             <span class="text-danger error-text companyWhatsapp_error"></span>
                                         </div>
-                                        
-                                        <button type="submit" class="btn btn-primary float-right">Məlumatları Yenilə</button>
-                                    </form>
-                                </div>
-								
-								<div class="tab-pane" id="other">
-                                    <form autocomplete="off" action="{{route('admin.settings.ajax.social')}}" method="POST" id="formOtherCompany">
-                                        @method('PUT')
-                                        @csrf
                                         <div class="form-group">
-                                            <label for="companyFacebook">Facebook</label>
-                                            <input type="text" class="form-control" name="companyFacebook" placeholder="Facebook addressinizi daxil edin" value="{{$configs->config_facebook}}" />
-                                            <span class="text-danger error-text companyFacebook_error"></span>
+                                            <label for="companyYoutube">Youtube</label>
+                                            <input type="text" class="form-control" name="companyYoutube" placeholder="Youtube addressinizi daxil edin" value="{{$configs->config_youtube}}" />
+                                            <span class="text-danger error-text companyYoutube_error"></span>
                                         </div>
                                         
                                         <button type="submit" class="btn btn-primary float-right">Məlumatları Yenilə</button>
