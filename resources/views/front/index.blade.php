@@ -135,6 +135,7 @@
                             <span class="post-date">{{ \Carbon\Carbon::parse($itemAdvert->updated_at)->format('d m, Y')}}</span>
                             <a class="post-title">{{$itemAdvert->advert_title}}</a>
                             <p>{{$itemAdvert->advert_description}}</p>
+							<a href="{{route('home.advert.detail', $itemAdvert->advert_id)}}" class="read-more-btn">Daha Ətraflı <i class="arrow_carrot-2right"></i></a>
                         </div>
                     </div>
                 </div>

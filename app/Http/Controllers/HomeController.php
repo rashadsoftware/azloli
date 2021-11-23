@@ -361,8 +361,21 @@ class HomeController extends Controller
 		return view('front.advert-detail', compact('config', 'advertDetail', 'getAllAdvertUser'));       
     }
     public function advertDelete($id){
-        Advert::find($id)->delete();
-        return redirect()->route('index');        
+        $newAdvert=Advert::where("advert_id", $id)->first();
+
+        if($newAdvert->advert_images != ''){
+            $all_images=json_decode($newAdvert->advert_images);
+            for($m=0; $m < count($all_images); $m++ ){
+                $image_path = public_path().'/front/img/adverts/'.$all_images[$m];                
+                unlink($image_path);
+            }      
+            
+            Advert::find($id)->delete();
+            return redirect()->route('index');
+        } else {
+            Advert::find($id)->delete();
+            return redirect()->route('index'); 
+        }               
     }
 
     // forgot password page =======================================================================>

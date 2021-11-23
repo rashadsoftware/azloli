@@ -61,6 +61,8 @@
                                         @endphp
                                     @endif
 
+
+                                    @if($advertDetail->unique_id == \Request::ip())
                                     <div class="d-flex align-items-center justify-content-between">
                                         <!-- Post Catagories -->
                                         <div class="post-catagories">
@@ -69,6 +71,7 @@
                                             </ul>
                                         </div>
                                     </div>
+                                    @endif
 
                                     <!-- Comments Area -->
                                     <div class="comment_area mb-50 clearfix">

@@ -377,9 +377,23 @@ class AdminController extends Controller {
         return view('admin.read-advert', compact('user', 'configs', 'detail'));
     }
 	public function deleteAdvert($id){
-        Advert::find($id)->delete();
-        toastr()->success('İş təklifi başarılı şəkildə silindi', 'Təbriklər!');
-        return redirect()->route('admin.advert'); 
+        $newAdvert=Advert::where("advert_id", $id)->first();
+
+        if($newAdvert->advert_images != ''){
+            $all_images=json_decode($newAdvert->advert_images);
+            for($m=0; $m < count($all_images); $m++ ){
+                $image_path = public_path().'/front/img/adverts/'.$all_images[$m];                
+                unlink($image_path);
+            } 
+
+            Advert::find($id)->delete();
+            toastr()->success('İş təklifi başarılı şəkildə silindi', 'Təbriklər!');
+            return redirect()->route('admin.advert');
+        } else {
+            Advert::find($id)->delete();
+            toastr()->success('İş təklifi başarılı şəkildə silindi', 'Təbriklər!');
+            return redirect()->route('admin.advert');
+        }
     }
 
     /* Users page 
