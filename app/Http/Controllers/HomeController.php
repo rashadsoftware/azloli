@@ -19,6 +19,7 @@ use App\Models\Banner;
 use App\Models\Advert;
 use App\Models\Checks;
 use App\Models\PasswordReset;
+use App\Models\AdvertImage;
 
 use Mail;
 use Validator;
@@ -328,7 +329,21 @@ class HomeController extends Controller
             $advert->advert_phone=$request->phone;
             $advert->advert_description=$request->message;
             $advert->advert_count="0";
-            $advert->save();       
+               
+            
+            if($request->hasfile('imageFile')) {
+                foreach($request->file('imageFile') as $file){
+                    $name = Str::slug($request->title).'_'.$file->getClientOriginalName();
+                    $file->move(public_path('front/img/adverts'), $name);  
+                    $imgData[] = $name;  
+                }
+
+                $advert->advert_images = json_encode($imgData);
+            } else {
+                $advert->advert_images = '';
+            }
+
+            $advert->save();
 
             return response()->json(['status'=>1, 'msg'=>'Sorğunuz başarılı şəkildə göndərildi', 'state'=>'Təbriklər!']);
         } 

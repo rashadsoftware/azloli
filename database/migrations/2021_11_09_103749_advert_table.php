@@ -16,6 +16,7 @@ class AdvertTable extends Migration
             $table->string('advert_title', 200);
 			$table->string('unique_id', 100);
             $table->string('advert_name', 100);
+            $table->string('advert_images', 255);
             $table->string('advert_category', 20);
             $table->string('advert_subcategory', 20);
             $table->string('advert_phone', 20);

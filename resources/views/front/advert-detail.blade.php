@@ -48,6 +48,19 @@
                                 <div class="col-12 col-lg-10">
                                     <p>{{$advertDetail->advert_description}}</p>
 
+                                    @if ($advertDetail->advert_images != '')
+
+                                        <p style="text-decoration:underline"><i>Mövzuya aid şəkillər</i></p>
+
+                                        @php $images=json_decode($advertDetail->advert_images); @endphp
+                                            
+                                        @php for($m=0; $m < count($images); $m++ ){  @endphp
+                                                <img src="{{asset('front/')}}/img/adverts/{{$images[$m]}}" alt="" style="width:100px" class="mr-2">
+                                        @php    
+                                            }
+                                        @endphp
+                                    @endif
+
                                     <div class="d-flex align-items-center justify-content-between">
                                         <!-- Post Catagories -->
                                         <div class="post-catagories">

@@ -152,6 +152,16 @@
                                 <span class="text-danger error-text message_error"></span>
                             </div>
 
+                            <div class="custom-file">
+                                <input type="file" name="imageFile[]" class="custom-file-input" id="images" multiple="multiple">
+                                <label class="custom-file-label" for="images">Şəkil seçin</label>
+                                <span class="text-danger error-text imageFile_error"></span>
+                            </div>
+
+                            <div class="user-image my-3 text-center">
+                                <div class="imgPreview"> </div>
+                            </div>
+
                             <div class="alert" id="alert-noti"></div>
 
                             <button type="submit" class="btn uza-btn mt-2">Sorğunu Göndər</button>

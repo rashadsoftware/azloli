@@ -169,6 +169,7 @@ return [
         'title'                 =>'Başlıq',
         'message'               =>'İsmarıc sahəsi',
         'username'              =>'İstifadəçi adı',
+        'imageFile'             =>'Elan şəkli',
         'password_confirmation' =>'Təkrar şifrə',
         'job_image'             =>'Referans şəkillər',
         'selectCategory'        =>'Kateqoriya sahəsi',

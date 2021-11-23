@@ -33,8 +33,19 @@
 
                             <!-- /.mailbox-controls -->
                             <div class="mailbox-read-message">
-                                <p>{{$detail->advert_description}}</p>
-                                <p>Hörmətlə,<br>{{$detail->advert_name}} @if($detail->advert_phone != '') ({{$detail->advert_phone}})  @endif</p>
+                                <p class="mb-3">{{$detail->advert_description}}</p>
+
+                                @if ($detail->advert_images != '')
+                                    @php $images=json_decode($detail->advert_images); @endphp
+                                        
+                                    @php for($m=0; $m < count($images); $m++ ){  @endphp
+                                            <img src="{{asset('front/')}}/img/adverts/{{$images[$m]}}" alt="" style="width:100px" class="mr-2">
+                                    @php    
+                                        }
+                                    @endphp
+                                @endif
+
+                                <p class="mt-3">Hörmətlə,<br>{{$detail->advert_name}} @if($detail->advert_phone != '') ({{$detail->advert_phone}})  @endif</p>
                             </div>
                             <!-- /.mailbox-read-message -->
                         </div>
