@@ -34,7 +34,7 @@
 				@else
 				<header>
 					<div class="content">
-						<img src="{{asset('chat/')}}/images/icons/profile.svg" alt="{{$user->owner_username}}">
+						<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$user->owner_username}}">
 						<div class="details">
 							<span>{{$user->owner_username}}</span>
 							<div class="status-dot online d-flex align-items-center pl-0">

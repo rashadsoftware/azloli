@@ -171,6 +171,39 @@
             </div>
         </div>
 
+        <div id="top_header">
+            <div class="top_data">
+                <div class="mr-3"><span>Telefon: </span>(+994){{$config->getPhoneAttribute()}}</div>
+                <div><span>E-poçt: </span>{{$config->config_email}}</div>
+            </div>
+            <div class="d-flex">
+                <!-- Get A Quote -->
+                <div class="get-a-quote mx-2">
+                    <div data-toggle="modal" data-target="#searchModal" class="btn uza-btn mr-2">İşçi Axtar</div>
+                    <div data-toggle="modal" data-target="#personModal" class="btn uza-btn">İş Təklifi Ver</div>
+                </div>
+
+                <!-- Login / Register -->
+                <div class="login-register-btn">
+                    @if(Session::has('LoggedUser'))
+                    <a href="{{route('profile.dashboard')}}">
+                        @php $data = DB::table('users')->where('user_id',Session('LoggedUser'))->first() @endphp
+
+                        @if($data->user_image == '')
+                            <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> </span>
+                        @else
+                            <span> <img src="{{asset('front/')}}/img/user/{{$data->user_image}}" alt="" width="50" height="30" style="border-radius:50%; height:50px"> </span>
+                        @endif                                        
+                    </a>
+                    @else
+                    <a href="{{route('login')}}">
+                        <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> <span class="text_login">İş tap / Qeydiyyat</span> </span>
+                    </a>
+                    @endif
+                </div>
+            </div>
+        </div> 
+
         <!-- ***** Header Area Start ***** -->
         <header class="header-area">
             <!-- Main Header Start -->
@@ -184,8 +217,7 @@
                                 <img src="{{asset('front/')}}/img/logo.png" width="90" alt="{{$config->config_title}}">
                             @else
                                 <img src="{{asset('front/')}}/img/{{$config->config_logo}}" width="90" alt="{{$config->config_title}}">
-                            @endif   
-                            <span class="brand-text">AZloli.com </span>                        
+                            @endif                          
                         </a>
 
                         <!-- Navbar Toggler -->
@@ -200,6 +232,34 @@
                                 <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
                             </div>
 
+                            <!-- Login / Register -->
+                            <div class="login-register-btn-mobil">
+                                @if(Session::has('LoggedUser'))
+                                <a href="{{route('profile.dashboard')}}">
+                                    @php $data = DB::table('users')->where('user_id',Session('LoggedUser'))->first() @endphp
+
+                                    @if($data->user_image == '')
+                                        <span> 
+                                            <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> 
+                                            <span class="text_login">{{$data->user_name}}</span>
+                                        </span>
+                                    @else
+                                        <span> 
+                                            <img src="{{asset('front/')}}/img/user/{{$data->user_image}}" alt="" width="50" height="30" style="border-radius:50%; height:50px"> 
+                                            <span class="text_login">{{$data->user_name}}</span>
+                                        </span>
+                                    @endif                                        
+                                </a>
+                                @else
+                                <a href="{{route('login')}}">
+                                    <span> 
+                                        <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> 
+                                        <span class="text_login">İş tap / Qeydiyyat</span> 
+                                    </span>
+                                </a>
+                                @endif
+                            </div>
+
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul id="nav">
@@ -207,33 +267,14 @@
                                     <li class="{{ Route::is('about') ? 'current-item' : '' }}"><a href="{{route('about')}}">Haqqımızda</a></li>
                                     <li class="{{ Route::is('contact') ? 'current-item' : '' }}"><a href="{{route('contact')}}">Bizimlə Əlaqə</a></li>
                                 </ul>
-
-                                <!-- Get A Quote -->
-                                <div class="get-a-quote mx-2">
-                                    <div data-toggle="modal" data-target="#searchModal" class="btn uza-btn">İşçi Axtar</div>
-                                    <div data-toggle="modal" data-target="#personModal" class="btn uza-btn">İş Təklifi Ver</div>
-                                </div>
-
-                                <!-- Login / Register -->
-                                <div class="login-register-btn mx-1">
-                                    @if(Session::has('LoggedUser'))
-                                    <a href="{{route('profile.dashboard')}}">
-                                        @php $data = DB::table('users')->where('user_id',Session('LoggedUser'))->first() @endphp
-
-                                        @if($data->user_image == '')
-                                            <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> </span>
-                                        @else
-                                            <span> <img src="{{asset('front/')}}/img/user/{{$data->user_image}}" alt="" width="50" height="30" style="border-radius:50%; height:50px"> </span>
-                                        @endif                                        
-                                    </a>
-                                    @else
-                                    <a href="{{route('login')}}">
-                                        <span> <img src="{{asset('front/')}}/img/icons/profile.svg" alt="" width="50" height="30"> <span class="text_login">İş tap / Qeydiyyat</span> </span>
-                                    </a>
-                                    @endif
-                                </div>
                             </div>
-                            <!-- Nav End -->
+                            <!-- Nav End -->    
+                            
+                            <!-- Get A Quote -->
+                            <div class="get-a-quote mx-2 mobile-display">
+                                <div data-toggle="modal" data-target="#searchModal" class="btn uza-btn mr-2">İşçi Axtar</div>
+                                <div data-toggle="modal" data-target="#personModal" class="btn uza-btn">İş Təklifi Ver</div>
+                            </div>
                         </div>
                     </nav>
                 </div>

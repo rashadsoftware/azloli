@@ -23,11 +23,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Background Curve -->
-        <div class="breadcrumb-bg-curve">
-            <img src="{{asset('front/')}}/img/core/curve-5.png" alt="">
-        </div>
     </div>
     <!-- ***** Breadcrumb Area End ***** -->
 

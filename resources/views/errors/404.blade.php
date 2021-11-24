@@ -11,7 +11,7 @@
             @if($data->config_favicon == '')
                 <link rel="icon" href="{{asset('front/')}}/img/favicon.png">
             @else
-                <link rel="icon" href="{{asset('front/')}}/img/{{$config->config_favicon}}">
+                <link rel="icon" href="{{asset('front/')}}/img/{{$data->config_favicon}}">
             @endif
 
             <!-- Main CSS -->

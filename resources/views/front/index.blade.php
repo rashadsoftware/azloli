@@ -7,11 +7,6 @@
 			@foreach($banners as $banner)
 			<!-- Single Welcome Slide -->
 			<div class="single-welcome-slide">
-				<!-- Background Curve -->
-				<div class="background-curve">
-					<img src="{{asset('front/')}}/img/core/curve-1.png" alt="">
-				</div>
-
 				<!-- Welcome Content -->
 				<div class="welcome-content h-100">
 					<div class="container h-100">

@@ -7,7 +7,13 @@
 
 		<meta name="csrf-token" content="{{ csrf_token() }}" />
 		
-		<title>Realtime Chat App | Rashad Alakbarov</title>
+		@php $data=DB::table('configs')->where('config_id', 1)->first() @endphp
+		<title>{{$data->config_title}} | Realtime Chat App</title>
+		@if($data->config_favicon == '')
+			<link rel="icon" href="{{asset('front/')}}/img/favicon.png">
+		@else
+			<link rel="icon" href="{{asset('front/')}}/img/{{$data->config_favicon}}">
+		@endif
 		
 		<link rel="stylesheet" href="{{asset('chat/')}}/css/bootstrap.min.css">
 		<link rel="stylesheet" href="{{asset('chat/')}}/css/style.css">

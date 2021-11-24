@@ -54,11 +54,6 @@
 				</div>
 			</div>
         </div>
-
-        <!-- Background Curve -->
-        <div class="breadcrumb-bg-curve">
-            <img src="{{asset('front/')}}/img/core/curve-5.png" alt="">
-        </div>
     </div>
     <!-- ***** Breadcrumb Area End ***** -->
 
@@ -76,9 +71,9 @@
 							<div class="card-item">
 								<div class="img">
 									@if($worker->user_image == '')
-									<img src="{{asset('public/front/')}}/img/icons/image_default.png" alt="{{$worker->user_name}}">
+									<img src="{{asset('front/')}}/img/icons/image_default.png" alt="{{$worker->user_name}}">
 									@else
-									<img src="{{asset('public/front/')}}/img/user/{{$worker->user_image}}" alt="{{$worker->user_name}}">
+									<img src="{{asset('front/')}}/img/user/{{$worker->user_image}}" alt="{{$worker->user_name}}">
 									@endif
 									@if($worker->user_online == 'online')
 									<div class="img-online"><span class="user-online">Online</span></div>									

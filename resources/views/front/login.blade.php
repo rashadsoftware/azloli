@@ -1,4 +1,4 @@
-@extends('front.layouts.header')
+@extends('front.layouts.master-profile')
 
 @section('title', 'Giriş')
 
@@ -14,12 +14,9 @@
 	</style>
 @endsection
 
+@section('content')
 		<!-- ***** Login Area Start ***** -->
 		<section class="position-relative" style="padding:120px 0">
-			<!-- Background Curve -->
-			<div class="background-curve">
-				<img src="{{asset('front/')}}/img/core/curve-5.png" alt="curve header">
-			</div>
 			<div class="container">
 				<div class="d-flex align-items-center justify-content-center" style="min-height:63vh">
 					<div class="card box-shadow" style="max-width:400px">
@@ -93,3 +90,4 @@
         <script src="{{asset('front/')}}/js/main.js"></script>
     </body>
 </html>
+@endsection
