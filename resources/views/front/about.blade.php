@@ -46,13 +46,10 @@
                         <div class="about-tab-area">
                             <ul class="nav nav-tabs mb-50" id="mona_modelTab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="tab1" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">CREATION</a>
+                                    <a class="nav-link active text-uppercase" id="tab1" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">Məqsədimiz</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="tab2" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false"> ANALYSIS</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="tab3" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">STRATEGY</a>
+                                    <a class="nav-link" id="tab3" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false">STRATEGiyamız</a>
                                 </li>
                             </ul>
                         </div>
@@ -64,13 +61,6 @@
                                     <!-- Tab Content Text -->
                                     <div class="tab-content-text">
                                         <p>{{DB::table('datas')->where('data_key','first_title')->first()->data_value}}</p>                                        
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab2">
-                                    <!-- Tab Content Text -->
-                                    <div class="tab-content-text">
-                                        <p>{{DB::table('datas')->where('data_key','second_title')->first()->data_value}}</p> 
                                     </div>
                                 </div>
 

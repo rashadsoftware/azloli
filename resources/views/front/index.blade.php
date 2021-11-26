@@ -1,36 +1,39 @@
 @extends('front.layouts.master')
 
+@section('css')
+	<style>
+		.container-banner{
+			width: 100%;
+			height: 450px;
+			padding: 20px;
+			background-repeat: no-repeat !important;
+			background-size: cover !important;
+			box-shadow: 0 0 10px rgb(0 0 0 / 20%);
+			border-radius: 5px;
+		}
+		.container-banner h2{
+			color:black;
+			font-size:22px
+		}
+	</style>
+@endsection
+
 @section('content')
 	<!-- ***** Welcome Area Start ***** -->
-	<section class="welcome-area">
-		<div class="welcome-slides owl-carousel">
-			@foreach($banners as $banner)
-			<!-- Single Welcome Slide -->
-			<div class="single-welcome-slide">
-				<!-- Welcome Content -->
-				<div class="welcome-content h-100">
-					<div class="container h-100">
-						<div class="row h-100 align-items-center">
-							<!-- Welcome Text -->
-							<div class="col-12 col-md-6">
-								<div class="welcome-text">
-									<h2 data-animation="fadeInUp" data-delay="100ms">{{$banner->banner_title}}</h2>
-									<h5 data-animation="fadeInUp" data-delay="200ms">{!! $banner->banner_subtitle !!}</h5>
-								</div>
-							</div>
-							<!-- Welcome Thumbnail -->
-							<div class="col-12 col-md-6">
-								<div class="welcome-thumbnail">
-									<img src="{{asset('front/')}}/img/banner/{{$banner->banner_image}}" alt="" data-animation="slideInRight" data-delay="300ms">
-								</div>
-							</div>
-						</div>
+	<div class="welcome-area mb-80 mt-100">
+		<div class="container-fluid">
+			<div class="row">
+				@foreach($banners as $banner)
+				<div class="col-lg-6 mb-40">
+					<div class="container-banner" style="background:url({{asset('front/')}}/img/banner/{{$banner->banner_image}})">
+						<h2>{{$banner->banner_title}}</h2>
+						<h5 class="text-muted">{!! $banner->banner_subtitle !!}</h5>
 					</div>
 				</div>
+				@endforeach
 			</div>
-			@endforeach
 		</div>
-	</section>
+	</div>	
 	<!-- ***** Welcome Area End ***** -->
 
 	<!-- ***** About Us Area Start ***** -->

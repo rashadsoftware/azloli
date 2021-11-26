@@ -30,9 +30,8 @@
                                 <label>Başlıq</label>
                                 <select class="form-control @error('cat_title') is-invalid @enderror" name="cat_title">
                                     <option value="">Başlıq seçin</option>
-                                    <option value="first_title">Başlıq 1</option>
-                                    <option value="second_title">Başlıq 2</option>
-                                    <option value="third_title">Başlıq 3</option>
+                                    <option value="first_title">Məqsədimiz</option>
+                                    <option value="third_title">Strategiyamız</option>
                                 </select>
                                 <span class="text-danger">@error('cat_title') {{$message}} @enderror</span>
                             </div>

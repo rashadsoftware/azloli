@@ -36,19 +36,19 @@
                             <!-- Social Info -->
                             <div class="footer-social-info">
                                 @if($config->config_facebook !='')
-                                <a href="{{$config->config_facebook}}" class="facebook" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="{{$config->config_facebook}}" class="facebook" data-toggle="tooltip" data-placement="top" title="Facebook" style="background:#3b5998"><i class="fa fa-facebook"></i></a>
                                 @endif
 
                                 @if($config->config_instagram !='')
-                                <a href="{{$config->config_instagram}}" class="instagram" data-toggle="tooltip" data-placement="top" title="Instagram"><i class="fa fa-instagram"></i></a>
+                                <a href="{{$config->config_instagram}}" class="instagram" data-toggle="tooltip" data-placement="top" title="Instagram" style="background:#dd2a7b"><i class="fa fa-instagram"></i></a>
                                 @endif
 
                                 @if($config->config_whatsapp !='')
-                                <a href="{{$config->config_whatsapp}}" class="whatsapp" data-toggle="tooltip" data-placement="top" title="Whatsapp"><i class="fab fa-whatsapp"></i></a>
+                                <a href="{{$config->config_whatsapp}}" class="whatsapp" data-toggle="tooltip" data-placement="top" title="Whatsapp" style="background:#25d366"><i class="fab fa-whatsapp"></i></a>
                                 @endif
 
                                 @if($config->config_youtube !='')
-                                <a href="{{$config->config_youtube}}" class="youtube" data-toggle="tooltip" data-placement="top" title="Youtube"><i class="fab fa-youtube"></i></a>
+                                <a href="{{$config->config_youtube}}" class="youtube" data-toggle="tooltip" data-placement="top" title="Youtube" style="background:#e62117"><i class="fab fa-youtube"></i></a>
                                 @endif
                             </div>
 

@@ -26,6 +26,12 @@
         <link rel="stylesheet" href="{{asset('front/')}}/css/profile.css">
 
         @yield('css')
+
+		<style>
+			button:focus{
+				outline:none
+			}
+		</style>
 		
 		@php
 			$newArray=array();
@@ -61,6 +67,96 @@
     </head>
 
     <body>
+		<!-- ***** Modal Area Start ***** -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header border-0">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body p-0">
+						<div class="card mx-auto border-0">
+							<div class="card-body">
+								@if($user->user_image == '')
+									<img src="{{asset('front/')}}/img/icons/profile.svg" alt="{{$user->user_name}}" class="profile-img">
+								@else
+									<img src="{{asset('front/')}}/img/user/{{$user->user_image}}" alt="{{$user->user_name}}" class="profile-img">
+								@endif
+								<h4 class="profile-title">{{$user->user_name}}</h4>
+								<ul class="profile-list mt-4">
+									<li class="{{ Route::is('profile.dashboard') ? 'active' : '' }}">	
+										<a href="{{route('profile.dashboard')}}">
+											<div>
+												<i class="fa fa-home"></i> Ana Səhifə
+											</div>
+											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
+										</a>                                
+									</li>
+									<li class="{{ Route::is('profile.skills') ? 'active' : '' }}">	
+										<a href="{{route('profile.skills')}}">
+											<div>
+												<i class="fas fa-stream"></i> Bacarıqlar
+											</div>
+											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
+										</a>
+									</li>
+									<li class="{{ Route::is('profile.jobs') ? 'active' : '' }}">	
+										<a href="{{route('profile.jobs')}}">
+											<div>
+												<i class="fas fa-tasks"></i> Referans İşlər
+											</div>
+											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
+										</a>
+									</li>
+									<li class="{{ Route::is('profile.advert') ? 'active' : '' }}">	
+										<a href="{{route('profile.advert')}}">
+											<div>
+												<i class="fas fa-briefcase"></i> iş Təklifləri
+											</div>
+											<div>
+												@php $checksCount=DB::table('checks')->where('check_read','unread')->where('userID', $user->user_id )->count(); @endphp
+												@if($user->user_publish == 'publish')
+													@if($checksCount > 0)
+													<span class="badge badge-info mr-2">{{ $checksCount }}</span>
+													@endif
+												@endif
+												<i class="fa fa-arrow-right"  style="font-size:16px"></i>
+											</div>											
+										</a>
+									</li>
+									<li class="{{ Route::is('profile.settings') ? 'active' : '' }}">	
+										<a href="{{route('profile.settings')}}">
+											<div>
+												<i class="fa fa-cogs"></i> Tənzimləmələr
+											</div>
+											<i class="fa fa-arrow-right"  style="font-size:16px"></i>
+										</a>
+									</li>
+									<li>	
+										<a href="{{route('chat.login')}}">
+											<div>
+												<i class="fa fa-comments-o"></i> Canlı Söhbət
+											</div>
+										</a>
+									</li>
+									<div class="w-100 mt-3">
+										@if($user->user_publish == 'unpublish')
+											<a href="{{route('profile.dashboard.publish')}}" class="btn uza-btn btn-4 d-flex align-items-center mx-auto" style="width:170px"> <i class="fas fa-upload mr-2"></i> <span>Yayına Başla</span></a>
+										@else
+											<a href="{{route('profile.dashboard.unpublish')}}" class="btn uza-btn btn-1 d-flex align-items-center mx-auto" style="width:200px"> <i class="fa fa-download mr-2"></i> <span>Yayını Dayandır</span></a>
+										@endif
+									</div>									
+								</ul>
+								<a href="{{route('profile.logout')}}" class="btn uza-btn btn-2 mt-3 w-100">Çıxış</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
         <!-- ***** Area Start ***** -->
         <section class="section-padding-80">
             <div class="container">
@@ -153,7 +249,8 @@
 												<div class="d-flex align-items-center justify-content-between w-100">
 													<h2 class="title" style="font-size:35px">@yield('title')</h2>
 													<div class="d-flex">
-														<a href="{{route('index')}}" class="btn btn-primary d-flex align-items-center mr-2"> <i class="fa fa-globe mr-md-2"></i> <span class="d-none d-md-block">Sayta geri qayıt</span></a>
+														<a href="{{route('index')}}" class="btn btn-primary d-flex align-items-center mr-2" title="geri qayıt"> <i class="fa fa-globe mr-md-2"></i> <span class="d-none d-md-block">Sayta geri qayıt</span></a>
+														<button data-toggle="modal" data-target="#exampleModal" class="btn btn-primary d-flex align-items-center mr-2 d-xl-none d-block" title="menu"> <i class="fa fa-bars"></i></button>
 													</div>													
 												</div>												
 												<nav aria-label="breadcrumb">
