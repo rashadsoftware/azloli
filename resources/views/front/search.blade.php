@@ -15,14 +15,17 @@
 	.single-team-slide .team-social-info a:hover{
 		font-weight:normal
 	}
+	.mb-500{
+		margin-bottom:500px
+	}
 	</style>
 @endsection
 
 @section('content')
     <!-- ***** Breadcrumb Area Start ***** -->
-    <div class="breadcrumb-area">
+    <div class="breadcrumb-area @if(!$catCount > 0 || !$skills_count > 0) mb-500 @endif">
         <div class="container h-100">
-            <div class="row h-100 align-items-end">
+            <div class="row h-75 align-items-end">
                 <div class="col-12">
                     <div class="breadcumb--con">
                         <h2 class="title">Axtarış</h2>
@@ -61,7 +64,7 @@
 		@if($skills_count > 0)
 		
 		<!-- ****** Gallery Area Start ****** -->
-		<section class="uza-portfolio-area section-padding-80">		
+		<section class="uza-portfolio-area section-padding-80">	
 			<div class="container-fluid">			
 				<div class="row">		
 					<!-- Single Portfolio Item -->

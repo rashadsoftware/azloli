@@ -160,6 +160,7 @@ return [
         'exampleBannerTitle'    => 'Banner başlığı',
         'exampleBannerSubTitle' => 'Banner alt başlığı',
         'exampleBannerImage'    => 'Banner şəkli',
+        'examplePosition'       => 'Banner pozisyonu',
 
         // front section
         'name'                  =>'Adınız',

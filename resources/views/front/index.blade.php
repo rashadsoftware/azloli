@@ -2,18 +2,11 @@
 
 @section('css')
 	<style>
-		.container-banner{
-			width: 100%;
-			height: 450px;
-			padding: 20px;
-			background-repeat: no-repeat !important;
-			background-size: cover !important;
-			box-shadow: 0 0 10px rgb(0 0 0 / 20%);
-			border-radius: 5px;
-		}
-		.container-banner h2{
-			color:black;
-			font-size:22px
+		.horizontal-line{
+			width: 90%;
+			height: 1px;
+			background:#eee;
+			margin:50px auto
 		}
 	</style>
 @endsection
@@ -22,16 +15,31 @@
 	<!-- ***** Welcome Area Start ***** -->
 	<div class="welcome-area mb-80 mt-100">
 		<div class="container-fluid">
-			<div class="row">
-				@foreach($banners as $banner)
-				<div class="col-lg-6 mb-40">
-					<div class="container-banner" style="background:url({{asset('front/')}}/img/banner/{{$banner->banner_image}})">
-						<h2>{{$banner->banner_title}}</h2>
-						<h5 class="text-muted">{!! $banner->banner_subtitle !!}</h5>
+			@foreach($banners as $banner)
+				@if($banner->banner_position == 'left')
+					<div class="row mb-5">
+						<div class="col-lg-6">
+							<h2>{{$banner->banner_title}}</h2>
+							<h5 class="text-muted">{!! $banner->banner_subtitle !!}</h5>
+						</div>
+						<div class="col-lg-6">
+							<img src="{{asset('front/')}}/img/banner/{{$banner->banner_image}}" alt="{{$banner->banner_title}}">
+						</div>
 					</div>
-				</div>
-				@endforeach
-			</div>
+					<div class="horizontal-line"></div>
+				@else
+					<div class="row mb-5">
+						<div class="col-lg-6 order-2 order-lg-1">
+							<img src="{{asset('front/')}}/img/banner/{{$banner->banner_image}}" alt="{{$banner->banner_title}}">
+						</div>
+						<div class="col-lg-6 order-1 order-lg-2">
+							<h2>{{$banner->banner_title}}</h2>
+							<h5 class="text-muted">{!! $banner->banner_subtitle !!}</h5>							
+						</div>
+					</div>
+					<div class="horizontal-line"></div>
+				@endif
+			@endforeach
 		</div>
 	</div>	
 	<!-- ***** Welcome Area End ***** -->

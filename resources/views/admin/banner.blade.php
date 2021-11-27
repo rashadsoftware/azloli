@@ -34,6 +34,15 @@
                                 <span class="text-danger">@error('exampleBannerSubTitle') {{$message}} @enderror</span>
                             </div>
                             <div class="form-group">
+                                <label>Select</label>
+                                <select class="form-control" name="examplePosition">
+                                    <option value="">Pozisyon seçin</option>
+                                    <option value="right">Sağ tərəf</option>
+                                    <option value="left">Sol tərəf</option>
+                                </select>
+                                <span class="text-danger">@error('examplePosition') {{$message}} @enderror</span>
+                            </div>
+                            <div class="form-group">
                                 <label for="exampleBannerImage">Banner Şəkli</label>
                                 <input class="form-control" type="file" name="exampleBannerImage" onchange="document.getElementById('previewBanner').src = window.URL.createObjectURL(this.files[0])
                                 ">            

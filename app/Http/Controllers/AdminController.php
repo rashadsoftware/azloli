@@ -780,6 +780,7 @@ class AdminController extends Controller {
         $request->validate([
             'exampleBannerTitle' => 'required|min:3|max:1000',
             'exampleBannerSubTitle' => 'required|min:3|max:1000',
+            'examplePosition' => 'required',
             'exampleBannerImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
@@ -790,6 +791,7 @@ class AdminController extends Controller {
         $newBanner->banner_title=$request->exampleBannerTitle;
         $newBanner->banner_subtitle=$request->exampleBannerSubTitle;
         $newBanner->banner_image=$newName;
+        $newBanner->banner_position=$request->examplePosition;
         $newBanner->save();
 
         toastr()->success('Banner başarılı şəkildə yaradıldı', 'Təbriklər!');
@@ -808,11 +810,13 @@ class AdminController extends Controller {
         $request->validate([
             'exampleBannerTitle' => 'required|min:3|max:1000',
             'exampleBannerSubTitle' => 'required|min:3|max:1000',
+            'examplePosition' => 'required',
         ]);
 
         $newBanner=Banner::where("banner_id", $id)->first();
         $newBanner->banner_title=$request->exampleBannerTitle;
         $newBanner->banner_subtitle=$request->exampleBannerSubTitle;
+        $newBanner->banner_position=$request->examplePosition;
         
 
         if($request->has('exampleBannerImage')){

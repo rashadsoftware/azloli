@@ -47,7 +47,16 @@
                                 <input class="form-control" type="file" name="exampleBannerImage" onchange="document.getElementById('previewBanner').src = window.URL.createObjectURL(this.files[0])
                                 ">            
                                 <span class="text-danger">@error('exampleBannerImage') {{$message}} @enderror</span>                                
-                            </div>   
+                            </div>  
+                            <div class="form-group">
+                                <label>Select</label>
+                                <select class="form-control" name="examplePosition">
+                                    <option value="">Pozisyon seçin</option>
+                                    <option value="right" @if ($dataBanners->banner_position == 'right') selected   @endif >Sağ tərəf</option>
+                                    <option value="left" @if ($dataBanners->banner_position == 'left') selected  @endif >Sol tərəf</option>
+                                </select>
+                                <span class="text-danger">@error('examplePosition') {{$message}} @enderror</span>
+                            </div> 
                               
                             <img id="previewBanner" alt="image" width="100" class="mt-4 mr-3" src="{{asset('front/')}}/img/icons/image_default.png" />              
                         </div>

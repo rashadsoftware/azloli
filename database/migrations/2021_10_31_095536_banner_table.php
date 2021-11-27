@@ -16,6 +16,7 @@ class BannerTable extends Migration
             $table->string('banner_image', 60);
             $table->string('banner_title', 250);
             $table->string('banner_subtitle', 250);
+            $table->string('banner_position', 250);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

@@ -13,6 +13,7 @@ class BannerSeeder extends Seeder
             [
             'banner_image'      =>  'default.jpg',
             'banner_title'      =>  'Loli ilə artıq istənilən sahə üzrə işçi tapmaq çox asandır',
+            'banner_position'   =>  'left',
             'banner_subtitle'   =>  'Bu platforma ilə artıq bütün işçilər qapınızdadır'],
         ]);
     }
